@@ -53,31 +53,22 @@
                     email: "",
                     password: "",
                 },
-                spinnerVisible: false,
                 source: "null",
 
             }
         },
         computed: {
             ...mapGetters({
-                error: "error/getError"
+                error: "error/getError",
+                spinnerVisible : "spinner/getVisible",
             }),
         }
         ,
         methods: {
-            showSpinner() {
-                console.log('show spinner');
-                this.spinnerVisible = true;
-            }
-            ,
-            hideSpinner() {
-                console.log('hide spinner');
-                this.spinnerVisible = false;
-            }
-            ,
             login: async function () {
 
                 axios.defaults.headers.common['Authorization'] = null;
+
                 let result = await this.$store.dispatch('login/login', this.form)
                 if (result != null) {
                     this.$router.push("/home")
@@ -87,7 +78,6 @@
         ,
         mounted() {
             console.log('Login Component mounted.');
-            console.log(this.$store);
         }
 
     }
