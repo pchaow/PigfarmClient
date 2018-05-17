@@ -58,9 +58,7 @@
 
             }
         },
-        computed: {
-        }
-        ,
+        computed: {},
         methods: {
             login: async function () {
 

@@ -6,7 +6,7 @@ export default {
         async login({commit, dispatch}, form) {
 
             dispatch("error/resetError",null,{root: true});
-            dispatch("spinner/toggle",true,{root:true});
+            // dispatch("spinner/toggle",true,{root:true});
 
             let r =  await axios.post("/api/auth/login", {
                 email: form.email,
@@ -19,7 +19,7 @@ export default {
                 dispatch("error/setError",error.response.data, {root: true});
                 return null;
             });
-            dispatch("spinner/toggle",false,{root:true});
+            // dispatch("spinner/toggle",false,{root:true});
 
             return r;
 

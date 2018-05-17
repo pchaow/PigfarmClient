@@ -4,6 +4,7 @@ import moduleLogin from "./modules/login"
 import moduleError from "./modules/error"
 import moduleSpinner from "./modules/spinner"
 import moduleMenu from "./modules/menu"
+import moduleRoles from "./modules/roles"
 
 Vue.use(Vuex);
 
@@ -14,5 +15,6 @@ export default new Vuex.Store({
         login: moduleLogin,
         spinner: moduleSpinner,
         menu: moduleMenu,
+        roles: moduleRoles,
     }
 })

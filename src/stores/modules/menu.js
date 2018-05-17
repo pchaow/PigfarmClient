@@ -10,7 +10,6 @@ export default {
     },
     actions: {
         toggle({state,commit}, bool = null) {
-            console.log('visible',state.visible,bool);
             if(bool == null){
                 bool = !state.visible;
             }

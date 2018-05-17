@@ -1,24 +1,45 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
-import Login from '@/components/Login'
-import AdminHome from '@/components/admin/Home'
+
 Vue.use(Router)
+
+
+function view(name) {
+    return function(resolve) {
+        require(['@/components/' + name + '.vue'], resolve);
+    }
+};
 
 export default new Router({
     routes: [
         {
             path: '/',
             name: 'home',
-            component: Home
+            component: view('Home')
         }, {
             path: '/login',
             name: 'Login',
-            component: Login
+            component: view('Login')
         }, {
             path: '/admin',
-            name: 'admin-home',
-            component: AdminHome,
+            component: view('admin/Template'),
+            children: [
+                {
+                    path: '/',
+                    name: 'admin-home',
+                    component: view('admin/Home')
+                }
+            ],
+        }, {
+            path: '/admin/role',
+            component: view('admin/Template'),
+            children: [
+                {
+                    name: 'role-home',
+                    path: '/',
+                    component : view('admin/role/index')
+                },
+            ]
         }
     ]
 })

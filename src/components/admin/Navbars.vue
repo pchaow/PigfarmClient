@@ -24,7 +24,7 @@
                 this.currentUser = JSON.parse(localStorage.user);
             },
             toggleDrawer : function () {
-                this.$store.dispatch("menu/toggle",true);
+                this.$store.dispatch("menu/toggle");
             }
         },
         mounted() {

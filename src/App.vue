@@ -5,10 +5,52 @@
 </template>
 
 <script>
-
-
     export default {
-        name: 'App'
+        name: 'App',
+        methods: {
+            showSpinner: function () {
+                this.$store.dispatch('spinner/toggle', true)
+            },
+            hideSpinner: function () {
+                this.$store.dispatch('spinner/toggle', false)
+            }
+        },
+        created() {
+            this.$on('before-request', this.showSpinner);
+            this.$on('request-error', this.hideSpinner);
+            this.$on('after-response', this.hideSpinner);
+            this.$on('response-error', this.hideSpinner);
+
+
+            axios.interceptors.request.use(
+                conf => {
+                    this.$emit('before-request');
+                    return conf;
+                },
+                error => {
+                    this.$emit('request-error');
+                    return Promise.reject(error);
+                }
+            );
+
+            axios.interceptors.response.use(
+                response => {
+                    this.$emit('after-response');
+                    return response;
+                },
+                error => {
+                    this.$emit('response-error');
+                    return Promise.reject(error);
+                }
+            );
+
+        },
+        beforeDestroy() {
+            this.$off('before-request', this.showSpinner);
+            this.$off('request-error', this.hideSpinner);
+            this.$off('after-response', this.hideSpinner);
+            this.$off('response-error', this.hideSpinner);
+        }
     }
 </script>
 
