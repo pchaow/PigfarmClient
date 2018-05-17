@@ -69,9 +69,14 @@
 
                 axios.defaults.headers.common['Authorization'] = null;
 
-                let result = await this.$store.dispatch('login/login', this.form)
-                if (result != null) {
-                    this.$router.push("/home")
+                let user = await this.$store.dispatch('login/login', this.form);
+                if (user != null) {
+                    let roles = user.roles;
+                    if(roles != null){
+                        this.$router.push(roles[0].name)
+                    }else {
+                        this.$router.push("/home")
+                    }
                 }
             }
         }

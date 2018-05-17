@@ -14,7 +14,7 @@ export default {
             }).then((r) => {
                 localStorage.user = JSON.stringify(r.data)
                 localStorage.accessToken = r.data.accessToken
-                return r;
+                return r.data;
             }).catch((error) => {
                 dispatch("error/setError",error.response.data, {root: true});
                 return null;
