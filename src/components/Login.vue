@@ -83,6 +83,7 @@
         ,
         mounted() {
             console.log('Login Component mounted.');
+            localStorage.user = null;
         }
 
     }
