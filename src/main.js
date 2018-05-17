@@ -4,13 +4,14 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
+import store from './stores/index'
 
 Vue.use(Vuetify);
 
 
 let axios = require('axios');
 window.axios = axios.create({
-    baseURL: 'http://pigfarm.miix.local/',
+    baseURL: process.env.API_URL,
     timeout: 1000,
     headers: {'X-Custom-Header': 'foobar'}
 });
@@ -27,6 +28,7 @@ Vue.config.productionTip = false;
 new Vue({
     el: '#app',
     router,
+    store,
     components: {App},
     template: '<App/>'
 })

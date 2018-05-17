@@ -19,7 +19,7 @@
                             <v-card-text>
                                 <v-form v-on:submit.default="login()">
                                     <v-text-field
-                                            :error-messages="error.errors.email"
+                                            :index-messages="error.errors.email"
                                             v-model="form.email" prepend-icon="person" name="login" label="Login"
                                             type="text"></v-text-field>
                                     <v-text-field v-model="form.password" prepend-icon="lock" name="password"
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-
+    import {mapState, mapGetters, mapActions} from 'vuex'
     import Loading from 'vue-loading-overlay';
 
     export default {
@@ -53,15 +53,14 @@
                     email: "",
                     password: "",
                 },
-                error: {
-                    errors: {},
-                    message: null,
-                },
                 spinnerVisible: false,
                 source: "null",
 
             }
         },
+        computed: mapGetters({
+            error : 'getError'
+        }),
         methods: {
             showSpinner() {
                 console.log('show spinner');
@@ -94,9 +93,10 @@
 
                     })
                     .catch((error) => {
-                        console.log(error)
+                        console.log(error.response.data)
                         this.hideSpinner();
-                        this.error = error.response.data
+
+                        this.$store.commit('setError',error.response.data)
 
                     })
             }
