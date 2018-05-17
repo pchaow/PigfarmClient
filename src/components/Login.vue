@@ -39,11 +39,12 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex';
     import Loading from 'vue-loading-overlay';
+    import Base from './Base';
 
     export default {
         name: "Login",
+        extends: Base,
         components: {
             Loading,
         },
@@ -58,10 +59,6 @@
             }
         },
         computed: {
-            ...mapGetters({
-                error: "error/getError",
-                spinnerVisible : "spinner/getVisible",
-            }),
         }
         ,
         methods: {
@@ -72,9 +69,9 @@
                 let user = await this.$store.dispatch('login/login', this.form);
                 if (user != null) {
                     let roles = user.roles;
-                    if(roles != null){
+                    if (roles != null) {
                         this.$router.push(roles[0].name)
-                    }else {
+                    } else {
                         this.$router.push("/home")
                     }
                 }
