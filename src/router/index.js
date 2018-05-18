@@ -5,7 +5,7 @@ Vue.use(Router)
 
 
 function view(name) {
-    return function(resolve) {
+    return function (resolve) {
         require(['@/components/' + name + '.vue'], resolve);
     }
 };
@@ -37,7 +37,22 @@ export default new Router({
                 {
                     name: 'role-home',
                     path: '/',
-                    component : view('admin/role/index')
+                    component: view('admin/role/index')
+                },
+            ]
+        }, {
+            path: '/admin/user',
+            component: view('admin/Template'),
+            children: [
+                {
+                    name: 'user-home',
+                    path: '',
+                    component: view('admin/user/index')
+                },
+                {
+                    name: 'user-add',
+                    path: 'add',
+                    component: view('admin/user/add')
                 },
             ]
         }

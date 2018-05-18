@@ -28,7 +28,7 @@ export default {
             let r = await axios.get("/api/roles?paginate=false")
                 .then((r) => {
                     return r.data;
-                }).catch((e) => {
+                }).catch((error) => {
                     dispatch("error/setError", error.response.data, {root: true});
                     return null;
                 })
@@ -41,7 +41,7 @@ export default {
                 params: form
             }).then((r) => {
                 return r.data;
-            }).catch((e) => {
+            }).catch((error) => {
                 dispatch("error/setError", error.response.data, {root: true});
                 return null;
             })
@@ -55,7 +55,7 @@ export default {
                 .then((r) => {
                     return r.data;
                 })
-                .catch((e) => {
+                .catch((error) => {
                     dispatch("error/setError", error.response.data, {root: true});
                     return null;
                 })

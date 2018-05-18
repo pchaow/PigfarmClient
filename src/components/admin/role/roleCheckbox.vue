@@ -12,7 +12,6 @@
 </template>
 
 <script>
-    import RoleService from "../../../services/RoleService";
 
     export default {
         name: "role-checkbox",
@@ -44,14 +43,8 @@
                     }
                 }
             },
-            load: function () {
-                RoleService.getRoles()
-                    .then((r) => {
-                        this.roles = r.data
-                        this.sync();
-                        console.log(this.roles);
-                        console.log(this.value);
-                    })
+            load: async function () {
+                this.roles = await this.$store.dispatch('roles/getRoles')
             }
         },
         created: function () {
