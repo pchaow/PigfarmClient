@@ -10,7 +10,7 @@ function view(name) {
     }
 };
 
-export default new Router({
+let router = new Router({
     routes: [
         {
             path: '/',
@@ -62,4 +62,10 @@ export default new Router({
             ]
         }
     ]
+});
+
+router.beforeEach((to, from, next) => {
+    next()
 })
+
+export default router;

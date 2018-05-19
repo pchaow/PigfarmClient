@@ -15,6 +15,9 @@
             ...mapState({
                 showError : state => state.error.showError
             })
+        },
+        mounted(){
+            this.$store.dispatch('error/resetError')
         }
     }
 </script>
