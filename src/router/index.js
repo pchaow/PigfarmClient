@@ -54,6 +54,11 @@ export default new Router({
                     path: 'add',
                     component: view('admin/user/add')
                 },
+                {
+                    name: 'user-edit',
+                    path: ':id/edit',
+                    component: view('admin/user/edit')
+                },
             ]
         }
     ]

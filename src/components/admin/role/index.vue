@@ -2,7 +2,6 @@
     <v-layout column justify-center>
         <v-flex>
             <h1 class="display-1 pb-3">การจัดการสิทธิ์</h1>
-
             <v-layout row class="pb-3">
 
                 <v-flex offset-md6 md6>

@@ -1,5 +1,5 @@
 <template>
-    <v-layout column justify-center>
+    <v-layout column justify-center v-if="form">
         <v-flex>
             <h1 class="display-1 pb-3">เพิ่มผู้ใช้</h1>
 
@@ -49,15 +49,12 @@
             RoleCheckbox
         },
         data: () => ({
-            form : {
-                roles : []
-            }
+            form: null,
         }),
 
         computed: {
             ...mapGetters({}),
-            ...mapState(({
-            }))
+            ...mapState(({}))
         },
         methods: {
             updateRoles: function ($event) {
@@ -70,14 +67,17 @@
                 }
             },
             save: async function () {
-                let user = await this.$store.dispatch('users/createUser',this.form)
-                if(user){
-                    this.$router.push({name : 'user-home'})
+                let user = await this.$store.dispatch('users/updateUser', this.form)
+                if (user) {
+                    this.$router.push({name: 'user-home'})
                 }
-            },
-
+            }, load: async function () {
+                let user = await this.$store.dispatch('users/getById',this.$route.params.id)
+                this.form = user
+            }
         },
         created() {
+            this.load();
         },
         mounted() {
             console.log('Example Component mounted.')

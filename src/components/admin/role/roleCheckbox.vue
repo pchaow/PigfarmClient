@@ -45,6 +45,7 @@
             },
             load: async function () {
                 this.roles = await this.$store.dispatch('roles/getRoles')
+                this.sync();
             }
         },
         created: function () {

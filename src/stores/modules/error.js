@@ -5,25 +5,34 @@ export default {
             errors: {},
             message: null,
         },
+        showError : false,
     },
     mutations: {
-
+        setShowError (state,bool) {
+            state.showError = bool;
+        }
     },
     actions: {
-        setError({state}, error) {
+        setError({state,commit}, error) {
             console.log(error)
             state.error = error;
+            commit('setShowError',true);
         },
 
-        resetError({state}) {
+        resetError({state,commit}) {
             state.error = {
                 errors: {},
                 message: null,
             }
+            commit('setShowError',false);
+
+        },
+        toggleError ({state,commit},bool){
+            commit('setShowError',bool);
         }
     },
     getters: {
-        getError: state => state.error
+        getError: state => state.error,
 
     }
 };

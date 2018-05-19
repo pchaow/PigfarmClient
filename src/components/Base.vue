@@ -1,5 +1,5 @@
 <script>
-    import {mapGetters, mapActions} from 'vuex';
+    import {mapGetters, mapActions,mapState} from 'vuex';
     import Loading from 'vue-loading-overlay';
 
     export default {
@@ -11,6 +11,10 @@
                 error: "error/getError",
                 spinnerVisible: "spinner/getVisible",
             }),
+
+            ...mapState({
+                showError : state => state.error.showError
+            })
         }
     }
 </script>

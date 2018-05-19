@@ -2,15 +2,20 @@
     <v-app id="inspire">
         <loading :active.sync="spinnerVisible"></loading>
 
+        <v-snackbar
+                :timeout="6000"
+                :color="'error'"
+                :multi-line="true"
+                :vertical="true"
+                v-model="showError">
+            {{ error.message }}
+            <v-btn dark flat @click.native="$store.dispatch('error/toggleError',false)">Close</v-btn>
+        </v-snackbar>
+
         <v-content>
             <v-container fluid fill-height>
                 <v-layout align-center justify-center>
                     <v-flex xs12 sm8 md4>
-                        <v-flex xs-12 pb-3>
-                            <v-alert type="error" :value="error.message">
-                                {{error.message}}
-                            </v-alert>
-                        </v-flex>
                         <v-card class="elevation-12">
                             <v-toolbar dark color="primary">
                                 <v-toolbar-title>Login form</v-toolbar-title>

@@ -54,7 +54,7 @@ export default {
             return r;
         },
         async getById({state, commit, dispatch}, id) {
-            let r = await axios.get("/api/users/" + id)
+            let r = await axios.get("/api/users/" + id, {params: {with: ['roles']}})
                 .then((r) => {
                     return r.data;
                 })
@@ -67,7 +67,17 @@ export default {
 
         },
         async createUser({state, commit, dispatch}, form) {
-            let r = await axios.post("/api/users",form)
+            let r = await axios.post("/api/users", form)
+                .then((r) => {
+                    return r.data;
+                }).catch((error) => {
+                    dispatch("error/setError", error.response.data, {root: true});
+                    return null;
+                })
+            return r;
+        },
+        async updateUser({state, commit, dispatch}, form) {
+            let r = await axios.put("/api/users/"+form.id, form)
                 .then((r) => {
                     return r.data;
                 }).catch((error) => {
