@@ -27,6 +27,10 @@ export default {
         }
     },
     actions: {
+        resetForm: function ({state}) {
+            state.form.keyword = "";
+            state.form.page = 1;
+        },
         async getUsers() {
             let r = await axios.get("/api/users?paginate=false")
                 .then((r) => {
@@ -77,7 +81,7 @@ export default {
             return r;
         },
         async updateUser({state, commit, dispatch}, form) {
-            let r = await axios.put("/api/users/"+form.id, form)
+            let r = await axios.put("/api/users/" + form.id, form)
                 .then((r) => {
                     return r.data;
                 }).catch((error) => {

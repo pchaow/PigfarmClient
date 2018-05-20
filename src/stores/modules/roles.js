@@ -24,6 +24,10 @@ export default {
         }
     },
     actions: {
+        resetForm: function ({state}) {
+            state.form.keyword = "";
+            state.form.page = 1;
+        },
         async getRoles() {
             let r = await axios.get("/api/roles?paginate=false")
                 .then((r) => {

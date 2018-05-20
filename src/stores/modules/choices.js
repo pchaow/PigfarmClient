@@ -26,10 +26,8 @@ export default {
     actions: {
 
         resetForm: function ({state, commit, dispatch}) {
-            state.form = {
-                keyword: "",
-                page: 1,
-            }
+           state.form.keyword = "";
+           state.form.page = 1;
         },
 
         getPaginate: async function ({state, dispatch, commit}, form) {
@@ -46,9 +44,9 @@ export default {
             return result
         },
 
-        getById: async function ({state, dispatch, commit},id) {
+        getById: async function ({state, dispatch, commit}, id) {
             let result = await axios.get("/api/choices/" + id, {
-                params : {}
+                params: {}
             }).then((r) => {
                 return r.data
             }).catch((e) => {
@@ -59,18 +57,30 @@ export default {
             return result;
         },
 
-        async updateChoice({state, commit, dispatch}, form) {
+        updateChoice: async function ({state, commit, dispatch}, form) {
             let r = await axios.put("/api/choices/" + form.id, form)
                 .then((r) => {
                     return r.data;
                 }).catch((error) => {
                     dispatch("error/setError", error.response.data, {root: true});
                     return null;
-                })
+                });
             return r;
         },
 
-        destroy: async function (id) {
+        save: async function ({state}, form) {
+            let result = await axios.post("/api/choices", form)
+                .then((r) => {
+                    return r.data
+                }).catch((error) => {
+                    dispatch("error/setError", error.response.data, {root: true});
+                    return null;
+                });
+
+            return result;
+        },
+
+        destroy: async function ({state}, id) {
             let result = await axios.delete('/api/choices/' + id)
                 .then((r) => {
                     return r.data
@@ -84,5 +94,7 @@ export default {
         }
 
     },
-    getters: {},
+    getters: {
+        getHeaders: state => state.headers
+    },
 };

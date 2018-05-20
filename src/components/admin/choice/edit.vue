@@ -201,7 +201,6 @@
         },
         mounted() {
             this.load();
-
         }
     }
 </script>

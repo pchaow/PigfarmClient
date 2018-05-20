@@ -12,6 +12,7 @@ function view(name) {
 
 let router = new Router({
     routes: [
+
         {
             path: '/',
             name: 'home',
@@ -63,6 +64,7 @@ let router = new Router({
         }, {
             path: '/admin/choice',
             component: view('admin/Template'),
+            canReuse: false,
             children: [
                 {
                     name: 'choice-home',
@@ -83,6 +85,11 @@ let router = new Router({
                     path: ':id/view',
                     name: 'choice-view',
                     component: view('admin/choice/view')
+                },
+                {
+                    path: ':id/add',
+                    name: 'choice-children-add',
+                    component: view('admin/choice/add')
                 },
             ]
         }

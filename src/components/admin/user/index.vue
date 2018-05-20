@@ -105,8 +105,9 @@
             }
         },
         mounted() {
-            console.log('Role Home Component mounted.')
-            this.load()
+            console.log('Role Home Component mounted.');
+            this.load();
+            this.$store.dispatch('users/resetForm');
         }
     }
 </script>

@@ -1,29 +1,42 @@
 <template>
-    <div>
+    <div v-if="form">
         <v-layout column justify-center>
             <v-flex>
-                <h1 class="display-1 pb-3">การจัดการตัวเลือก</h1>
+                <h1 class="display-1 pb-3">รายละเอียดตัวเลือก</h1>
+
+                <v-card pb-3 mb-3>
+                    <v-card-title class="title">ชื่อตัวเลือก (Unique) : {{ form.name }}</v-card-title>
+                    <v-divider></v-divider>
+                    <v-card-text>
+
+                        <v-layout row mb-3>
+                            <v-flex md3 class="title">ชื่อแสดง</v-flex>
+                            <v-flex>{{form.display_name}}</v-flex>
+                        </v-layout>
+                        <v-layout row mb-3>
+                            <v-flex md3 class="title">รายละเอียด</v-flex>
+                            <v-flex>{{form.description}}</v-flex>
+                        </v-layout>
+
+                    </v-card-text>
+                </v-card>
+
+
+                <h1 class="headline pt-3 pb-3">รายการตัวเลือกย่อย</h1>
+
                 <v-layout row class="pb-3">
                     <v-flex md6>
-                        <v-btn :to="{name:'user-add'}" class="primary">เพิ่มตัวเลือก</v-btn>
+                        <v-btn :to="{ name: 'choice-children-add',params : {id :form.id}}" class="primary">
+                            เพิ่มตัวเลือกย่อย
+                        </v-btn>
                     </v-flex>
-                    <v-flex md6>
-                        <v-form v-on:submit.default="search()">
-                            <v-text-field
-                                    append-icon="search"
-                                    label="ค้นหา"
-                                    single-line
-                                    hide-details
-                                    v-model="form.keyword"
-                            ></v-text-field>
-                        </v-form>
-                    </v-flex>
+
                 </v-layout>
 
-                <v-card>
+                <v-card mb-3>
                     <v-data-table
                             :headers="headers"
-                            :items="choices"
+                            :items="form.children"
                             hide-actions>
 
                         <template slot="items" slot-scope="props">
@@ -31,6 +44,20 @@
                             <td>{{props.item.name}}</td>
                             <td>{{props.item.display_name}}</td>
                             <td>{{props.item.description}}</td>
+
+                            <template v-for="(value,key) in form.children_fields">
+                                <td v-if="value.showInTable">
+                                    <template
+                                            v-if="props.item.values && props.item.values[key] && props.item.values.hasOwnProperty(key) && value.type=='ref'">
+                                        {{props.item.values[key].display_name}}
+                                    </template>
+                                    <template v-else>
+                                        <template v-if="props.item.values && props.item.values.hasOwnProperty(key)">
+                                            {{props.item.values[key]}}
+                                        </template>
+                                    </template>
+                                </td>
+                            </template>
 
                             <td>
 
@@ -54,15 +81,7 @@
                         </template>
 
                     </v-data-table>
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-pagination @input="changePage" :length="paginate.last_page"
-                                      v-model="form.page"></v-pagination>
-
-                    </v-card-actions>
                 </v-card>
-
-
             </v-flex>
         </v-layout>
     </div>
@@ -71,40 +90,63 @@
 
 <script>
 
+    import _ from 'lodash'
     import {mapGetters, mapActions, mapState} from 'vuex'
     import Base from '@/components/Base'
 
     export default {
         extends: Base,
-        data: () => ({}),
+        data: () => ({
+            form: null,
+            headers: {}
+        }),
         computed: {
             ...mapGetters({
+                masterHeaders: 'choices/getHeaders'
+
             }),
-            ...mapState({
-                choices: state => state.choices.choices,
-                form: state => state.choices.form,
-
-                headers: state => state.choices.headers,
-                paginate: state => state.choices.paginate,
-            })
+            ...mapState({})
         },
-
-        methods: {
-            ...mapActions({}),
-            changePage: function (page) {
-                this.form.page = page;
+        watch: {
+            '$route'(to, from) {
+                // Whatever you need to change route
                 this.load();
+            }
+        },
+        methods: {
+            syncHeader: function () {
+                console.log(this.form.children_fields);
+                for (var key in this.form.children_fields) {
+                    let x = this.form.children_fields[key]
+                    if (x.showInTable){
+                        let y = this.headers.length;
+                        this.headers.splice(y-1,0,{text: x.display_name, value: key})
+                    }
+                }
             },
             load: async function () {
-                let result = await this.$store.dispatch('choices/getPaginate', this.form);
+                let result = await this.$store.dispatch('choices/getById', this.$route.params.id);
+                if (result) {
+                    console.log(result);
+                    this.form = result;
+                    this.parent = this.form.parent;
+                    this.syncHeader();
+                }
             },
-            search: async function () {
-                let result = await this.$store.dispatch('choices/getPaginate', this.form);
-            },
+            destroy: async function (item) {
+                if (confirm("Do you want to delete this choice?")) {
+                    let result = await this.$store.dispatch('choices/destroy', item.id);
+                    if (result) {
+                        this.load();
+                    }
+                }
+            }
+        },
+        created() {
+            this.headers = _.cloneDeep(this.masterHeaders)
         },
         mounted() {
-            this.$store.dispatch('choices/resetForm');
-            this.load()
+            this.load();
         }
     }
 </script>
