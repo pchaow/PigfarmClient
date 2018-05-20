@@ -6,6 +6,7 @@ import moduleSpinner from "./modules/spinner"
 import moduleMenu from "./modules/menu"
 import moduleRoles from "./modules/roles"
 import moduleUsers from "./modules/users"
+import moduleChocies from "./modules/choices"
 
 Vue.use(Vuex);
 
@@ -18,5 +19,6 @@ export default new Vuex.Store({
         menu: moduleMenu,
         roles: moduleRoles,
         users: moduleUsers,
+        choices: moduleChocies,
     }
 })

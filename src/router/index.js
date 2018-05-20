@@ -60,6 +60,31 @@ let router = new Router({
                     component: view('admin/user/edit')
                 },
             ]
+        }, {
+            path: '/admin/choice',
+            component: view('admin/Template'),
+            children: [
+                {
+                    name: 'choice-home',
+                    path: '',
+                    component: view('admin/choice/index')
+                },
+                {
+                    path: 'add',
+                    name: 'choice-add',
+                    component: view('admin/choice/add')
+                },
+                {
+                    path: ':id/edit',
+                    name: 'choice-edit',
+                    component: view('admin/choice/edit')
+                },
+                {
+                    path: ':id/view',
+                    name: 'choice-view',
+                    component: view('admin/choice/view')
+                },
+            ]
         }
     ]
 });
