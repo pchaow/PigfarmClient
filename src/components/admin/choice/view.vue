@@ -2,7 +2,12 @@
     <div v-if="form">
         <v-layout column justify-center>
             <v-flex>
-                <h1 class="display-1 pb-3">รายละเอียดตัวเลือก</h1>
+                <h1 class="display-1 pb-3">รายละเอียดตัวเลือก
+                    <v-btn fab icon :to="{name:'choice-edit', params:{ id: form.id, back_to : $route.fullPath}}">
+                        <v-icon color="primary">mdi-pencil</v-icon>
+                    </v-btn>
+
+                </h1>
 
                 <v-card pb-3 mb-3>
                     <v-card-title class="title">ชื่อตัวเลือก (Unique) : {{ form.name }}</v-card-title>
@@ -94,8 +99,11 @@
     import {mapGetters, mapActions, mapState} from 'vuex'
     import Base from '@/components/Base'
 
+
+
     export default {
         extends: Base,
+
         data: () => ({
             form: null,
             headers: {}
@@ -118,9 +126,9 @@
                 console.log(this.form.children_fields);
                 for (var key in this.form.children_fields) {
                     let x = this.form.children_fields[key]
-                    if (x.showInTable){
+                    if (x.showInTable) {
                         let y = this.headers.length;
-                        this.headers.splice(y-1,0,{text: x.display_name, value: key})
+                        this.headers.splice(y - 1, 0, {text: x.display_name, value: key})
                     }
                 }
             },

@@ -38,11 +38,8 @@
                             </template>
                         </template>
                     </v-card-text>
-                    <v-card-actions>
-                        <v-btn @click="save()" color="primary">Submit</v-btn>
-                    </v-card-actions>
                 </v-card>
-                <v-card>
+                <v-card class="mb-3">
                     <v-card-title>
                         <h2 class="title">ข้อมูลเพิ่มเติมตัวเลือกลูก</h2>
                     </v-card-title>
@@ -112,10 +109,10 @@
                         <v-divider/>
 
                     </v-card-text>
-                    <v-card-actions>
-                        <v-btn @click="save()" color="primary">Submit</v-btn>
-                    </v-card-actions>
                 </v-card>
+
+                <v-btn @click="save()" color="primary">Submit</v-btn>
+                <v-btn @click="$router.go(-1)">Cancel</v-btn>
             </v-flex>
         </v-layout>
     </v-layout>
@@ -127,8 +124,14 @@
     import {mapGetters, mapActions, mapState} from 'vuex'
     import Base from '@/components/Base'
 
+
+    import ChoiceSelect from "@/components/admin/choice/choiceSelect";
+
     export default {
         extends: Base,
+        components: {
+            ChoiceSelect
+        },
         data() {
             return {
                 form: null,
@@ -170,6 +173,9 @@
             },
             updateField: function ($event, key) {
                 console.log($event, key);
+                if (this.form.values.length == 0) {
+                    this.form.values = {};
+                }
                 this.form.values[key] = $event;
             },
             load: async function () {

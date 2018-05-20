@@ -26,8 +26,8 @@ export default {
     actions: {
 
         resetForm: function ({state, commit, dispatch}) {
-           state.form.keyword = "";
-           state.form.page = 1;
+            state.form.keyword = "";
+            state.form.page = 1;
         },
 
         getPaginate: async function ({state, dispatch, commit}, form) {
@@ -57,6 +57,19 @@ export default {
             return result;
         },
 
+        getByName: async function ({state, dispatch, commit}, name, form) {
+            let result = await axios.get("/api/choices/" + name, {
+                params: form
+            }).then((r) => {
+                return r.data
+            }).catch((error) => {
+                dispatch("error/setError", error.response.data, {root: true});
+                return null;
+            });
+
+            return result;
+        },
+
         updateChoice: async function ({state, commit, dispatch}, form) {
             let r = await axios.put("/api/choices/" + form.id, form)
                 .then((r) => {
@@ -68,7 +81,7 @@ export default {
             return r;
         },
 
-        save: async function ({state}, form) {
+        save: async function ({state,commit,dispatch}, form) {
             let result = await axios.post("/api/choices", form)
                 .then((r) => {
                     return r.data

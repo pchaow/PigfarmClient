@@ -1,6 +1,6 @@
 <template>
     <div v-if="isLoaded">
-        <div v-if="form.parent_name" class="headline pb-3">เพิ่มตัวเลือกย่อย {{form.parent_name}} </div>
+        <div v-if="form.parent_name" class="headline pb-3">เพิ่มตัวเลือกย่อย {{form.parent_name}}</div>
         <div v-else class="headline pb-3">เพิ่มตัวเลือก</div>
 
         <v-layout column justify-center>
@@ -34,11 +34,8 @@
                             </template>
                         </template>
                     </v-card-text>
-                    <v-card-actions>
-                        <v-btn @click="save()" color="primary">Submit</v-btn>
-                    </v-card-actions>
                 </v-card>
-                <v-card>
+                <v-card class="mb-3">
                     <v-card-title>
                         <h2 class="title">ข้อมูลเพิ่มเติมตัวเลือกลูก</h2>
                     </v-card-title>
@@ -108,10 +105,12 @@
                         <v-divider/>
 
                     </v-card-text>
-                    <v-card-actions>
-                        <v-btn @click="save()" color="primary">Submit</v-btn>
-                    </v-card-actions>
                 </v-card>
+
+                <v-btn @click="save()" color="primary">Submit</v-btn>
+                <v-btn @click="$router.go(-1)">Cancel</v-btn>
+
+
             </v-flex>
         </v-layout>
     </div>
@@ -196,11 +195,14 @@
             },
             save: async function () {
                 let result = await this.$store.dispatch('choices/save', this.form);
-                if (this.parent && this.parent.hasOwnProperty('id')) {
-                    this.$router.push({name: "choice-view", params: {id: this.parent.id}})
-                } else {
-                    this.$router.push({name: "choice-home"})
+                if (result) {
+                    if (this.parent && this.parent.hasOwnProperty('id')) {
+                        this.$router.push({name: "choice-view", params: {id: this.parent.id}})
+                    } else {
+                        this.$router.push({name: "choice-home"})
+                    }
                 }
+
             }
         },
         mounted() {
