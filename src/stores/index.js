@@ -7,6 +7,7 @@ import moduleMenu from "./modules/menu"
 import moduleRoles from "./modules/roles"
 import moduleUsers from "./modules/users"
 import moduleChocies from "./modules/choices"
+import modulePigs from "./modules/pigs"
 
 Vue.use(Vuex);
 
@@ -20,5 +21,6 @@ export default new Vuex.Store({
         roles: moduleRoles,
         users: moduleUsers,
         choices: moduleChocies,
+        pigs: modulePigs,
     }
 })

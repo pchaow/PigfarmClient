@@ -150,8 +150,8 @@
         methods: {
             removeChildren: function (key) {
                 Vue.delete(this.form.children_fields, key)
-                console.log(key);
-                console.log(this.form.children_fields)
+                // console.log(key);
+                // console.log(this.form.children_fields)
             },
             addChildrenFields: function () {
 
@@ -172,7 +172,7 @@
                 }
             },
             updateField: function ($event, key) {
-                console.log($event, key);
+                //console.log($event, key);
                 if (this.form.values.length == 0) {
                     this.form.values = {};
                 }

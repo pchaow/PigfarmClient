@@ -3,7 +3,7 @@
         <v-select
                 :items="options"
                 :value="selectValue"
-                label="Select"
+                :label="label"
                 single-line
                 @change="change"
                 item-text="display_name">
@@ -35,17 +35,20 @@
                 choice: null,
                 options: null,
                 selectValue: null,
+                isReady : false,
             }
         },
         methods: {
             change : function(event){
-                this.selectValue = event
-                this.$emit('change',this.selectValue);
+                if(this.isReady){
+                    this.selectValue = event;
+                    this.$emit('change',this.selectValue);
+                }
             },
             sync: function () {
                 for (let i = 0; i < this.options.length; i++) {
                     if (this.options[i].id === this.value.id) {
-                        this.select = this.options[i];
+                        this.selectValue = this.options[i];
                         this.$emit('change', this.selectValue);
                     }
                 }
@@ -60,10 +63,12 @@
                     if (this.value) {
                         this.sync();
                     }
+                    this.isReady = true;
                 }
             }
         },
         created() {
+            this.selectValue = this.value;
         },
         mounted() {
             this.load();

@@ -109,8 +109,6 @@
 
                 <v-btn @click="save()" color="primary">Submit</v-btn>
                 <v-btn @click="$router.go(-1)">Cancel</v-btn>
-
-
             </v-flex>
         </v-layout>
     </div>

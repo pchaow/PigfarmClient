@@ -9,6 +9,16 @@ import store from './stores/index'
 Vue.use(Vuetify);
 
 
+const moment = require('moment');
+require('moment/locale/th');
+
+
+Vue.use(require('vue-moment'), {
+    moment
+})
+
+
+
 let axios = require('axios');
 window.axios = axios.create({
     baseURL: process.env.API_URL,

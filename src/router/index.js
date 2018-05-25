@@ -92,6 +92,26 @@ let router = new Router({
                     component: view('admin/choice/add')
                 },
             ]
+        },
+        {
+            path: '/admin/pig',
+            component: view('admin/Template'),
+            canReuse: false,
+            children: [
+                {
+                    name: 'pig-home',
+                    path: '',
+                    component: view('farm/pig/index')
+                },{
+                    name: 'pig-add',
+                    path: '/add',
+                    component: view('farm/pig/add')
+                },{
+                    name: 'pig-edit',
+                    path: '/:id/edit',
+                    component: view('farm/pig/edit')
+                },
+            ]
         }
     ]
 });
