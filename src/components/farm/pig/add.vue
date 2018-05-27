@@ -1,13 +1,12 @@
 <template>
     <v-layout column justify-center v-if="form">
         <v-flex>
-            <v-card>
-                <v-card-title>
-                    <div class="headline">เพิ่มสุกร</div>
-                </v-card-title>
+            <h1 class="display-1 pb-3">เพิ่มสุกร</h1>
+
+            <v-card class="mb-3">
                 <v-card-text>
                     <h2 class="title">ข้อมูลทั่วไป</h2>
-                    <v-container grid-list-md text-xs-center>
+                    <v-container fluid grid-list-md>
 
                         <v-layout row wrap>
                             <v-flex lg6 xs12>
@@ -36,12 +35,12 @@
                                             slot="activator"
                                             :value="form.birth_date|moment('LL')"
                                             label="วันเกิด"
-                                            prepend-icon="event"
                                             readonly
                                     ></v-text-field>
                                     <v-date-picker
                                             locale="th-th"
-                                            v-model="form.birth_date"  @input="$refs.birthDateMenu.save(form.birth_date)">
+                                            v-model="form.birth_date"
+                                            @input="$refs.birthDateMenu.save(form.birth_date)">
                                     </v-date-picker>
                                 </v-menu>
 
@@ -65,10 +64,10 @@
                                             slot="activator"
                                             :value="form.entry_date|moment('LL')"
                                             label="วันเข้าฟาร์ม"
-                                            prepend-icon="event"
                                             readonly
                                     ></v-text-field>
-                                    <v-date-picker locale="th-th" v-model="form.entry_date"  @input="$refs.entryDateMenu.save(form.entry_date)">
+                                    <v-date-picker locale="th-th" v-model="form.entry_date"
+                                                   @input="$refs.entryDateMenu.save(form.entry_date)">
                                     </v-date-picker>
                                 </v-menu>
                             </v-flex>
@@ -105,46 +104,38 @@
                                               :error-messages="error.errors.status"/>
 
                             </v-flex>
-
                         </v-layout>
-
                     </v-container>
-
-
-
-
                 </v-card-text>
-                <v-card-actions>
-                    <v-btn @click="save()" color="primary">Submit</v-btn>
-                    <v-btn @click="$router.go(-1)" color="default">Cancel</v-btn>
-                </v-card-actions>
             </v-card>
+
+            <v-btn @click="save()" color="primary">Submit</v-btn>
+            <v-btn @click="$router.go(-1)">Cancel</v-btn>
         </v-flex>
     </v-layout>
 </template>
 
 <script>
     import ChoiceSelect from "@/components/admin/choice/choiceSelect";
+    import Base from '@/components/Base'
 
     export default {
+        extends: Base,
         components: {ChoiceSelect},
         data() {
             return {
-                birthDateMenu : false,
-                entryDateMenu : false,
+                birthDateMenu: false,
+                entryDateMenu: false,
                 form: {
                     blood_line: {},
                 },
-                error: {
-                    errors: {},
-                    message: null,
-                },
+
             }
         },
         methods: {
             save: async function () {
-                let user = await this.$store.dispatch('pigs/save', this.form);
-                if (user) {
+                let pig = await this.$store.dispatch('pigs/save', this.form);
+                if (pig) {
                     this.$router.push({name: 'pig-home'})
                 }
             }

@@ -4,9 +4,11 @@
                 :items="options"
                 :value="selectValue"
                 :label="label"
-                single-line
                 @change="change"
-                item-text="display_name">
+                item-text="display_name"
+                persistent-hint
+                multi-line
+        >
         </v-select>
     </div>
 </template>

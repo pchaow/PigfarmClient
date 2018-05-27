@@ -6,7 +6,7 @@
             <v-card class="mb-3">
                 <v-card-text>
                     <h2 class="title">ข้อมูลทั่วไป</h2>
-                    <v-container grid-list-md text-xs-center>
+                    <v-container grid-list-md fluid>
 
                         <v-layout row wrap>
                             <v-flex lg6 xs12>
@@ -35,7 +35,6 @@
                                             slot="activator"
                                             :value="form.birth_date|moment('LL')"
                                             label="วันเกิด"
-                                            prepend-icon="event"
                                             readonly
                                     ></v-text-field>
                                     <v-date-picker
@@ -64,7 +63,6 @@
                                             slot="activator"
                                             :value="form.entry_date|moment('LL')"
                                             label="วันเข้าฟาร์ม"
-                                            prepend-icon="event"
                                             readonly
                                     ></v-text-field>
                                     <v-date-picker locale="th-th" v-model="form.entry_date"  @input="$refs.entryDateMenu.save(form.entry_date)">

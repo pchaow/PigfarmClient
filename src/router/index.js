@@ -110,7 +110,11 @@ let router = new Router({
                     name: 'pig-edit',
                     path: '/:id/edit',
                     component: view('farm/pig/edit')
-                },
+                },{
+                    name: 'pig-view',
+                    path: '/:id/view',
+                    component: view('farm/pig/view')
+                }
             ]
         }
     ]

@@ -37,7 +37,10 @@
                         <td>{{props.item.created_at}}</td>
 
                         <td>
-
+                            <v-btn icon class="mx-0" :to="{ name: 'pig-view', params: { id: props.item.id }}">
+                                <v-icon color="primary">mdi-eye</v-icon>
+                            </v-btn>
+                            
                             <v-btn icon class="mx-0" :to="{ name: 'pig-edit', params: { id: props.item.id }}">
                                 <v-icon color="teal">edit</v-icon>
                             </v-btn>
