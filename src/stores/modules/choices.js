@@ -1,6 +1,7 @@
 export default {
     namespaced: true,
     state: {
+        cache: {},
         choices: [],
         paginate: {},
         form: {
@@ -58,16 +59,25 @@ export default {
         },
 
         getByName: async function ({state, dispatch, commit}, name, form) {
-            let result = await axios.get("/api/choices/" + name, {
-                params: form
-            }).then((r) => {
-                return r.data
-            }).catch((error) => {
-                dispatch("error/setError", error.response.data, {root: true});
-                return null;
-            });
 
-            return result;
+
+            if (state.cache.hasOwnProperty(name)) {
+                return state.cache[name]
+            } else {
+
+                let result = await axios.get("/api/choices/" + name, {
+                    params: form
+                }).then((r) => {
+                    return r.data
+                }).catch((error) => {
+                    dispatch("error/setError", error.response.data, {root: true});
+                    return null;
+                });
+
+                state.cache[name] = result;
+
+                return result;
+            }
         },
 
         updateChoice: async function ({state, commit, dispatch}, form) {
@@ -81,7 +91,7 @@ export default {
             return r;
         },
 
-        save: async function ({state,commit,dispatch}, form) {
+        save: async function ({state, commit, dispatch}, form) {
             let result = await axios.post("/api/choices", form)
                 .then((r) => {
                     return r.data

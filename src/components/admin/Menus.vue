@@ -13,7 +13,7 @@
                     <v-list-tile-title>Home</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile :to="{name:'home-chart1'}" exact>
+            <v-list-tile exact>
                 <v-list-tile-action>
                     <v-icon>mdi-chart-bar</v-icon>
                 </v-list-tile-action>
