@@ -39,7 +39,8 @@
                                     ></v-text-field>
                                     <v-date-picker
                                             locale="th-th"
-                                            v-model="form.birth_date"  @input="$refs.birthDateMenu.save(form.birth_date)">
+                                            v-model="form.birth_date"
+                                            @input="$refs.birthDateMenu.save(form.birth_date)">
                                     </v-date-picker>
                                 </v-menu>
 
@@ -65,7 +66,8 @@
                                             label="วันเข้าฟาร์ม"
                                             readonly
                                     ></v-text-field>
-                                    <v-date-picker locale="th-th" v-model="form.entry_date"  @input="$refs.entryDateMenu.save(form.entry_date)">
+                                    <v-date-picker locale="th-th" v-model="form.entry_date"
+                                                   @input="$refs.entryDateMenu.save(form.entry_date)">
                                     </v-date-picker>
                                 </v-menu>
                             </v-flex>
@@ -102,9 +104,7 @@
                                               :error-messages="error.errors.status"/>
 
                             </v-flex>
-
                         </v-layout>
-
                     </v-container>
                 </v-card-text>
             </v-card>
@@ -125,8 +125,8 @@
         components: {ChoiceSelect},
         data() {
             return {
-                birthDateMenu : false,
-                entryDateMenu : false,
+                birthDateMenu: false,
+                entryDateMenu: false,
 
                 form: null,
 
@@ -140,7 +140,9 @@
                 }
             },
             load: async function () {
-                let pig = await this.$store.dispatch('pigs/getById',this.$route.params.id)
+                let pig = await this.$store.dispatch('pigs/getById', {
+                    id: this.$route.params.id
+                })
                 this.form = pig
             }
         },

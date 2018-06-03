@@ -48,7 +48,6 @@ export default {
         },
 
         getById: async function ({state, dispatch, commit}, {id,form}) {
-            console.log(form)
             let result = await axios.get("/api/farm/pigs/" + id, {
                 params: form
             }).then((r) => {
