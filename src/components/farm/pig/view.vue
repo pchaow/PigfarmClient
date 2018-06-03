@@ -1,7 +1,7 @@
 <template>
     <v-layout column justify-center v-if="form">
         <v-flex>
-            <h1 class="display-1 pb-3">ข้อมูลสุกร</h1>
+            <h1 class="display-1 pb-3">ข้อมูลสุกร : {{form.pig_id}}</h1>
 
             <v-card class="mb-3">
                 <v-card-text>
@@ -9,109 +9,43 @@
                     <v-container grid-list-md fluid>
 
                         <v-layout row wrap>
-                            <v-flex lg6 xs12>
-                                <v-text-field class="mr-3" label="PIGID" v-model="form.pig_id"
-                                              :error-messages="error.errors.pig_id"/>
+                            <v-flex>
+                                <label>เบอร์แม่พันธุ์</label>
+                                <div>{{form.pig_number}}</div>
                             </v-flex>
-                            <v-flex lg6 xs12>
-                                <v-text-field label="เบอร์แม่พันธุ์" v-model="form.pig_number"
-                                              :error-messages="error.errors.pig_number"/>
+                            <v-flex>
+                                <label>สายพันธุ์</label>
+                                <div>{{form.blood_line.display_name}}</div>
                             </v-flex>
-
-                            <v-flex lg6 xs12>
-                                <v-menu
-                                        ref="birthDateMenu"
-                                        :close-on-content-click="false"
-                                        v-model="birthDateMenu"
-                                        :nudge-right="40"
-                                        :return-value.sync="form.birth_date"
-                                        lazy
-                                        transition="scale-transition"
-                                        offset-y
-                                        full-width
-                                        min-width="290px"
-                                >
-                                    <v-text-field
-                                            slot="activator"
-                                            :value="form.birth_date|moment('LL')"
-                                            label="วันเกิด"
-                                            readonly
-                                    ></v-text-field>
-                                    <v-date-picker
-                                            locale="th-th"
-                                            v-model="form.birth_date"  @input="$refs.birthDateMenu.save(form.birth_date)">
-                                    </v-date-picker>
-                                </v-menu>
-
+                            <v-flex>
+                                <label>วันที่เข้าฟาร์ม</label>
+                                <div>{{form.entry_date}}</div>
                             </v-flex>
-
-                            <v-flex lg6 xs12>
-
-                                <v-menu
-                                        ref="entryDateMenu"
-                                        :close-on-content-click="false"
-                                        v-model="entryDateMenu"
-                                        :nudge-right="40"
-                                        :return-value.sync="form.entry_date"
-                                        lazy
-                                        transition="scale-transition"
-                                        offset-y
-                                        full-width
-                                        min-width="290px"
-                                >
-                                    <v-text-field
-                                            slot="activator"
-                                            :value="form.entry_date|moment('LL')"
-                                            label="วันเข้าฟาร์ม"
-                                            readonly
-                                    ></v-text-field>
-                                    <v-date-picker locale="th-th" v-model="form.entry_date"  @input="$refs.entryDateMenu.save(form.entry_date)">
-                                    </v-date-picker>
-                                </v-menu>
+                            <v-flex>
+                                <label>แหล่งที่มา</label>
+                                <div>{{form.source}}</div>
                             </v-flex>
-
-                            <v-flex lg6 xs12>
-                                <v-text-field label="หมายเลขพ่อพันธุ์" v-model="form.male_breeder_pig_id"
-                                              :error-messages="error.errors.male_breeder_pig_id"/>
+                            <v-flex>
+                                <label>พ่อพันธุ์</label>
+                                <div>{{form.male_breeder_pig_id}}</div>
                             </v-flex>
-
-                            <v-flex lg6 xs12>
-                                <v-text-field label="หมายเลขแม่พันธุ์" v-model="form.female_breeder_pig_id"
-                                              :error-messages="error.errors.female_breeder_pig_id"/>
+                            <v-flex>
+                                <label>แม่พันธุ์</label>
+                                <div>{{form.female_breeder_pig_id}}</div>
                             </v-flex>
-
-                            <v-flex lg4 md6 xs12>
-                                <choice-select label="สายพันธุ์" :type="{to:'BREED'}" :value="form.blood_line"
-                                               @change="form.blood_line = $event"></choice-select>
-
+                            <v-flex>
+                                <label>วันเกิด</label>
+                                <div>{{form.birth_date}}</div>
                             </v-flex>
-
-                            <v-flex lg4 md6 xs12>
-                                <v-text-field type="number" label="เต้านม (ซ้าย)" v-model="form.left_breast"
-                                              :error-messages="error.errors.left_breast"/>
-
+                            <v-flex>
+                                <label>เต้านม</label>
+                                <div>{{form.left_breast}}/{{form.right_breast}}</div>
                             </v-flex>
-
-                            <v-flex lg4 md6 xs12>
-                                <v-text-field type="number" label="เต้านม (ขวา)" v-model="form.right_breast"
-                                              :error-messages="error.errors.right_breast"/>
-                            </v-flex>
-
-                            <v-flex lg4 md6 xs12>
-                                <v-text-field label="สถานะ" v-model="form.status"
-                                              :error-messages="error.errors.status"/>
-
-                            </v-flex>
-
                         </v-layout>
 
                     </v-container>
                 </v-card-text>
             </v-card>
-
-            <v-btn @click="save()" color="primary">Submit</v-btn>
-            <v-btn @click="$router.go(-1)">Cancel</v-btn>
-
         </v-flex>
     </v-layout>
 </template>
@@ -125,8 +59,8 @@
         components: {ChoiceSelect},
         data() {
             return {
-                birthDateMenu : false,
-                entryDateMenu : false,
+                birthDateMenu: false,
+                entryDateMenu: false,
 
                 form: null,
 
@@ -140,7 +74,11 @@
                 }
             },
             load: async function () {
-                let pig = await this.$store.dispatch('pigs/getById',this.$route.params.id)
+                let pig = await this.$store.dispatch('pigs/getById',
+                    {
+                        id: this.$route.params.id,
+                        form: {with:"pigBreeds"}
+                    })
                 this.form = pig
             }
         },

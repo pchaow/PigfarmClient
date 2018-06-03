@@ -47,9 +47,10 @@ export default {
             return result
         },
 
-        getById: async function ({state, dispatch, commit}, id) {
+        getById: async function ({state, dispatch, commit}, {id,form}) {
+            console.log(form)
             let result = await axios.get("/api/farm/pigs/" + id, {
-                params: {}
+                params: form
             }).then((r) => {
                 return r.data
             }).catch((e) => {
