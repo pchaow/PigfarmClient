@@ -39,7 +39,6 @@ export default {
                     dispatch("error/setError", error.response.data, {root: true});
                     return null;
                 })
-
             return r;
         },
         async getPaginate({state, commit, dispatch}, form) {

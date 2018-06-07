@@ -69,52 +69,65 @@
                     <v-btn flat color="primary" @click="saveDialog(dialog_date)">OK</v-btn>
                 </v-date-picker>
             </v-dialog>
-            <v-tabs v-if="form.pig_breeds.length > 0" v-model="active" color="primary" dark slider-color="yellow">
-                <v-tab v-for="n in form.pig_breeds" :key="n.id" ripple>
-                    รอบการผสมที่ {{n.id}}
+            <v-tabs v-if="form.cycles.length > 0" v-model="active" color="primary" dark slider-color="yellow">
+                <v-tab v-for="n in form.cycles" :key="n.id" ripple>
+                    รอบการผสมที่ {{n.cycle_sequence}}
                 </v-tab>
-                <v-tab-item v-for="n in form.pig_breeds" :key="n.id">
+                <v-tab-item v-for="cycle in form.cycles" :key="cycle.id" lazy>
                     <v-card flat>
                         <v-card-text>
                             <v-layout row wrap>
                                 <v-flex xs12>
                                     <div class="title pb-3">
                                         การผสมพันธุ์
+                                        <v-btn @click="addBreeder($event,cycle)" dark fab color="primary">
+                                            <v-icon>mdi-plus</v-icon>
+                                        </v-btn>
                                     </div>
-                                    <v-container fluid grid-list-md>
+
+                                    <v-container fluid grid-list-md :key="breeder.id" v-for="(breeder,$index) in cycle.breeders">
                                         <v-layout row wrap>
                                             <v-flex xs2>
                                                 <v-text-field
                                                         slot="activator"
-                                                        v-model="n.breed_date"
+                                                        v-model="breeder.breed_date"
                                                         label="วันที่ผสม"
                                                         prepend-icon="event"
                                                         readonly
                                                         v-on:focus="
-                                                        openDialog((date,week,delivery)=>{n.delivery_date = delivery;n.breed_date = date; n.breed_week = week})"
+                                                        openDialog((date,week,delivery)=>{breeder.delivery_date = delivery;breeder.breed_date = date; breeder.breed_week = week})"
                                                 ></v-text-field>
                                             </v-flex>
                                             <v-flex xs1>
-                                                <v-text-field v-model="n.breed_week" label="ชุดผสม"
+                                                <v-text-field v-model="breeder.breed_week" label="ชุดผสม"
                                                               readonly=""></v-text-field>
                                             </v-flex>
                                             <v-flex xs2>
-                                                <v-text-field v-model="n.breeder_1_id"
-                                                              label="พ่อพันธุ์ 1"></v-text-field>
+                                                <v-text-field v-model="breeder.breeder_id"
+                                                              :label="'พ่อพันธุ์ ' + ($index+1)"></v-text-field>
                                             </v-flex>
                                             <v-flex xs2>
-                                                <v-text-field v-model="n.breeder_2_id"
-                                                              label="พ่อพันธุ์ 2"></v-text-field>
-                                            </v-flex>
-                                            <v-flex xs2>
-                                                <v-text-field v-model="n.breeder_3_id"
-                                                              label="พ่อพันธุ์ 3"></v-text-field>
-                                            </v-flex>
-                                            <v-flex xs2>
-                                                <v-text-field v-model="n.delivery_date" label="กำหนดคลอด"
+                                                <v-text-field v-model="breeder.delivery_date" label="กำหนดคลอด"
                                                               readonly=""></v-text-field>
+                                            </v-flex>
+                                            <v-flex xs2>
+                                                <v-btn fab @click="saveBreeder(cycle,breeder)" flat color="red">
+                                                    <v-icon>mdi-content-save</v-icon>
+                                                </v-btn>
+                                                <v-btn fab @click="removeBreeder(cycle,breeder)" flat color="red">
+                                                    <v-icon>mdi-delete</v-icon>
+                                                </v-btn>
                                             </v-flex>
                                         </v-layout>
+                                    </v-container>
+
+                                    <div class="title pb-3">
+                                        การคลอด
+                                    </div>
+                                    <div class="title pb-3">
+                                        การหย่านม
+                                    </div>
+                                    <v-container fluid grid-list-md>
                                     </v-container>
                                 </v-flex>
                             </v-layout>
@@ -138,13 +151,26 @@
                 form: null,
                 //tabs
                 active: null,
-                lastid: 0,
                 dialog: false,
                 dialog_date: null,
                 currentDateModel: null,
             }
         },
         methods: {
+            saveBreeder: function (cycle,breeder) {
+
+            },
+            removeBreeder: function (cycle,breeder) {
+                let index = cycle.breeders.indexOf(breeder);
+                cycle.breeders.splice(index,1);
+            },
+            addBreeder: async function ($event, n) {
+                console.log(n);
+                if (!n.breeders) {
+                    n.breeders = [];
+                }
+                n.breeders.push({});
+            },
             openDialog: function (func) {
                 this.currentDateModel = func;
                 this.dialog = true
@@ -156,16 +182,14 @@
             },
             saveDialog: function (date) {
                 let week = this.$moment(date).week();
-                let delivery = this.$moment(date).add(144,'days').format('YYYY-MM-DD');
-                this.currentDateModel(date, week,delivery);
+                let delivery = this.$moment(date).add(144, 'days').format('YYYY-MM-DD');
+                this.currentDateModel(date, week, delivery);
                 this.closeDialog();
             },
-            newPigBreed: function () {
-                let newpb = {
-                    id: ++this.lastid,
-                    breed_date: null,
-                };
-                this.form.pig_breeds.push(newpb)
+            newPigBreed: async function () {
+                let cycle = await this.$store.dispatch('pigs/createCycle', this.form.id);
+                console.log("CYCLE", cycle);
+                this.form.cycles.push(cycle);
             },
             save: async function () {
                 let pig = await this.$store.dispatch('pigs/updatePig', this.form);
@@ -177,7 +201,7 @@
                 let pig = await this.$store.dispatch('pigs/getById',
                     {
                         id: this.$route.params.id,
-                        form: {with: "pigBreeds"}
+                        form: {with: ["cycles", "cycles.breeders"]}
                     });
                 this.form = pig
             }

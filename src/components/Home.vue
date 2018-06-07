@@ -20,7 +20,7 @@
                 if (user != null) {
                     let roles = user.roles;
                     if(roles != null){
-                        this.$router.push(roles[0].name)
+                        this.$router.push('/admin')
                     }else {
                         this.$router.push("/home")
                     }

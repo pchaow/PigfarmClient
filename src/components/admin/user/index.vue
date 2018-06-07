@@ -87,7 +87,7 @@
         },
         methods: {
             changePage: function (page) {
-                this.form.page = page
+                this.form.page = page;
                 this.load();
             },
             search: function () {

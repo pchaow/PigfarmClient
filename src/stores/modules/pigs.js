@@ -47,7 +47,7 @@ export default {
             return result
         },
 
-        getById: async function ({state, dispatch, commit}, {id,form}) {
+        getById: async function ({state, dispatch, commit}, {id, form}) {
             let result = await axios.get("/api/farm/pigs/" + id, {
                 params: form
             }).then((r) => {
@@ -71,7 +71,7 @@ export default {
             return r;
         },
 
-        save: async function ({state,commit,dispatch}, form) {
+        save: async function ({state, commit, dispatch}, form) {
             let result = await axios.post("/api/farm/pigs", form)
                 .then((r) => {
                     return r.data
@@ -94,6 +94,17 @@ export default {
 
             return result;
 
+        },
+        createCycle: async function (context, id) {
+            let result = await axios.post('/api/farm/pigs/' + id + "/cycles", {})
+                .then((r) => {
+                    return r.data
+                })
+                .catch((e) => {
+                    dispatch("error/setError", error.response.data, {root: true});
+                    return null;
+                })
+            return result;
         }
     },
     getters: {

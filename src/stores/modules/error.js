@@ -33,6 +33,5 @@ export default {
     },
     getters: {
         getError: state => state.error,
-
     }
 };
