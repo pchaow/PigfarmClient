@@ -52,7 +52,7 @@
 
         <v-flex>
 
-            <v-btn color="success" @click="newPigBreed">เพิ่มรอบการผสมใหม่</v-btn>
+            <v-btn color="success" @click="newCycle">เพิ่มรอบการผสมใหม่</v-btn>
 
             <v-dialog
                     ref="dialog"
@@ -78,48 +78,49 @@
                         <v-card-text>
                             <v-layout row wrap>
                                 <v-flex xs12>
+                                    <v-btn color="info" @click="saveCycle(cycle)">บันทึกข้อมูลรอบ</v-btn>
+                                </v-flex>
+                                <v-flex xs12>
                                     <div class="title pb-3">
                                         การผสมพันธุ์
-                                        <v-btn @click="addBreeder($event,cycle)" dark fab color="primary">
+                                        <v-btn small @click="addBreeder($event,cycle)" fab color="primary">
                                             <v-icon>mdi-plus</v-icon>
                                         </v-btn>
                                     </div>
 
-                                    <v-container fluid grid-list-md :key="breeder.id" v-for="(breeder,$index) in cycle.breeders">
-                                        <v-layout row wrap>
-                                            <v-flex xs2>
-                                                <v-text-field
-                                                        slot="activator"
-                                                        v-model="breeder.breed_date"
-                                                        label="วันที่ผสม"
-                                                        prepend-icon="event"
-                                                        readonly
-                                                        v-on:focus="
+                                    <v-layout row wrap :key="$index" v-for="(breeder,$index) in cycle.breeders">
+                                        <v-flex xs2>
+                                            <v-text-field
+                                                    slot="activator"
+                                                    v-model="breeder.breed_date"
+                                                    label="วันที่ผสม"
+                                                    prepend-icon="event"
+                                                    readonly
+                                                    v-on:focus="
                                                         openDialog((date,week,delivery)=>{breeder.delivery_date = delivery;breeder.breed_date = date; breeder.breed_week = week})"
-                                                ></v-text-field>
-                                            </v-flex>
-                                            <v-flex xs1>
-                                                <v-text-field v-model="breeder.breed_week" label="ชุดผสม"
-                                                              readonly=""></v-text-field>
-                                            </v-flex>
-                                            <v-flex xs2>
-                                                <v-text-field v-model="breeder.breeder_id"
-                                                              :label="'พ่อพันธุ์ ' + ($index+1)"></v-text-field>
-                                            </v-flex>
-                                            <v-flex xs2>
-                                                <v-text-field v-model="breeder.delivery_date" label="กำหนดคลอด"
-                                                              readonly=""></v-text-field>
-                                            </v-flex>
-                                            <v-flex xs2>
-                                                <v-btn fab @click="saveBreeder(cycle,breeder)" flat color="red">
-                                                    <v-icon>mdi-content-save</v-icon>
-                                                </v-btn>
-                                                <v-btn fab @click="removeBreeder(cycle,breeder)" flat color="red">
-                                                    <v-icon>mdi-delete</v-icon>
-                                                </v-btn>
-                                            </v-flex>
-                                        </v-layout>
-                                    </v-container>
+                                            ></v-text-field>
+                                        </v-flex>
+                                        <v-flex xs1>
+                                            <v-text-field v-model="breeder.breed_week" label="ชุดผสม"
+                                                          readonly=""></v-text-field>
+                                        </v-flex>
+                                        <v-flex xs2>
+                                            <v-text-field v-model="breeder.breeder_id"
+                                                          :label="'พ่อพันธุ์ ' + ($index+1)"></v-text-field>
+                                        </v-flex>
+                                        <v-flex xs2>
+                                            <v-text-field v-model="breeder.delivery_date" label="กำหนดคลอด"
+                                                          readonly=""></v-text-field>
+                                        </v-flex>
+                                        <v-flex xs2>
+                                            <choice-select binding="name" label="สถานะ" :type="{to:'BREEDING'}" :value="breeder.status" @change="breeder.status = $event"></choice-select>
+                                        </v-flex>
+                                        <v-flex xs2>
+                                            <v-btn fab @click="removeBreeder(cycle,breeder)" flat color="red">
+                                                <v-icon>mdi-delete</v-icon>
+                                            </v-btn>
+                                        </v-flex>
+                                    </v-layout>
 
                                     <div class="title pb-3">
                                         การคลอด
@@ -157,19 +158,28 @@
             }
         },
         methods: {
-            saveBreeder: function (cycle,breeder) {
-
+            saveCycle: function (cycle) {
+                console.log(cycle);
             },
-            removeBreeder: function (cycle,breeder) {
+            removeBreeder: function (cycle, breeder) {
                 let index = cycle.breeders.indexOf(breeder);
-                cycle.breeders.splice(index,1);
+                cycle.breeders.splice(index, 1);
             },
-            addBreeder: async function ($event, n) {
-                console.log(n);
-                if (!n.breeders) {
-                    n.breeders = [];
-                }
-                n.breeders.push({});
+            addBreeder: async function ($event, cycle) {
+                let form = this.form;
+                let cycleIndex = form.cycles.indexOf(cycle);
+                let selCycle = form.cycles[cycleIndex];
+
+                this.$nextTick(() => {
+                    if (selCycle.breeders) {
+                        selCycle.breeders.push({})
+                    } else {
+                        this.$set(selCycle, 'breeders', [{}]);
+                    }
+
+                });
+
+
             },
             openDialog: function (func) {
                 this.currentDateModel = func;
@@ -186,10 +196,11 @@
                 this.currentDateModel(date, week, delivery);
                 this.closeDialog();
             },
-            newPigBreed: async function () {
+            newCycle: async function () {
                 let cycle = await this.$store.dispatch('pigs/createCycle', this.form.id);
                 console.log("CYCLE", cycle);
                 this.form.cycles.push(cycle);
+                this.active = "" + this.form.cycles.indexOf(cycle);
             },
             save: async function () {
                 let pig = await this.$store.dispatch('pigs/updatePig', this.form);

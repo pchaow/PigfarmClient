@@ -19,6 +19,10 @@
     export default {
         name: "choice-select",
         props: {
+            binding: {
+                type: String,
+                default: "object"
+            },
             label: {
                 type: String,
                 default: "ตัวเลือก"
@@ -37,22 +41,36 @@
                 choice: null,
                 options: null,
                 selectValue: null,
-                isReady : false,
+                isReady: false,
             }
         },
         methods: {
-            change : function(event){
-                if(this.isReady){
+            change: function (event) {
+                if (this.isReady) {
                     this.selectValue = event;
-                    this.$emit('change',this.selectValue);
+
+                    if (this.binding == "object") {
+                        this.$emit('change', this.selectValue);
+                    } else {
+                        this.$emit('change', this.selectValue[this.binding]);
+                    }
+
+
                 }
             },
             sync: function () {
                 for (let i = 0; i < this.options.length; i++) {
-                    if (this.options[i].id === this.value.id) {
-                        this.selectValue = this.options[i];
-                        this.$emit('change', this.selectValue);
+                    if (this.binding == "object") {
+                        if (this.options[i].id === this.value.id) {
+                            this.selectValue = this.options[i];
+                            this.$emit('change', this.selectValue);
+                        }
+                    } else {
+                        if (this.options[this.binding] === this.value[binding]) {
+
+                        }
                     }
+
                 }
             },
             load: async function () {
