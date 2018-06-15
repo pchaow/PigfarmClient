@@ -86,6 +86,7 @@
                                         <v-btn small @click="addBreeder($event,cycle)" fab color="primary">
                                             <v-icon>mdi-plus</v-icon>
                                         </v-btn>
+
                                     </div>
 
                                     <v-layout row wrap :key="$index" v-for="(breeder,$index) in cycle.breeders">
@@ -124,7 +125,94 @@
 
                                     <div class="title pb-3">
                                         การคลอด
+                                        <v-btn small @click.stop="dialogBirth=true" fab color="primary">
+                                            <v-icon>mdi-plus</v-icon>
+                                        </v-btn>
                                     </div>
+                                    <v-dialog v-model="dialogBirth" max-width="1500px" max-height="1500px">
+                                            <v-card>
+                                              <v-card-title>
+                                                <span>การคลอด</span>
+                                                <v-spacer></v-spacer>
+                                              </v-card-title>
+                                              <v-card-text>
+                                                <layout>
+                                                  <v-flex xs12>
+                                                    <v-text-field
+                                                       id="testing"
+                                                       name="input-1"
+                                                       label="จำนวนการคลอด"
+                                                     ></v-text-field>
+                                                  </v-flex>
+
+                                              <v-container grid-list-md text-xs-center>
+                                              <v-layout row wrap>
+                                                  <v-flex xs3>
+                                                    <v-text-field
+                                                       id="testing"
+                                                       name="input-1"
+                                                       label="มีชีวิต"
+                                                       type="number"
+                                                       v-model.number="pigBirthStstus.life"
+                                                     ></v-text-field>
+                                                     <ul>
+                                                       <li v-for="input in loopText(pigBirthStstus.life)">
+                                                       <p>หมูตัวที่ :{{input}}</p>
+                                                       <v-text-field
+                                                            id="testing"
+                                                            name="input-1"
+                                                            label="น้ำหนัก"
+                                                            type="number"
+                                                            v-model.number="inputy[input-1]"
+                                                          ></v-text-field>
+                                                       </li>
+                                                     </ul>
+
+                                                  </v-flex>
+                                                  <v-flex xs3  color="purple">
+                                                    <v-text-field
+
+                                                       id="testing"
+                                                       name="input-1"
+                                                       value="2"
+                                                       label="ตาย"
+                                                       type="number"
+                                                       v-model.number="pigBirthStstus.dead"
+                                                     ></v-text-field>
+                                                  </v-flex>
+                                                  <v-flex xs3>
+                                                    <v-text-field
+                                                       id="testing"
+                                                       name="input-1"
+                                                       label="มัมมี่"
+                                                       v-model.number="pigBirthStstus.deadin"
+                                                     ></v-text-field>
+                                                  </v-flex>
+                                                  <v-flex xs3>
+                                                    <v-text-field
+                                                       id="testing"
+                                                       name="input-1"
+                                                       label="พิการ"
+                                                       type="number"
+                                                       v-model.number="pigBirthStstus.deformed"
+                                                     ></v-text-field>
+
+                                                  </v-flex>
+                                                  </v-layout>
+                                                    </v-container>
+                                                <h2>จำนวนหมูทั้งหมด {{countPigAll()}} ตัว</h2>
+                                                <h1>จำนวนหมูที่รอดชีวิต {{countPig()}} ตัว</h1>
+                                                <hr> <h3>น้ำหนักเฉลี่ย {{pigAvg()}} กก. </h3><hr>
+
+
+                                                </layout>
+                                              </v-card-text>
+                                              <v-card-actions>
+                                                <v-btn color="primary" flat @click.stop="dialogBirth=false">Close</v-btn>
+                                              </v-card-actions>
+                                            </v-card>
+                                          </v-dialog>
+
                                     <div class="title pb-3">
                                         การหย่านม
                                     </div>
@@ -155,9 +243,43 @@
                 dialog: false,
                 dialog_date: null,
                 currentDateModel: null,
+
+                dialogBirth:false,
+                pigBirthStstus:[{
+                  life:0,
+                  deadin:0,
+                  dead:0,
+                  deformed:0
+                }],
+                num:Number,
+                inputy:[],
+                pigCountAvg:0
+
             }
         },
         methods: {
+          pigAvg:function(){
+            var x =0;
+            var pig = this.inputy.length;
+            for(var i=0; i<pig;i++){
+             x+=this.inputy[i];
+            }
+            return x/pig;
+          },
+          countPigAll(){
+          return this.pigBirthStstus.life+this.pigBirthStstus.deadin+this.pigBirthStstus.dead+this.pigBirthStstus.deformed;
+          },
+          countPig(){
+          return this.pigBirthStstus.life;
+          },
+          loopText:function(vars){
+              if(vars != null){
+              this.inputy.length = vars;
+              }else{
+              this.inputy.length = 0;
+              }
+            return vars ;
+          },
             saveCycle: function (cycle) {
                 console.log(cycle);
             },
