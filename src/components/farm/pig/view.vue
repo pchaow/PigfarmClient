@@ -133,7 +133,7 @@
                                                 <v-toolbar-title>การผสมพันธุ์ </v-toolbar-title>
                                                 <v-spacer></v-spacer>
                                                 <v-toolbar-items>
-                                                    <v-btn  dark flat @click.native="SaveBreeder(cycle.cycle_sequence,dateBreederStart,16,0,dateBreederEnd)"><v-icon>mdi-content-save</v-icon>&nbsp;บันทึก</v-btn>
+                                                    <v-btn  dark flat @click.native="SaveBreeder(cycle.cycle_sequence,dateBreederStart,16,malePigBreeder,dateBreederEnd)"><v-icon>mdi-content-save</v-icon>&nbsp;บันทึก</v-btn>
                                             </v-toolbar-items>
                                             </v-toolbar>
                            
