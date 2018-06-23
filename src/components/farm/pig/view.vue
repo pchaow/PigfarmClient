@@ -127,7 +127,7 @@
  <v-dialog v-model="dialogBreederx" max-width="1000px" max-height="1500px">
                                             <v-card>
                                               <v-toolbar dark color="blueONblue">
-                                                <v-btn icon dark @click.native="dialogBirth = false">
+                                                <v-btn icon dark @click.native="dialogBreederx = false">
                                                     <v-icon>close</v-icon>
                                                 </v-btn>
                                                 <v-toolbar-title>การผสมพันธุ์ </v-toolbar-title>
@@ -150,7 +150,7 @@
                                                         >
                                                             <v-text-field
                                                             slot="activator"
-                                                            label="วันที่คลอด"
+                                                            label="วันผสม"
                                                             prepend-icon="event"
                                                             readonly
                                                             v-model="dateBreederStart"
@@ -326,7 +326,7 @@
                                     <v-dialog v-model="dialogMilk" max-width="1000px" max-height="1500px">
                                             <v-card>
                                               <v-toolbar dark color="blueONblue">
-                                                <v-btn icon dark @click.native="dialogBirth = false">
+                                                <v-btn icon dark @click.native="dialogMilk = false">
                                                     <v-icon>close</v-icon>
                                                 </v-btn>
                                                 <v-toolbar-title>การหย่านม </v-toolbar-title>
