@@ -1,5 +1,5 @@
 <template>
-
+<!---------------fvue-------------->
     <v-layout column justify-center v-if="form">
         <v-flex>
             <h1 class="display-1 pb-3">ข้อมูลสุกร : {{form.pig_id}}</h1>
@@ -43,8 +43,8 @@
                                 <div>{{form.left_breast}}/{{form.right_breast}}</div>
                             </v-flex>
                         </v-layout>
-
-
+                     
+                            
                     </v-container>
                 </v-card-text>
             </v-card>
@@ -73,24 +73,58 @@
             <v-tabs v-if="form.cycles.length > 0" v-model="active" color="primary" dark slider-color="yellow">
                 <v-tab v-for="n in form.cycles" :key="n.id" ripple>
                     รอบการผสมที่ {{n.cycle_sequence}}
+                 
                 </v-tab>
+              
                 <v-tab-item v-for="cycle in form.cycles" :key="cycle.id" lazy>
-                    <v-card flat>
-                        <v-card-text>
-                            <v-layout row wrap>
-                                <v-flex xs12>
-                                    <v-btn color="info" @click="saveCycle(cycle)">บันทึกข้อมูลรอบ</v-btn>
-                                </v-flex>
-                                <v-flex xs12>
-                                    <div class="title pb-3">
-                                        การผสมพันธุ์
-                                        <v-btn small @click="addBreeder($event,cycle)" fab color="primary">
+
+
+ <v-stepper v-model="e6" vertical>
+    <v-stepper-step :complete="e6 > 1" step="1">
+      <h2 >การผสมพันธุ์</h2>
+    </v-stepper-step>
+    <v-stepper-content step="1">
+      <v-card  class="mb-5">
+<h3>
+ <v-btn small @click.stop="dialogBreederx=true"  fab color="primary">
                                             <v-icon>mdi-plus</v-icon>
-                                        </v-btn>
+                                        </v-btn> เพิ่มข้อมูลการผสมพันธุ์</h3>
+ 
+      </v-card>
 
-                                    </div>
+      <v-btn color="primary" @click.native="e6 = 2">Continue</v-btn>
+    </v-stepper-content>
 
-                                     <v-dialog v-model="dialogBreeder" max-width="1000px" max-height="1500px">
+    <v-stepper-step :complete="e6 > 2" step="2"><h2>การคลอด</h2></v-stepper-step>
+    <v-stepper-content step="2">
+      <v-card color=" lighten-1" class="mb-5">
+       <h3> <v-btn small @click.stop="dialogBirth=true" fab color="primary">
+                                            <v-icon>mdi-plus</v-icon>
+                                        </v-btn>เพิ่มข้อมูลการคลอด</h3>   
+      </v-card>
+      <v-btn color="primary" @click.native="e6 = 3">Continue</v-btn>
+     
+    </v-stepper-content>
+
+    <v-stepper-step :complete="e6 > 3" step="3"><h2>การหย่านม</h2></v-stepper-step>
+    <v-stepper-content step="3">
+      <v-card color=" lighten-1" class="mb-5" >
+          <h3> <v-btn small @click.stop="dialogMilk=true" fab color="primary">
+                                            <v-icon>mdi-plus</v-icon>
+                                        </v-btn>เพิ่มข้อมูลการหย่านม</h3>
+      </v-card>
+      <v-btn color="primary" @click.native="e6 = 1">Continue</v-btn>
+
+    </v-stepper-content>
+  </v-stepper>
+
+
+<!------------------------------------------------------------------------------------------------> 
+                    <!---Dialog-----> 
+<!------------------------------------------------------------------------------------------------> 
+
+<!-------Dialog PigBreeder---------->
+ <v-dialog v-model="dialogBreederx" max-width="1000px" max-height="1500px">
                                             <v-card>
                                               <v-toolbar dark color="blueONblue">
                                                 <v-btn icon dark @click.native="dialogBirth = false">
@@ -99,56 +133,62 @@
                                                 <v-toolbar-title>การผสมพันธุ์ </v-toolbar-title>
                                                 <v-spacer></v-spacer>
                                                 <v-toolbar-items>
-                                                    <v-btn  dark flat @click.native="dialogBreeder = false"><v-icon>mdi-content-save</v-icon>&nbsp;บันทึก</v-btn>
+                                                    <v-btn  dark flat @click.native="SaveBreeder(cycle.cycle_sequence,dateBreederStart,16,0,dateBreederEnd)"><v-icon>mdi-content-save</v-icon>&nbsp;บันทึก</v-btn>
                                             </v-toolbar-items>
                                             </v-toolbar>
+                           
+<v-layout>
+<v-menu
+                                                            
+                                                            :close-on-content-click="false"
+                                                            v-model="dateBreederMenu"
+                                                            :nudge-right="40"
+                                                            transition="scale-transition"
+                                                            offset-y
+                                                            full-width
+                                                            min-width="290px"
+                                                        >
+                                                            <v-text-field
+                                                            slot="activator"
+                                                            label="วันที่คลอด"
+                                                            prepend-icon="event"
+                                                            readonly
+                                                            v-model="dateBreederStart"
+                                                            ></v-text-field>
+                                                            <v-date-picker v-model="dateBreederStart" no-title scrollable>
+                                                            <v-spacer></v-spacer>
+                                                            <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+                                                            <v-btn flat color="primary" @click="getDateBreeder(dateBreederStart)">OK</v-btn>
+                                                            </v-date-picker>
+                                                        </v-menu>
+                                                        <v-text-field
+                                                            slot="activator"
+                                                            label="วันที่คลอด"
+                                                            prepend-icon="event"
+                                                            readonly
+                                                            v-model="dateBreederEnd"
+                                                            ></v-text-field>
 
-                                    <v-layout row wrap :key="$index" v-for="(breeder,$index) in cycle.breeders">
-                                        <v-flex xs2>
-                                            <v-text-field
-                                                    slot="activator"
-                                                    v-model="breeder.breed_date"
-                                                    label="วันที่ผสม"
-                                                    prepend-icon="event"
-                                                    readonly
-                                                    v-on:focus="
-                                                        openDialog((date,week,delivery)=>{breeder.delivery_date = delivery;breeder.breed_date = date; breeder.breed_week = week})"
-                                            ></v-text-field>
-                                        </v-flex>
-                                        <v-flex xs1>
-                                            <v-text-field v-model="breeder.breed_week" label="ชุดผสม"
-                                                          readonly=""></v-text-field>
-                                        </v-flex>
-                                        <v-flex xs2>
-                                            <v-text-field v-model="breeder.breeder_id"
-                                                          :label="'พ่อพันธุ์ ' + ($index+1)"></v-text-field>
-                                        </v-flex>
-                                        <v-flex xs2>
-                                            <v-text-field v-model="breeder.delivery_date" label="กำหนดคลอด"
-                                                          readonly=""></v-text-field>
-                                        </v-flex>
-                                        <v-flex xs2>
-                                            <choice-select binding="name" label="สถานะ" :type="{to:'BREEDING'}" :value="breeder.status" @change="breeder.status = $event"></choice-select>
-                                        </v-flex>
-                                        <v-flex xs2>
-                                            <v-btn fab @click="removeBreeder(cycle,breeder)" flat color="red">
-                                                <v-icon>mdi-delete</v-icon>
-                                            </v-btn>
-                                        </v-flex>
-                                    </v-layout>
+                                                            <v-text-field
+                                                            slot="activator"
+                                                            label="ชุดผสม"
+                                                            prepend-icon="event"
+                                                            v-model="breederSet"
+                                                            ></v-text-field>
 
-                                            </v-card>
-                                     </v-dialog>
+                                                            <v-text-field
+                                                            slot="activator"
+                                                            label="พ่อพันธ์ุ"
+                                                            prepend-icon="event"
+                                                            v-model="malePigBreeder"
+                                                            ></v-text-field>
+</v-layout>
+</v-card>
+ </v-dialog>
 
 
-                                    <div class="title pb-3">
-                                        การคลอด
-                                        <v-btn small @click.stop="dialogBirth=true" fab color="primary">
-                                            <v-icon>mdi-plus</v-icon>
-                                        </v-btn>
-                                    </div>
-                                   
-                                    <v-dialog v-model="dialogBirth" max-width="1000px" max-height="1500px">
+<!----------------------------Dialog PigBirth---------------------------------------------------------------------------->
+<v-dialog v-model="dialogBirth" max-width="1000px" max-height="1500px">
                                             <v-card>
                                               <v-toolbar dark color="blueONblue">
                                                 <v-btn icon dark @click.native="dialogBirth = false">
@@ -280,12 +320,9 @@
                                             
                                           </v-dialog>
 
-                                    <div class="title pb-3">
-                                        การหย่านม
-                                         <v-btn small @click.stop="dialogMilk=true" fab color="primary">
-                                            <v-icon>mdi-plus</v-icon>
-                                        </v-btn>
-                                    </div> 
+<!----------------------------Dialog PigMilk---------------------------------------------------------------------------->
+
+                                       
                                     <v-dialog v-model="dialogMilk" max-width="1000px" max-height="1500px">
                                             <v-card>
                                               <v-toolbar dark color="blueONblue">
@@ -301,6 +338,7 @@
                                             <v-container>
                                                 <v-flex xs12>
                                                        <h2 class="p-h1 blueONwhite">&nbsp;ข้อมูลการคลอด</h2>
+                                                     
                                                     <v-menu
                                                             ref="menuOfdateMilk"
                                                             :close-on-content-click="false"
@@ -342,6 +380,19 @@
                                             </v-container>
                                             </v-card>
                                     </v-dialog>
+<!------------------------------------------------------------------------------------------------> 
+                    <!---Save-------> 
+<!------------------------------------------------------------------------------------------------> 
+                                    
+                    <v-card flat>
+                        <v-card-text>
+                            <v-layout row wrap>
+                                <v-flex xs12>
+                                    <v-btn color="info" @click="saveCycle(cycle)">บันทึกข้อมูลรอบ</v-btn>
+                                </v-flex>
+                                <v-flex xs12>
+                        
+
                                 </v-flex>
                             </v-layout>
                         </v-card-text>
@@ -352,6 +403,7 @@
     </v-layout>
 </template>
  
+ <!------------evue------>
 <script>
 import ChoiceSelect from "@/components/admin/choice/choiceSelect";
 import Base from "@/components/Base";
@@ -361,15 +413,28 @@ export default {
   components: { ChoiceSelect },
   data() {
     return {
+      e6: 1,
       form: null,
       menu: false,
       datedd: null,
 
       dialogBreeder: false,
-
+      dialogBreederx: false,
       menuOfdateMilk: false,
       dateMilk: null,
       dialogMilk: false,
+
+      /*Data of PigBreeder*/
+      dialigxBreeder: false,
+      dateBreederMenu: false,
+      dateBreederStart: null,
+      dateBreederEnd: null,
+      breederSet: null,
+      malePigBreeder: null,
+
+      /*Data of PigBirth*/
+
+      /*Data of PigMilk*/
 
       //tabs
       active: null,
@@ -391,6 +456,62 @@ export default {
     };
   },
   methods: {
+    /*--------------------------------*/
+    /*Save Method of Step*/
+    /*--------------------------------*/
+
+    //Method Insert PigBreeders
+    SaveBreeder(
+      pig_cycle_id,
+      breed_date,
+      breed_week,
+      breeder_id,
+      delivery_date
+    ) {
+      console.log(
+        pig_cycle_id +
+          ", " +
+          breed_date +
+          ", " +
+          breed_week +
+          ", " +
+          breeder_id +
+          ", " +
+          delivery_date
+      );
+      var post_data = {
+        pig_cycle_id: pig_cycle_id,
+        breed_date: breed_date,
+        breed_week: breed_week,
+        breeder_id: breeder_id,
+        delivery_date: delivery_date
+      };
+      console.log(post_data);
+      axios
+        .post("http://127.0.0.1:8000/api/save.breeder", post_data)
+        .then(function(response) {})
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    //Method getDate for Start and End
+    getDateBreeder(date) {
+      if (!date) {
+        date = "";
+      }
+      console.log(this.dateBreederStart);
+      var myDate = new Date(this.dateBreederStart);
+      myDate.setDate(myDate.getDate() + 114);
+      var dd = myDate.getDate();
+      var mm = myDate.getMonth();
+      var y = myDate.getFullYear();
+      this.dateBreederEnd = y + "-" + mm + "-" + dd;
+      this.dateBreederMenu = false;
+    },
+
+    test() {
+      console.log(form);
+    },
     getDateMilk(date) {
       this.dateMilk = date;
       this.menuOfdateMilk = false;

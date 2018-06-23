@@ -32,6 +32,9 @@
     rgba(72, 224, 151, 1) 100%
   );
 }
+#red {
+  color: red;
+}
 .table {
   margin-left: 50px;
 }
