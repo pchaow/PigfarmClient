@@ -8,6 +8,8 @@ import moduleRoles from "./modules/roles"
 import moduleUsers from "./modules/users"
 import moduleChocies from "./modules/choices"
 import modulePigs from "./modules/pigs"
+import moduleCycles from "./modules/cycles"
+
 
 Vue.use(Vuex);
 
@@ -22,5 +24,7 @@ export default new Vuex.Store({
         users: moduleUsers,
         choices: moduleChocies,
         pigs: modulePigs,
+        cycles:moduleCycles
+
     }
 })
