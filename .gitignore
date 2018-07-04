@@ -12,3 +12,5 @@ yarn-index.log*
 *.ntvs*
 *.njsproj
 *.sln
+
+package-lock.json
