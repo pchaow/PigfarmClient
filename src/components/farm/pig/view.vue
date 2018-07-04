@@ -109,7 +109,7 @@
                                 <div class="card-border violet pd-10">
                                   <h3 class="blx nm pd-10">
                                     <v-icon class="blx">mdi-calendar</v-icon>วันที่ใช้: {{vd.date}}</h3>
-                                  <h3 class="nm pdl-10" style="color: brow;">วัคซีน : {{vd.name}}</h3>
+                                  <h3 class="nm pdl-10" style="color: brown;">วัคซีน : {{vd.name}}</h3>
                                 </div>
                               </div>
                             </div>
