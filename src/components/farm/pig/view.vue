@@ -549,10 +549,12 @@ export default {
 
     /*****************Breeder***************** */
     breederGetDate(){
-      let delivery = this.$moment(this.breederData.dateStart)
+      let week = this.$moment(this.breederData.dateStart).week();
+      let delivery = this.$moment()
         .add(114, "days")
         .format("YYYY-MM-DD");
       this.breederData.dateEnd = delivery;
+      this.breederData.set = week;
       this.breederDateMenu = false;
     },
     breederSave(){
