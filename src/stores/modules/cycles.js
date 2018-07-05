@@ -93,7 +93,7 @@ export default {
         },
         getVaccineX: async function({state}){
          var datax = null;
-          await axios.get("choice?parent=VACCINE")
+          await axios.get("/api/getchoice?parent=VACCINE")
                 .then(response => {
                   datax = response.data;
               }).catch(e => { });
