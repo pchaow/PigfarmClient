@@ -1,11 +1,15 @@
 <template>
-    <h1>Hello</h1>
+  <h1>Hello</h1>
 </template>
 
 <script>
-    export default {
-        name: "admin-home"
-    }
+  import Base from "@/components/Base"
+
+
+  export default {
+    name: "admin-home",
+    extends: Base
+  }
 </script>
 
 <style scoped>
