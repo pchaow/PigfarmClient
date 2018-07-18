@@ -25,7 +25,7 @@ export default {
         }
     },
     actions: {
-
+     
         resetForm: function ({state, commit, dispatch}) {
             state.form.keyword = "";
             state.form.page = 1;

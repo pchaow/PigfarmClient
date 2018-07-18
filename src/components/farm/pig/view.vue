@@ -55,7 +55,7 @@
       <v-btn color="success" @click="newCycle">เพิ่มรอบการผสมใหม่</v-btn>
 
       <v-dialog ref="dialog" v-model="dialog" :return-value.sync="dialog_date" persistent lazy full-width width="290px">
-        <v-date-picker v-model="dialog_date" scrollable>
+        <v-date-picker v-model="dialog_date" scrollable locale="th-TH">
           <v-spacer></v-spacer>
           <v-btn flat color="primary" @click="dialog = false">Cancel</v-btn>
           <v-btn flat color="primary" @click="saveDialog(dialog_date)">OK</v-btn>
@@ -76,7 +76,7 @@
                   <h1 class="pointer" style="display:none;">ไอดี {{pigData.pigId}} รอบที่ {{pigData.cycleSequence}}</h1>
                   <v-flex xs12>
                     <v-stepper v-model="stepXX" vertical>
-                      <v-stepper-step step="1" complete>
+                      <v-stepper-step step="1" :complete="stepXX >= 1" >
                         <h2 class="pointer" @click="stepXX =1"> การผสมพันธ์ุ</h2>
                       </v-stepper-step>
 
@@ -118,7 +118,7 @@
 
                       </v-stepper-content>
 
-                      <v-stepper-step step="2" complete>
+                      <v-stepper-step step="2" :complete="stepXX >= 2">
                         <h2 class="pointer" @click="stepXX =2">การคลอดลูก</h2>
                       </v-stepper-step>
 
@@ -163,7 +163,7 @@
 
                       </v-stepper-content>
 
-                      <v-stepper-step step="3" complete>
+                      <v-stepper-step step="3" :complete="stepXX >= 3">
                         <h2 class="pointer" @click="stepXX =3">การอย่านม</h2>
                       </v-stepper-step>
 
@@ -239,7 +239,7 @@
               <v-flex xs8 class="">
                 <v-dialog ref="dialog" v-model="breederDateMenu" :return-value.sync="date" persistent lazy full-width width="290px">
                   <v-text-field slot="activator" v-model="breederData.dateStart" label="วันที่ผสมพันธ์ุ" readonly dark></v-text-field>
-                  <v-date-picker v-model="breederData.dateStart" scrollable>
+                  <v-date-picker locale="th-TH"  v-model="breederData.dateStart" scrollable>
                     <v-spacer></v-spacer>
                     <v-btn flat color="primary" @click="breederDateMenu = false">Cancel</v-btn>
                     <v-btn flat color="primary" @click="breederGetDate()">OK</v-btn>
@@ -306,12 +306,12 @@
                 <v-icon style="font-size:66px;" color="white">mdi-calendar-plus</v-icon>
               </v-flex>
               <v-flex xs8 class="">
-                <v-dialog ref="dialog" v-model="birthDateMenu" :return-value.sync="date" persistent lazy full-width width="290px">
+                <v-dialog ref="dialog"   v-model="birthDateMenu" :return-value.sync="date" persistent lazy full-width width="290px">
                   <v-text-field slot="activator" v-model="birthData.date " label="วันที่คลอด" readonly dark></v-text-field>
-                  <v-date-picker v-model="birthData.date" scrollable>
+                  <v-date-picker locale="th-TH" v-model="birthData.date" scrollable>
                     <v-spacer></v-spacer>
                     <v-btn flat color="primary" @click.native="birthData.date = ''" @click="birthDateMenu = false">Cancel</v-btn>
-                    <v-btn flat color="primary" @click="birthDateMenu = false">OK</v-btn>
+                    <v-btn flat color="primary" @click="birthDate()">OK</v-btn>
                   </v-date-picker>
                 </v-dialog>
               </v-flex>
@@ -371,10 +371,10 @@
               <v-flex xs8 class="">
                 <v-dialog ref="dialog" v-model="milkDateMenu" :return-value.sync="date" persistent lazy full-width width="290px">
                   <v-text-field slot="activator" v-model="milkData.date " label="วันที่" readonly dark></v-text-field>
-                  <v-date-picker v-model="milkData.date" scrollable>
+                  <v-date-picker locale="th-TH"  v-model="milkData.date" scrollable>
                     <v-spacer></v-spacer>
                     <v-btn flat color="primary" @click.native="milkData.date = ''" @click="birthDateMenu = false">Cancel</v-btn>
-                    <v-btn flat color="primary" @click="milkDateMenu = false">OK</v-btn>
+                    <v-btn flat color="primary" @click="milkDate()">OK</v-btn>
                   </v-date-picker>
                 </v-dialog>
               </v-flex>
@@ -427,10 +427,10 @@
           <v-flex xs12 class="mr-10">
             <v-dialog ref="dialog" v-model="vaccineDateMenu" :return-value.sync="date" persistent lazy full-width width="290px">
               <v-text-field slot="activator" v-model="vaccineData.date " label="วันที่" readonly></v-text-field>
-              <v-date-picker v-model="vaccineData.date" scrollable>
+              <v-date-picker v-model="vaccineData.date" locale="th-TH" scrollable>
                 <v-spacer></v-spacer>
                 <v-btn flat color="primary" @click.native="vaccineData.date = ''" @click="vaccineDateMenu = false">Cancel</v-btn>
-                <v-btn flat color="primary" @click="vaccineDateMenu = false">OK</v-btn>
+                <v-btn flat color="primary" @click="vaccineDate()">OK</v-btn>
               </v-date-picker>
             </v-dialog>
           </v-flex>
@@ -463,7 +463,7 @@ export default {
   },
   data() {
     return {
-      stepXX:3,
+      stepXX:1,
       //Pig Data//
       pigData:{
       pigId:0,
@@ -527,7 +527,7 @@ export default {
 
       form: null,
       //tabs
-      active: null,
+      active: 0,
       dialog: false,
       dialog2: false,
       dialog_date: null,
@@ -538,10 +538,15 @@ export default {
   methods: {
 
     changeSequence(CycleSequence){
-      this.pigData.cycleSequence = CycleSequence;
+    
       this.loadData();
+        this.pigData.cycleSequence = CycleSequence;
     },
 
+stepper(){
+  //this.stepXX = 1;
+  
+},
 
     saveCycle: function(cycle) {
       console.log(cycle);
@@ -550,11 +555,19 @@ export default {
     /*****************Breeder***************** */
     breederGetDate(){
       let week = this.$moment(this.breederData.dateStart).week();
-      let delivery = this.$moment()
+      let delivery = this.$moment(this.breederData.dateStart)
+      .locale('th') 
+      .add(543,"years")
         .add(114, "days")
-        .format("YYYY-MM-DD");
+        .format("DD-MM-YYYY");
       this.breederData.dateEnd = delivery;
       this.breederData.set = week;
+
+      let start = this.$moment(this.breederData.dateStart)
+      .locale('th')
+      .add(543,"years")
+       .format("DD-MM-YYYY") ;
+      this.breederData.dateStart = start;
       this.breederDateMenu = false;
     },
     breederSave(){
@@ -586,6 +599,14 @@ export default {
         this.birthData.weight = null;
         this.birthAvgDialog =false;
       }
+    },
+    birthDate(){
+          let start = this.$moment(this.birthData.date)
+      .locale('th')
+      .add(543,"years")
+       .format("DD-MM-YYYY") ;
+       this.birthData.date = start;
+       this.birthDateMenu = false;
     },
     birthCount(){
       this.birthData.all = Number(this.birthData.life+this.birthData.dead+this.birthData.mummy+this.birthData.deformed);
@@ -622,7 +643,14 @@ export default {
         this.milkAvgDialog =false;
       }
     },
-
+milkDate(){
+          let start = this.$moment(this.milkData.date)
+      .locale('th')
+      .add(543,"years")
+       .format("DD-MM-YYYY") ;
+       this.milkData.date = start;
+       this.milkDateMenu = false;
+    },
     milkSave(){
       this.milkData.id = this.pigData.pigId;
       this.milkData.cy = this.pigData.cycleSequence;
@@ -637,6 +665,14 @@ export default {
     },
 
       /*****************Vaccine***************** */
+      vaccineDate(){
+          let start = this.$moment(this.vaccineData.date)
+      .locale('th')
+      .add(543,"years")
+       .format("DD-MM-YYYY") ;
+       this.vaccineData.date = start;
+       this.vaccineDateMenu = false;
+    },
     vaccineDiaShow(c){
       this.vaccineData.id = this.pigData.pigId;
       this.vaccineData.cy = this.pigData.cycleSequence;
@@ -707,7 +743,8 @@ export default {
       let cycle = await this.$store.dispatch("pigs/createCycle", this.form.id);
       console.log("CYCLE", cycle);
       this.form.cycles.push(cycle);
-      this.active = "" + this.form.cycles.indexOf(cycle);
+     this.active = Number(this.form.cycles.indexOf(cycle));
+    console.log("Role is a"+this.active );
       this.pigData.cycleSequence = Number(this.active)+1;
       this.loadData();
     },
@@ -730,6 +767,7 @@ export default {
       this.pigData.pigId = pig.id;
       this.pigData.cycleSequence = 1;
       this.vaccineUse = await this.$store.dispatch("cycles/getVaccineX");
+ 
       this.loadData();
 
     },
@@ -738,8 +776,14 @@ export default {
       this.birthDataX = await this.$store.dispatch("cycles/getBirthData",this.pigData );
       this.milkDataX = await this.$store.dispatch("cycles/getMilkData",this.pigData );
       this.vaccineDataX = await this.$store.dispatch("cycles/getVaccineData",this.pigData );
-
-      // console.log(this.breederDataX);
+      let cycler = await this.$store.dispatch("cycles/getCyclesData",this.pigData);
+      if(cycler[0].complete == 0){ this.stepXX = 1;}
+      else{this.stepXX = cycler[0].complete;}
+      
+      console.log(cycler);
+      this.stepper();
+      
+     
 
     },
 

@@ -26,6 +26,15 @@ export default {
           alert(error);
         });
   },
+  getCyclesData:async function({state},data){
+    var datax = null;
+    await axios.get("/api/getcycledata?pid="+data.pigId+"&pcy="+data.cycleSequence)
+    .then(response => {
+
+      datax = response.data;
+  }).catch(e => { });
+  return datax;
+  },
   getBreederData: async function({state},data){
    // console.log('use'+"/api/breederData?pid="+data.pigId+"&pcy="+data.cycleSequence);
     var datax = null;

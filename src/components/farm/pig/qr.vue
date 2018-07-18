@@ -1,15 +1,12 @@
 <template>
     <v-layout column justify-center v-if="pigs">
         <v-flex>
-            <h1 class="display-1 pb-3">ค้นหาสุกร</h1>
+            <h1 class="display-1 pb-3"><v-icon>mdi-qrcode-scan</v-icon>&nbsp; สร้าง qr code</h1>
 
 
             <v-layout row class="pb-3">
-                <v-flex md6>
-                    <v-btn :to="{name:'pig-add'}" class="primary"><v-icon>mdi-plus-circle</v-icon>&nbsp;เพิ่มสุกร</v-btn>
-                      <v-btn :to="{name:'pig-qr'}" class="yellow"><v-icon>mdi-qrcode-scan</v-icon>&nbsp; สร้าง qr code</v-btn>
-                </v-flex>
-                <v-flex md6>
+                
+                <v-flex md>
                     <v-form v-on:submit.default="search()">
                         <v-text-field
                                 append-icon="search"
@@ -21,41 +18,29 @@
                     </v-form>
                 </v-flex>
             </v-layout>
-
+ <v-layout row class="pb-3">
+     <v-flex xs8>
             <v-card>
                 <v-data-table
-                        :headers="headers"
+                        :headers="headerX"
                         :items="pigs"
                         hide-actions>
 
                     <template slot="items" slot-scope="props">
-
+                        <td> <v-checkbox :label="asd" :value="props.item.pig_id" v-model="pigAdd"></v-checkbox></td>
                         <td>{{props.item.pig_id}}</td>
                         <td>{{props.item.pig_number}}</td>
-                        <td>{{props.item.birth_date}}</td>
                         <td>{{props.item.entry_date}}</td>
                         <td>{{props.item.source}}</td>
                         <td>{{props.item.created_at}}</td>
 
-                        <td>
-                            <v-btn icon class="mx-0" :to="{ name: 'pig-view', params: { id: props.item.id }}">
-                                <v-icon color="primary">mdi-eye</v-icon>
-                            </v-btn>
-                            
-                            <v-btn icon class="mx-0" :to="{ name: 'pig-edit', params: { id: props.item.id }}">
-                                <v-icon color="teal">edit</v-icon>
-                            </v-btn>
-                            <v-btn icon class="mx-0" v-on:click="destroy(props.item)">
-                                <v-icon color="pink">delete</v-icon>
-                            </v-btn>
-                        </td>
                     </template>
 
                     <template slot="no-data">
                         <v-alert :value="true" color="error" icon="warning">
                             Sorry, nothing to display here :(
                         </v-alert>
-                    </template>
+                    </template> 
 
                 </v-data-table>
                 <v-card-actions>
@@ -64,7 +49,37 @@
 
                 </v-card-actions>
             </v-card>
+            </v-flex>
+             
+            <v-flex xs4 class="mrl-20">
+                <v-card>
+                    <v-container class="box-blue "  >   
+                        
+                            <h2 class="wh">ไอดีหมูที่เลือก</h2>
+                          <v-btn :to="{path:'qrgen' , query: { pig: pigAdd }}" color="success"><v-icon>mdi-qrcode-scan</v-icon> &nbsp;สร้าง QR CODE</v-btn>
+                        
+                     
+                    
+                       
+                    </v-container>
+                  
+                     <v-list>
+          <v-list-tile
+            v-for="item in pigAdd"
+            :key="item.title"
+            avatar 
+          >
+            <v-list-tile-content>
+              <v-list-tile-title ><v-icon>mdi-pig</v-icon>&nbsp;{{item}}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
 
+        </v-list>
+                </v-card>
+         
+
+            </v-flex>
+ </v-layout>
         </v-flex>
     </v-layout>
 
@@ -75,10 +90,20 @@
     import {mapGetters, mapActions, mapState} from 'vuex'
     import Base from '@/components/Base'
 
-
     export default {
         extends: Base,
-        data: () => ({}),
+        data: () => ({
+            pigAdd:[],
+            headerX: [
+             {text: 'เลือก', value: 'pig_id', sortable: false} ,   
+            {text: 'PigID', value: 'pig_id'},
+            {text: 'เบอร์แม่พันธุ์', value: 'pig_number'}, 
+            {text: 'วันเข้าฟาร์ม', value: 'entry_date'},
+            {text: 'แหล่งที่มา', value: 'source'},
+            {text: 'วันที่สร้าง', value: 'created_at'}, 
+        ]
+            
+        }),
         computed: {
             ...mapGetters({}),
             ...mapState(({
