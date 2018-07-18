@@ -8,8 +8,8 @@ export default {
             page: 1,
         },
         headers: [
-            {text: 'PigID', value: 'pig_id'},
-            {text: 'เบอร์แม่พันธุ์', value: 'pig_number'},
+            {text: 'เบอร์ตี', value: 'pig_id'},
+            {text: 'เบอร์หู', value: 'pig_number'},
             {text: 'วันเกิด', value: 'birth_date'},
             {text: 'วันเข้าฟาร์ม', value: 'entry_date'},
             {text: 'แหล่งที่มา', value: 'source'},
