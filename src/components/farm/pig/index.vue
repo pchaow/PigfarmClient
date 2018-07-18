@@ -24,6 +24,7 @@
 
             <v-card>
                 <v-data-table
+                        :disable-initial-sort="true"
                         :headers="headers"
                         :items="pigs"
                         hide-actions>

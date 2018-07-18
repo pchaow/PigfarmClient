@@ -100,6 +100,11 @@
                             </v-flex>
 
                             <v-flex lg4 md6 xs12>
+                                <v-text-field label="แหล่งที่มา" v-model="form.source"
+                                              :error-messages="error.errors.source"/>
+                            </v-flex>
+
+                            <v-flex lg4 md6 xs12>
                                 <v-text-field label="สถานะ" v-model="form.status"
                                               :error-messages="error.errors.status"/>
 
