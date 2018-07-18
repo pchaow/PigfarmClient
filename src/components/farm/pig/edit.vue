@@ -10,11 +10,11 @@
 
                         <v-layout row wrap>
                             <v-flex lg6 xs12>
-                                <v-text-field class="mr-3" label="PIGID" v-model="form.pig_id"
+                                <v-text-field class="mr-3" label="เบอร์ตี" v-model="form.pig_id"
                                               :error-messages="error.errors.pig_id"/>
                             </v-flex>
                             <v-flex lg6 xs12>
-                                <v-text-field label="เบอร์แม่พันธุ์" v-model="form.pig_number"
+                                <v-text-field label="เบอร์หู" v-model="form.pig_number"
                                               :error-messages="error.errors.pig_number"/>
                             </v-flex>
 
@@ -103,6 +103,10 @@
                                 <v-text-field label="สถานะ" v-model="form.status"
                                               :error-messages="error.errors.status"/>
 
+                            </v-flex>
+                            <v-flex lg12 md12 xs12>
+                                <v-textarea label="หมายเหตุ" v-model="form.remark"
+                                            :error-messages="error.errors.remark"/>
                             </v-flex>
                         </v-layout>
                     </v-container>

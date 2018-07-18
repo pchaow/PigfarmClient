@@ -8,6 +8,7 @@
                 item-text="display_name"
                 persistent-hint
                 multi-line
+                :return-object="true"
         >
         </v-select>
     </div>

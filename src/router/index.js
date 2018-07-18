@@ -104,24 +104,24 @@ let router = new Router({
           component: view('farm/pig/index')
         }, {
           name: 'pig-add',
-          path: '/add',
+          path: 'add',
           component: view('farm/pig/add')
         }, {
           name: 'pig-edit',
-          path: '/:id/edit',
+          path: ':id/edit',
           component: view('farm/pig/edit')
         }, {
           name: 'pig-view',
-          path: '/:id/view',
+          path: ':id/view',
           component: view('farm/pig/view')
         },{
           name: 'pig-qr',
-          path: '/qr',
+          path: 'qr',
           component: view('farm/pig/qr')
         },
         {
           name: 'pig-gen:pig',
-          path: '/qrgen',
+          path: 'qrgen',
           props: true,
           component: view('farm/pig/qrgen')
         }

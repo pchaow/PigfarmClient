@@ -6,7 +6,7 @@
     <v-toolbar-side-icon @click.stop="toggleDrawer()"></v-toolbar-side-icon>
     <v-toolbar-title class="headline">สระบุรีฟาร์ม</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-toolbar- class="title">{{currentUser.name}}</v-toolbar->
+    <v-toolbar-title class="title">{{currentUser ? currentUser.name : ''}}</v-toolbar-title>
   </v-toolbar>
 </template>
 <script>
