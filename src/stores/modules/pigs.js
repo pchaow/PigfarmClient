@@ -8,6 +8,7 @@ export default {
             page: 1,
         },
         headers: [
+            {text: 'เลือก', value: 'pig_id', sortable: false},
             {text: 'เบอร์ตี', value: 'pig_id'},
             {text: 'เบอร์หู', value: 'pig_number'},
             {text: 'วันเกิด', value: 'birth_date'},

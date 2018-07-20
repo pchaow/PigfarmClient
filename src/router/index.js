@@ -114,15 +114,10 @@ let router = new Router({
           name: 'pig-view',
           path: ':id/view',
           component: view('farm/pig/view')
-        },{
-          name: 'pig-qr',
-          path: 'qr',
-          component: view('farm/pig/qr')
-        },
+        }, 
         {
-          name: 'pig-gen:pig',
+          name: 'pig-gen',
           path: 'qrgen',
-          props: true,
           component: view('farm/pig/qrgen')
         }
       ]

@@ -7,7 +7,7 @@
             <v-layout row class="pb-3">
                 <v-flex md6>
                     <v-btn :to="{name:'pig-add'}" class="primary"><v-icon>mdi-plus-circle</v-icon>&nbsp;เพิ่มสุกร</v-btn>
-                      <v-btn :to="{name:'pig-qr'}" class="yellow"><v-icon>mdi-qrcode-scan</v-icon>&nbsp; สร้าง qr code</v-btn>
+                      <v-btn :to="{ name: 'pig-gen'}" @click="qrPass()" class="yellow"><v-icon>mdi-qrcode-scan</v-icon>&nbsp; สร้าง qr code</v-btn>
                 </v-flex>
                 <v-flex md6>
                     <v-form v-on:submit.default="search()">
@@ -30,7 +30,7 @@
                         hide-actions>
 
                     <template slot="items" slot-scope="props">
-
+                        <td> <v-checkbox :label="asd" :value="props.item.pig_id" v-model="pigAdd"></v-checkbox></td>    
                         <td>{{props.item.pig_id}}</td>
                         <td>{{props.item.pig_number}}</td>
                         <td>{{props.item.birth_date}}</td>
@@ -75,11 +75,14 @@
 
     import {mapGetters, mapActions, mapState} from 'vuex'
     import Base from '@/components/Base'
-
+   
+ 
 
     export default {
         extends: Base,
-        data: () => ({}),
+        data: () => ({
+               pigAdd:[],
+        }),
         computed: {
             ...mapGetters({}),
             ...mapState(({
@@ -90,6 +93,11 @@
             }))
         },
         methods: {
+            qrPass(){
+                    this.$store.dispatch('cycles/qrPass', this.pigAdd);
+                      
+
+            },
             changePage: function (page) {
                 this.form.page = page
                 this.load();

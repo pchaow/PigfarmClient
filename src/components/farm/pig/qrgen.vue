@@ -66,9 +66,10 @@
       
                 this.load();
             },
-            load: function () {
-               this.pigId = this.$route.query.pig;
-              
+            load: async function () {
+               var data  =    await this.$store.dispatch('cycles/qrGen');
+                this.pigId = data;
+              console.log("Id: "+data);
             },
             destroy: async function () {
               

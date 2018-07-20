@@ -2,7 +2,8 @@ export default {
   namespaced: true,
   state: {
       test:null,
-      breederData:null
+      breederData:null,
+      qr:null
   },
   mutations: {
       show: function (state) {
@@ -108,6 +109,14 @@ export default {
               }).catch(e => { });
               return datax;
           },
+          getMedicineX: async function({state}){
+            var datax = null;
+             await axios.get("/api/getchoice?parent=MEDICINE")
+                   .then(response => {
+                     datax = response.data;
+                 }).catch(e => { });
+                 return datax;
+             },
 
           getVaccineData: async function({state},data){
             console.log('use'+"/api/getVaccineData?pid="+data.pigId+"&pcy="+data.cycleSequence);
@@ -119,6 +128,24 @@ export default {
                 }).catch(e => { });
                 return datax;
             },
+            deleteData: async function({state},data){
+             
+              var datax = null;
+              await axios.get("/api/deleteData?type="+data.deleteType+"&id="+data.deleteId)
+                    .then(response => {
+                      alert('ลบข้อมูลสำเร็จ');
+                  });
+              },
+              qrPass: async function({state},data){
+                  this.qr = data;
+               
+                 
+                },
+                qrGen: async function({state}){
+                  var data = this.qr;
+                  console.log(data);
+                  return data;
+                },
 
 
   },

@@ -75,11 +75,24 @@
                 <v-flex xs12>
                   <h1 class="pointer" style="display:none;">ไอดี {{pigData.pigId}} รอบที่ {{pigData.cycleSequence}}</h1>
                   <v-flex xs12>
+            
+              
                     <v-stepper v-model="stepXX" vertical>
+                      <v-stepper-header>
                       <v-stepper-step step="1" :complete="stepXX >= 1" >
                         <h2 class="pointer" @click="stepXX =1"> การผสมพันธ์ุ</h2>
                       </v-stepper-step>
-
+      <v-divider></v-divider>
+                          <v-stepper-step step="2" :complete="stepXX >= 2">
+                        <h2 class="pointer" @click="stepXX =2">การคลอดลูก</h2>
+                      </v-stepper-step>
+      <v-divider></v-divider>
+                          <v-stepper-step step="3" :complete="stepXX >= 3">
+                        <h2 class="pointer" @click="stepXX =3">การอย่านม</h2>
+                      </v-stepper-step>
+                            <v-divider></v-divider>
+           </v-stepper-header>
+<v-stepper-items>
                       <v-stepper-content step="1">
 
                         <v-layout row>
@@ -92,9 +105,11 @@
                               <div class="card-border violet pd-10">
                                 <h3 class="blx nm pd-10">
                                   <v-icon class="blx">mdi-calendar</v-icon>วันที่ผสมพันธ์ุ : {{bd.breed_date}}</h3>
+                                
                                 <h4 class="nm pdl-10" style="color: #00cc00;">วันกำหนดคลอด : {{bd.delivery_date}}</h4>
                                 <h4 class="nm pdl-10" style="color: #FA8072;">พ่อพันธ์ : {{bd.breeder_id}}</h4>
                                 <h4 class="nm pdl-10" style="color: #B03060;">ชุดการผสม : {{bd.breed_week}}</h4>
+                                  <v-btn  @click="deleteX('breeder',bd.id)"  style="margin-top:-50px; float:right;"  small color="red" fab  dark ><v-icon>mdi-delete</v-icon></v-btn>
                               </div>
 
                             </div>
@@ -109,7 +124,8 @@
                                 <div class="card-border violet pd-10">
                                   <h3 class="blx nm pd-10">
                                     <v-icon class="blx">mdi-calendar</v-icon>วันที่ใช้: {{vd.date}}</h3>
-                                  <h3 class="nm pdl-10" style="color: brown;">วัคซีน : {{vd.name}}</h3>
+                                  <h3 class="nm pdl-10" style="color: brown;">ข้อมูล : {{vd.name}}</h3>
+                                  <v-btn @click="deleteX('vaccine',vd.id)"  style="margin-top:-50px; float:right;"  small color="red" fab  dark ><v-icon>mdi-delete</v-icon></v-btn>
                                 </div>
                               </div>
                             </div>
@@ -118,9 +134,7 @@
 
                       </v-stepper-content>
 
-                      <v-stepper-step step="2" :complete="stepXX >= 2">
-                        <h2 class="pointer" @click="stepXX =2">การคลอดลูก</h2>
-                      </v-stepper-step>
+                  
 
                       <v-stepper-content step="2">
 
@@ -140,6 +154,7 @@
                                 <h4 class="nm pdl-10" style="color: #B03060;">ตาย : {{brd.dead}} ตัว</h4>
                                 <h4 class="nm pdl-10" style="color: #B03060;">มัมมี่ : {{brd.mummy}} ตัว</h4>
                                 <h4 class="nm pdl-10" style="color: #B03060;">พิการ : {{brd.deformed}} ตัว</h4>
+                                <v-btn @click="deleteX('birth',brd.id)"  style="margin-top:-50px; float:right;"  small color="red" fab  dark ><v-icon>mdi-delete</v-icon></v-btn>
 
                               </div>
                             </div>
@@ -154,7 +169,8 @@
                                 <div class="card-border violet pd-10">
                                   <h3 class="blx nm pd-10">
                                     <v-icon class="blx">mdi-calendar</v-icon>วันที่ใช้: {{vd.date}}</h3>
-                                  <h3 class="nm pdl-10" style="color: brow;">วัคซีน : {{vd.name}}</h3>
+                                  <h3 class="nm pdl-10" style="color: brow;">ข้อมูล : {{vd.name}}</h3>
+                                  <v-btn @click="deleteX('vaccine',vd.id)" style="margin-top:-50px; float:right;"  small color="red" fab  dark ><v-icon>mdi-delete</v-icon></v-btn>
                                 </div>
                               </div>
                             </div>
@@ -163,9 +179,7 @@
 
                       </v-stepper-content>
 
-                      <v-stepper-step step="3" :complete="stepXX >= 3">
-                        <h2 class="pointer" @click="stepXX =3">การอย่านม</h2>
-                      </v-stepper-step>
+                  
 
                       <v-stepper-content step="3">
 
@@ -180,6 +194,7 @@
                                 <h3 class="blx nm pd-10">
                                   <v-icon class="blx">mdi-calendar</v-icon>วันที่อย่านม: {{md.date}}</h3>
                                 <h3 class="nm pdl-10" style="color: brow;">จำนวนหมู : {{md.all}} ตัว <br>น้ำหนักเฉลี่ย {{md.avg}} กก.</h3>
+                                <v-btn @click="deleteX('milk',md.id)"  style="margin-top:-50px; float:right;"  small color="red" fab  dark ><v-icon>mdi-delete</v-icon></v-btn>
                               </div>
                             </div>
                           </v-flex>
@@ -193,15 +208,17 @@
                                 <div class="card-border violet pd-10">
                                   <h3 class="blx nm pd-10">
                                     <v-icon class="blx">mdi-calendar</v-icon>วันที่ใช้: {{vd.date}}</h3>
-                                  <h3 class="nm pdl-10" style="color: brow;">วัคซีน : {{vd.name}}</h3>
+                                  <h3 class="nm pdl-10" style="color: brow;">ข้อมูล : {{vd.name}}</h3>
+                                  <v-btn @click="deleteX('vaccine',vd.id)"  style="margin-top:-50px; float:right;"  small color="red" fab  dark ><v-icon>mdi-delete</v-icon></v-btn>
                                 </div>
                               </div>
                             </div>
                           </v-flex>
                         </v-layout>
                       </v-stepper-content>
-
+</v-stepper-items>
                     </v-stepper>
+
                   </v-flex>
                   <v-btn style="display:none;"  color="info" @click="saveCycle(cycle)">บันทึกข้อมูลรอบ</v-btn>
 
@@ -437,9 +454,18 @@
 
 
           <v-flex xs12 class="mr-10">
-
-            <v-select :items="vaccineUse" v-model="vaccineSelect" :hint="`${vaccineSelect.name},
+            {{radios}}
+    <v-radio-group v-model="radios" :mandatory="false">
+      <v-radio label="วัคซีน" value="vaccine"></v-radio>
+      <v-radio label="ยา" value="medicine"></v-radio>
+    </v-radio-group>
+            <v-select v-if="radios == 'vaccine'" :items="vaccineUse" v-model="vaccineSelect" :hint="`${vaccineSelect.name},
               ${vaccineSelect.display_name}`" label="เลือกวัคซีน" single-line item-text="display_name" item-value="name" return-object persistent-hint></v-select>
+          
+          <v-select v-if="radios == 'medicine'" :items="medicineUse" v-model="vaccineSelect" :hint="`${vaccineSelect.name},
+              ${vaccineSelect.display_name}`" label="เลือกวัคซีน" single-line item-text="display_name" item-value="name" return-object persistent-hint></v-select>
+         
+         
           </v-flex>
 
         </v-card>
@@ -467,6 +493,7 @@ export default {
       //Pig Data//
       pigData:{
       pigId:0,
+      pigweightTmp:0,
       cycleSequence:0,
 
       },
@@ -496,6 +523,7 @@ export default {
         dead:null,
         mummy:null,
         deformed:null,
+        weightTmp:null,
         weight:0
       },
       milkDataX:{},
@@ -508,9 +536,11 @@ export default {
         cy:0,
         date:null,
         all:'',
+        weightTmp:null,
         weight:null
       },
       vaccineUse:[],
+      medicineUse:[],
       vaccineDataX:{},
       vaccineSelect: { name: '', display_name: '' },
       vaccineDialog:false,
@@ -521,10 +551,13 @@ export default {
         ct:0,
         date:null,
         name:null,
-        display:null
-      },
+        display:null,
+        
+      },radios:null,
 
-
+      deleteData:{
+      deleteType:null,
+      deleteId:null},
       form: null,
       //tabs
       active: 0,
@@ -590,7 +623,16 @@ stepper(){
       for (var i = 0; i < this.birthAvgCount.length; i++) {
         console.log(x);
         x += Number(this.birthAvgCount[i]);
+        if(this.birthData.weightTmp == null){
+        this.birthData.weightTmp =   this.birthAvgCount[i]
+        }else{
+          this.birthData.weightTmp +=",";
+          this.birthData.weightTmp +=this.birthAvgCount[i];
+        }
+         
+
       }
+      
       var result = x / pig;
       if (result) {
         this.birthData.weight = result;
@@ -615,7 +657,8 @@ stepper(){
     birthSave(){
       this.birthData.id = this.pigData.pigId;
       this.birthData.cy = this.pigData.cycleSequence;
-
+  
+      
       if(this.checkNull(this.birthData)){
         this.$store.dispatch("cycles/saveBirth",this.birthData );
         this.loadData();
@@ -633,6 +676,12 @@ stepper(){
       for (var i = 0; i < this.milkAvgCount.length; i++) {
         console.log(x);
         x += Number(this.milkAvgCount[i]);
+        if(this.milkData.weightTmp == null){
+        this.milkData.weightTmp =   this.milkAvgCount[i]
+        }else{
+          this.milkData.weightTmp +=",";
+          this.milkData.weightTmp +=this.milkAvgCount[i];
+        }
       }
       var result = x / pig;
       if (result) {
@@ -691,6 +740,18 @@ milkDate(){
        }else{
          alert('กรุณาระบุข้อมูลให้ครบ');
        }
+    },
+    deleteX :async function(ty,id){
+      var r = confirm("คุณแน่ใจใช่ไหมที่จะลบข้อมูลนี้");
+if (r == true) {
+   this.deleteData.deleteType = ty;
+      this.deleteData.deleteId = id;
+      await this.$store.dispatch("cycles/deleteData",this.deleteData);
+         this.loadData();
+} else {
+     
+} 
+      
     },
     checkNull:function(c){
       var ch = true;
@@ -767,7 +828,7 @@ milkDate(){
       this.pigData.pigId = pig.id;
       this.pigData.cycleSequence = 1;
       this.vaccineUse = await this.$store.dispatch("cycles/getVaccineX");
- 
+      this.medicineUse = await this.$store.dispatch("cycles/getMedicineX" );
       this.loadData();
 
     },
@@ -776,6 +837,7 @@ milkDate(){
       this.birthDataX = await this.$store.dispatch("cycles/getBirthData",this.pigData );
       this.milkDataX = await this.$store.dispatch("cycles/getMilkData",this.pigData );
       this.vaccineDataX = await this.$store.dispatch("cycles/getVaccineData",this.pigData );
+     
       let cycler = await this.$store.dispatch("cycles/getCyclesData",this.pigData);
       if(cycler[0].complete == 0){ this.stepXX = 1;}
       else{this.stepXX = cycler[0].complete;}
