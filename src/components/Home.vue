@@ -16,7 +16,7 @@
       }
     },
     mounted() {
-
+      this.$router.push('/admin')
     }
   }
 </script>
