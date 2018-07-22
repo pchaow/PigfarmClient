@@ -104,8 +104,8 @@
                                               :error-messages="error.errors.source"/>
                             </v-flex>
                             <v-flex lg4 md6 xs12>
-                                <v-text-field label="สถานะ" v-model="form.status"
-                                              :error-messages="error.errors.status"/>
+                                <choice-select label="สถานะ" :type="{to:'PIGSTATUS'}" :value="form.status"
+                                               @change="form.status = $event"></choice-select>
                             </v-flex>
 
                             <v-flex lg12 md12 xs12>

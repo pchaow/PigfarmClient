@@ -127,7 +127,6 @@ let router = new Router({
 
 router.beforeEach((to, from, next) => {
   console.log(to.path);
-  console.log(localStorage.getItem('user'));
   if (to.path != '/login') {
     // console.log("userstorage", localStorage.user, localStorage.getItem('user') == null)
     if (localStorage.getItem('user') == null) {
