@@ -39,6 +39,10 @@ export default {
       },
       error => {
         this.$emit("response-error");
+        if (error.response.status === 401) {
+          this.$router.push({name : "Login"})
+          return Promise.reject(error);
+        }
         return Promise.reject(error);
       }
     );
