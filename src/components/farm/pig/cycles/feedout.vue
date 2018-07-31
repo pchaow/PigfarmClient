@@ -198,31 +198,32 @@
         this.setData.pig_id = this.id;
         this.setData.pig_cycle_id = this.pig.cycles[this.cycle].id;
         let check = this.$store.dispatch("cycles/checkNull", this.setData);
-        if (check._v) {
+        if (check) {
           await this.$store.dispatch("feedout/update", this.setData);
           this.load();
           this.getData();
           this.tmp_weight = [];
+           this.dialogClose();
         } else {
           alert('กรุณาระบุข้อมูลให้ครบ');
         }
-        this.dialogClose();
+       
 
       },
       save: async function() {
         this.setData.pig_id = this.id;
         this.setData.pig_cycle_id = this.pig.cycles[this.cycle].id;
-        let check = this.$store.dispatch("cycles/checkNull", this.setData);
-        if (check._v) {
+          let check = this.checkNull(this.setData);
+        if (check) {
           await this.$store.dispatch("feedout/save", this.setData);
           this.dialog = false;
           this.load();
           this.getData();
+          this.dialogClose();
         } else {
           alert('กรุณาระบุข้อมูลให้ครบ');
-        }
-        this.dialogClose();
-        this.setData = this.preData;
+        } 
+         
       },
       getData: async function() {
         this.load();

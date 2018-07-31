@@ -62,7 +62,7 @@
             <v-radio key="1" label="วัคซีน" value="VACCINE"></v-radio>
             <v-radio key="2" label="ยา" value="MEDICINE"></v-radio>
           </v-radio-group>
-
+           
           <v-select v-if="type=='VACCINE'" v-model="setData.display" :hint="`${selectV.name}, ${selectV.display_name}`" :items="vaccine" item-text="display_name" item-value="name" label="Select" persistent-hint return-object single-line></v-select>
           <v-select v-if="type=='MEDICINE'" v-model="setData.display" :hint="`${selectM.name}, ${selectM.display_name}`" :items="medicine" item-text="display_name" item-value="name" label="Select" persistent-hint return-object single-line></v-select>
           <v-text-field v-model="setData.cost" label="ราคา"></v-text-field>
@@ -159,8 +159,10 @@
         this.setData.pig_cycle_id = this.pig.cycles[this.cycle].id;
         this.setData.cycle_type = this.cycle_type;
         this.setData.display = this.setData.display.display_name;
-        let check = this.$store.dispatch("cycles/checkNull", this.setData);
-        if (check._v) {
+         
+        let check = this.checkNull(this.setData);
+  
+       if (check) {
           await this.$store.dispatch("vaccine/save", this.setData);
           this.load();
           this.getData();
@@ -169,6 +171,17 @@
           alert('กรุณาระบุข้อมูลให้ครบ');
         }
       },
+      checkNull(tmp)  {
+     var ch = true;
+      Object.keys(tmp).forEach(function (key) {
+        // console.log(key+"="+c[key] +"=>"+ch);
+        if (tmp[key] == null) {
+          ch = false;
+          key = false;
+        }
+      });
+      return ch;
+    },
       destroy: async function(tmp) {
 
          if (confirm("แน่ใจใช่ไหมว่าต้องการที่จะลบข้อมูล")) {

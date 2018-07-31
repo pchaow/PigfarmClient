@@ -195,14 +195,12 @@
       },
       checkNull: function(tmp) {
         var ch = true;
-        Object.keys(tmp).forEach(function(key) {
-          // console.log(key+"="+c[key] +"=>"+ch);
+        Object.keys(tmp).forEach(function(key) { 
           if (tmp[key] == null) {
             ch = false;
             key = false;
           }
-        });
-        console.log(ch);
+        }); 
         return ch;
       },
       destroy: async function(tmp) {
@@ -222,30 +220,32 @@
         this.setData.pig_id = this.id;
         this.setData.pig_cycle_id = this.pig.cycles[this.cycle].id;
         let check = this.$store.dispatch("cycles/checkNull", this.setData);
-        if (check._v) {
+        if (check) {
           await this.$store.dispatch("breeder/update", this.setData);
 
           this.load();
           this.getData();
+              this.dialogClose();
         } else {
           alert('กรุณาระบุข้อมูลให้ครบ');
         }
-        this.dialogClose();
+    
 
       },
       save: async function() {
         this.setData.pig_id = this.id;
         this.setData.pig_cycle_id = this.pig.cycles[this.cycle].id;
-        let check = this.$store.dispatch("cycles/checkNull", this.setData);
-        if (check._v) {
+        let check = this.checkNull(this.setData);
+        if (check) {
           await this.$store.dispatch("breeder/save", this.setData);
           this.dialog = false;
           this.load();
           this.getData();
+           this.dialogClose();
         } else {
           alert('กรุณาระบุข้อมูลให้ครบ');
         }
-        this.dialogClose();
+     
 
       },
       getData: async function() {
@@ -253,6 +253,7 @@
         this.datas = this.pig.cycles[this.cycle].breeders;
       },
        preLoad(){
+           this.load();
         this.datas = this.pig.cycles[this.cycle].birth;
       },
       load: async function() {

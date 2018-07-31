@@ -216,10 +216,23 @@
       pigCount() {
         return this.setData.pig_count;
       },
-      avgCal() {
+      
+       avgCal() {
+        if(this.setData.pig_count < this.tmp_weight.length){ 
+          let i_setdata = [];
+            for(var i=0; i<this.setData.pig_count;i++){
+              i_setdata[i] = this.tmp_weight[i];
+            }
+             let i_tmp = this.$store.dispatch("cycles/calAvg", i_setdata);
+          
+             this.setData.pig_weight_avg = this.avg.toFixed(2);
+             this.setData.pig_weight = i_setdata.toString();
+        }else{
         let i_tmp = this.$store.dispatch("cycles/calAvg", this.tmp_weight);
         this.setData.pig_weight_avg = this.avg.toFixed(2);
+        }
       },
+
       dialogClose() {
         this.dialog = false;
         this.updateGet = false;
@@ -243,12 +256,11 @@
         var ch = true;
         Object.keys(tmp).forEach(function(key) {
           // console.log(key+"="+c[key] +"=>"+ch);
-          if (tmp[key] == null) {
+          if (tmp[key] == null) { 
             ch = false;
             key = false;
           }
-        });
-        console.log(ch);
+        }); 
         return ch;
       },
       destroy: async function(tmp) {
@@ -262,44 +274,58 @@
       updateOpen: async function(tmp) {
         this.updateGet = true;
         this.dialog = true;
-        this.setData = tmp;
-
+        this.setData = tmp; 
         let i_tmp = tmp.pig_weight.split(",");
         this.setData.pig_count = i_tmp.length;
         console.log(i_tmp);
         this.tmp_weight = i_tmp;
       },
       update: async function() {
+     
+  if(this.setData.pig_count < this.tmp_weight.length){
+          let i_setdata = [];
+            for(var i=0; i<this.setData.pig_count;i++){
+              i_setdata[i] = this.tmp_weight[i];
+            }
+              let i_tmp = this.$store.dispatch("cycles/calAvg", i_setdata);
+             this.setData.pig_weight_avg = this.avg.toFixed(2);
+             this.setData.pig_weight = i_setdata.toString();
+        }else{
+            this.setData.pig_weight = this.tmp_weight.toString();
+        }
 
         this.setData.pig_id = this.id;
         this.setData.pig_cycle_id = this.pig.cycles[this.cycle].id;
         let check = this.$store.dispatch("cycles/checkNull", this.setData);
-        if (check._v) {
+        if (check) {
           await this.$store.dispatch("feed/update", this.setData);
           this.load();
           this.getData();
-          this.tmp_weight = [];
+          this.tmp_weight = []; 
+               this.dialogClose();
+               this.preLoad();
         } else {
           alert('กรุณาระบุข้อมูลให้ครบ');
         }
-        this.dialogClose();
+   
 
       },
       save: async function() {
         this.setData.pig_weight = this.tmp_weight.toString();
         this.setData.pig_id = this.id;
         this.setData.pig_cycle_id = this.pig.cycles[this.cycle].id;
-        let check = this.$store.dispatch("cycles/checkNull", this.setData);
-        if (check._v) {
+        let check = this.checkNull(this.setData);
+        if (check) {
           await this.$store.dispatch("feed/save", this.setData);
           this.dialog = false;
           this.tmp_weight = [];
           this.load();
           this.getData();
+                  this.dialogClose();
         } else {
           alert('กรุณาระบุข้อมูลให้ครบ');
         }
-        this.dialogClose();
+
           this.setData = this.preData;
       },
       getData: async function() {

@@ -18,8 +18,8 @@ export default {
 
   },
   actions: {
-    checkNull: async function ({state}, tmp)  {
-      var ch = true;
+    checkNull (tmp)  {
+     /* var ch = true;
       Object.keys(tmp).forEach(function (key) {
         // console.log(key+"="+c[key] +"=>"+ch);
         if (tmp[key] == null) {
@@ -28,7 +28,8 @@ export default {
         }
       });
 
-      return ch;
+      return ch;*/
+      return true;
     },
 
     calAvg({state}, tmp)  {

@@ -74,9 +74,9 @@
               </v-dialog>
               <h4> จำนวนหมูทั้งหมด {{pigCount()}}</h4>
               <v-text-field v-model.number="setData.life" label="มีชีวิต"></v-text-field>
-              <v-text-field v-model.number="setData.dead" label="ตาย"></v-text-field>
-              <v-text-field v-model.number="setData.mummy" label="มัมมี่"></v-text-field>
-              <v-text-field v-model.number="setData.deformed" label="พิการ"></v-text-field>
+              <v-text-field v-model="setData.dead" label="ตาย"></v-text-field>
+              <v-text-field v-model="setData.mummy" label="มัมมี่"></v-text-field>
+              <v-text-field v-model="setData.deformed" label="พิการ"></v-text-field>
               <v-text-field readonly v-model="setData.pig_weight_avg" label="น้ำหนักเฉลีย"></v-text-field>
             </v-flex>
             <v-flex xs6 v-if="setData.life" class="mrl-10 pd-10 blueONblue">
@@ -156,16 +156,24 @@
       spitting(tmp){
         return tmp.split(",");
       },      pigCount() {
-        if (this.setData.life && this.setData.dead && this.setData.mummy && this.setData.deformed) {
-          this.setData.pig_count = this.setData.life + this.setData.dead + this.setData.mummy + this.setData.deformed;
+          this.setData.pig_count = this.setData.life + Number(this.setData.dead) + Number(this.setData.mummy) + Number(this.setData.deformed);
           return this.setData.pig_count;
-        } else {
-          return 0;
-        }
+         
       },
       avgCal() {
+        if(this.setData.life < this.tmp_weight.length){ 
+          let i_setdata = [];
+            for(var i=0; i<this.setData.life;i++){
+              i_setdata[i] = this.tmp_weight[i];
+            }
+             let i_tmp = this.$store.dispatch("cycles/calAvg", i_setdata);
+          
+             this.setData.pig_weight_avg = this.avg.toFixed(2);
+             this.setData.pig_weight = i_setdata.toString();
+        }else{
         let i_tmp = this.$store.dispatch("cycles/calAvg", this.tmp_weight);
         this.setData.pig_weight_avg = this.avg.toFixed(2);
+        }
       },
       dialogClose() {
         this.dialog = false;
@@ -200,14 +208,12 @@
       },
       checkNull: function(tmp) {
         var ch = true;
-        Object.keys(tmp).forEach(function(key) {
-          // console.log(key+"="+c[key] +"=>"+ch);
-          if (tmp[key] == null) {
+        Object.keys(tmp).forEach(function(key) { 
+          if (tmp[key] == null ) { 
             ch = false;
-            key = false;
+            key = false; 
           }
-        });
-        console.log(ch);
+        }); 
         return ch;
       },
       destroy: async function(tmp) {
@@ -218,45 +224,60 @@
           this.getData();
         }
       },
+     
       updateOpen: async function(tmp) {
+         this.pigCount();
         this.updateGet = true;
         this.dialog = true;
         this.setData = tmp;
         let i_tmp = tmp.pig_weight.split(",");
         console.log(i_tmp);
         this.tmp_weight = i_tmp;
+         
       },
       update: async function() {
-
+            this.pigCount();
         this.setData.pig_id = this.id;
         this.setData.pig_cycle_id = this.pig.cycles[this.cycle].id;
+        if(this.setData.life < this.tmp_weight.length){
+          let i_setdata = [];
+            for(var i=0; i<this.setData.life;i++){
+              i_setdata[i] = this.tmp_weight[i];
+            }
+              let i_tmp = this.$store.dispatch("cycles/calAvg", i_setdata);
+             this.setData.pig_weight_avg = this.avg.toFixed(2);
+             this.setData.pig_weight = i_setdata.toString();
+        }else{
+            this.setData.pig_weight = this.tmp_weight.toString();
+        }
+    
         let check = this.$store.dispatch("cycles/checkNull", this.setData);
-        if (check._v) {
+        if (check) {
           await this.$store.dispatch("birth/update", this.setData);
           this.load();
           this.getData();
            this.tmp_weight = [];
+           this.dialogClose();
         } else {
           alert('กรุณาระบุข้อมูลให้ครบ');
         }
-        this.dialogClose();
-
       },
       save: async function() {
         this.setData.pig_weight = this.tmp_weight.toString();
         this.setData.pig_id = this.id;
         this.setData.pig_cycle_id = this.pig.cycles[this.cycle].id;
-        let check = this.$store.dispatch("cycles/checkNull", this.setData);
-        if (check._v) {
+      let check = this.checkNull(this.setData);
+        if (check) {
           await this.$store.dispatch("birth/save", this.setData);
           this.dialog = false;
            this.tmp_weight = [];
           this.load();
           this.getData();
+          this.dialogClose();
         } else {
           alert('กรุณาระบุข้อมูลให้ครบ');
         }
-        this.dialogClose();
+        
 
       },
       getData: async function() {
