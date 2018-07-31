@@ -8,6 +8,17 @@ export default {
 
   },
   actions: {
+    gravid: async function ({state,dispatch}, x) {
+      console.log(x);
+      axios
+      .post("/api/farm/pigs/gravid",x)
+      .then(function(response) {
+        alert('บันทึกข้อมูลสำเร็จ');
+      })
+      .catch(function(error) {
+        dispatch("error/setError", error.response.data, {root: true});
+      });
+    },
     update: async function ({state, commit, dispatch}, form) {
       let r = await axios.put("/api/farm/pigs/breeder/" + form.id, form)
           .then((r) => {

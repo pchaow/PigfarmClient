@@ -73,11 +73,11 @@
                 </v-date-picker>
               </v-dialog>
               <h4> จำนวนหมูทั้งหมด {{pigCount()}}</h4>
-              <v-text-field v-model.number="setData.life" label="มีชีวิต"></v-text-field>
-              <v-text-field v-model="setData.dead" label="ตาย"></v-text-field>
-              <v-text-field v-model="setData.mummy" label="มัมมี่"></v-text-field>
-              <v-text-field v-model="setData.deformed" label="พิการ"></v-text-field>
-              <v-text-field readonly v-model="setData.pig_weight_avg" label="น้ำหนักเฉลีย"></v-text-field>
+              <v-text-field mask="###" @blur="lifeNotNull()"   type="tel" value="0" v-model.number="setData.life" label="มีชีวิต"></v-text-field>
+              <v-text-field mask="###" @blur="deadNotNull()" type="tel" v-model="setData.dead" label="ตาย"></v-text-field>
+              <v-text-field mask="###" @blur="mummyNotNull()"  type="tel" v-model="setData.mummy" label="มัมมี่"></v-text-field>
+              <v-text-field mask="###"  @blur="deformedNotNull()" type="tel" v-model="setData.deformed" label="พิการ"></v-text-field>
+              <v-text-field  readonly v-model="setData.pig_weight_avg" label="น้ำหนักเฉลีย"></v-text-field>
             </v-flex>
             <v-flex xs6 v-if="setData.life" class="mrl-10 pd-10 blueONblue">
               <div v-for="x in setData.life">
@@ -118,11 +118,11 @@
           pig_id: null,
           pig_cycle_id: null,
           birth_date: null,
-          pig_count: null,
-          life: null,
-          dead: null,
-          mummy: null,
-          deformed: null,
+          pig_count: 0,
+          life: 0,
+          dead: 0,
+          mummy: 0,
+          deformed: 0,
           pig_weight: null,
           pig_weight_avg: null,
         },
@@ -130,11 +130,11 @@
           pig_id: null,
           pig_cycle_id: null,
           birth_date: null,
-          pig_count: null,
-          life: null,
-          dead: null,
-          mummy: null,
-          deformed: null,
+          pig_count: 0,
+          life: 0,
+          dead: 0,
+          mummy: 0,
+          deformed: 0,
           pig_weight: null,
           pig_weight_avg: null,
         }
@@ -153,6 +153,12 @@
       })
     },
     methods: {
+     
+     lifeNotNull(){if(this.setData.life == '')this.setData.life = 0;},
+     deadNotNull(){if(this.setData.dead == '')this.setData.dead = 0;},
+     mummyNotNull(){if(this.setData.mummy == '')this.setData.mummy = 0;},
+     deformedNotNull(){if(this.setData.deformed == '')this.setData.deformed = 0;}, 
+      
       spitting(tmp){
         return tmp.split(",");
       },      pigCount() {

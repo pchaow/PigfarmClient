@@ -7,7 +7,6 @@
       <v-btn class="blueONblue" dark @click="dialog=true">
         <v-icon>mdi-plus-circle</v-icon>เพิ่มข้อมูล</v-btn>
 
-      <h3>ลูกของตนเอง</h3>
       <div v-for="brd,index in datas" class="pd-12">
         <div class="card-border violet pd-10">
           <h3 class="blx nm pd-10">

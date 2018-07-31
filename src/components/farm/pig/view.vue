@@ -67,8 +67,8 @@
                     </v-tab>
                 </div>
                 <v-tab-item v-for="cycle in form.cycles" :key="cycle.id" lazy>
-                    <v-stepper v-model="pigStep" vertical>
-                        <v-stepper-step :editable="i_step >0" :complete="pigStep > 1" step="1">{{text.breeder}}
+                    <v-stepper v-model="pig.cycles[active].complete" vertical>
+                        <v-stepper-step editable :complete="pig.cycles[active].complete > 1" step="1">{{text.breeder}}
                         </v-stepper-step>
                         <v-stepper-items>
                             <v-stepper-content step="1" active>
@@ -78,7 +78,7 @@
 
 
                             </v-stepper-content>
-                            <v-stepper-step :editable="i_step >1" :complete="pigStep > 2" step="2">{{text.birth}}
+                            <v-stepper-step editable :complete="pig.cycles[active].complete  > 2" step="2">{{text.birth}}
                             </v-stepper-step>
                             <v-stepper-content step="2">
                                 <v-layout row>
@@ -87,13 +87,13 @@
                                 </v-layout>
 
                             </v-stepper-content>
-                            <v-stepper-step :editable="i_step >2" :complete="pigStep > 3" step="3">{{text.feed}}
+                            <v-stepper-step editable :complete="pig.cycles[active].complete  > 3" step="3">{{text.feed}}
                             </v-stepper-step>
                             <v-stepper-content step="3">
                                 <Feed :id="pig_id" :cycle="active"></Feed>
                                 <Feedout :id="pig_id" :cycle="active"></Feedout>
                             </v-stepper-content>
-                            <v-stepper-step :editable="i_step >3" step="4">{{text.milk}}</v-stepper-step>
+                            <v-stepper-step editable :complete="pig.cycles[active].complete  > 4" step="4">{{text.milk}}</v-stepper-step>
                             <v-stepper-content step="4">
                                 <Milk :id="pig_id" :cycle="active"></Milk>
                             </v-stepper-content>
