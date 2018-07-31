@@ -47,6 +47,10 @@
                                 <label>เต้านม</label>
                                 <div>{{form.left_breast}}/{{form.right_breast}}</div>
                             </v-flex>
+                            <v-flex>
+                                <label>สถานะ</label>
+                                <div>{{form.status? form.status.display_name : '-'}}</div>
+                            </v-flex>
                         </v-layout>
                     </v-container>
                 </v-card-text>
