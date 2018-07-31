@@ -30,7 +30,7 @@
                         hide-actions>
 
                     <template slot="items" slot-scope="props">
-                        <td> <v-checkbox :label="asd" :value="props.item.pig_id" v-model="pigAdd"></v-checkbox></td>    
+                        <td> <v-checkbox :label="asd" :value="props.item.pig_id" v-model="pigAdd"></v-checkbox></td>
                         <td>{{props.item.pig_id}}</td>
                         <td>{{props.item.pig_number}}</td>
                         <td>{{props.item.birth_date}}</td>
@@ -42,7 +42,7 @@
                             <v-btn icon class="mx-0" :to="{ name: 'pig-view', params: { id: props.item.id }}">
                                 <v-icon color="primary">mdi-eye</v-icon>
                             </v-btn>
-                            
+
                             <v-btn icon class="mx-0" :to="{ name: 'pig-edit', params: { id: props.item.id }}">
                                 <v-icon color="teal">edit</v-icon>
                             </v-btn>
@@ -75,12 +75,13 @@
 
     import {mapGetters, mapActions, mapState} from 'vuex'
     import Base from '@/components/Base'
-   
- 
+
+
 
     export default {
         extends: Base,
         data: () => ({
+          asd:'',
                pigAdd:[],
         }),
         computed: {
@@ -95,7 +96,7 @@
         methods: {
             qrPass(){
                     this.$store.dispatch('cycles/qrPass', this.pigAdd);
-                      
+
 
             },
             changePage: function (page) {

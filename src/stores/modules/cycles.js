@@ -1,9 +1,15 @@
+
 export default {
   namespaced: true,
   state: {
+    pigAvg:0,
+    pigData:[],
       test:null,
       breederData:null,
-      qr:null
+      qr:null,
+      form: {
+        with: ["cycles", "cycles.breeders","cycles.birth","cycles.milk","cycles.vaccine","cycles.feed","cycles.feedout"]
+      }
   },
   mutations: {
       show: function (state) {
@@ -12,6 +18,59 @@ export default {
 
   },
   actions: {
+    checkNull (tmp)  {
+     /* var ch = true;
+      Object.keys(tmp).forEach(function (key) {
+        // console.log(key+"="+c[key] +"=>"+ch);
+        if (tmp[key] == null) {
+          ch = false;
+          key = false;
+        }
+      });
+
+      return ch;*/
+      return true;
+    },
+
+    calAvg({state}, tmp)  {
+      state.pigAvg = 0;
+      var x = 0;
+      var pig = tmp.length;
+
+      for (var i = 0; i < tmp.length; i++) {
+        x += Number(tmp[i]);
+
+      }
+      state.pigAvg = x / pig;
+
+    },
+    setAvg({state}, tmp){
+      state.pigAvg = tmp
+    },
+    goNull: async function ({state}, tmp)  {
+
+      Object.keys(tmp).forEach(function (key) {
+        // console.log(key+"="+c[key] +"=>"+ch);
+        tmp[key] = null;
+      });
+
+      return tmp;
+    },
+
+    getById: async function ({state, dispatch, commit}, id) {
+
+      let result = await axios.get("/api/farm/pigs/" + id, {
+          params: state.form
+      }).then((r) => {
+          state.pigData =  r.data;
+      }).catch((e) => {
+
+          state.pigData =  null;
+      });
+
+      return result;
+  },
+
     show: function ({state},a) {
       state.test = "helloWorld";
       console.log(a)
@@ -19,127 +78,109 @@ export default {
 
   saveBreeder:async function({state},data){
     axios
-        .post("/api/save.breeder", data)
+        .post("/api/farm/pigs/breeder", data)
         .then(function(response) {
-          alert('บันทึกข้อมูลสำเร็จ');
+         // alert('บันทึกข้อมูลสำเร็จ');
         })
         .catch(function(error) {
           alert(error);
         });
   },
-  getCyclesData:async function({state},data){
-    var datax = null;
-    await axios.get("/api/getcycledata?pid="+data.pigId+"&pcy="+data.cycleSequence)
-    .then(response => {
 
-      datax = response.data;
-  }).catch(e => { });
-  return datax;
+  deleteBreeder:async function({state},id){
+    let result = await axios.delete('/api/farm/pigs/breeder/' + id)
+        .then((r) => {
+            return r.data
+        }).catch((e) => {
+            dispatch("error/setError", error.response.data, {root: true});
+        });
+
   },
-  getBreederData: async function({state},data){
-   // console.log('use'+"/api/breederData?pid="+data.pigId+"&pcy="+data.cycleSequence);
-    var datax = null;
 
-    await axios.get("/api/breederData?pid="+data.pigId+"&pcy="+data.cycleSequence)
-          .then(response => {
+  saveBirth:async function({state},data){
+    axios
+    .post("/api/farm/pigs/birth", data)
+    .then(function(response) {
+      alert('บันทึกข้อมูลสำเร็จ');
+    })
+    .catch(function(error) {
+      alert(error);
+    });
+  },
+  deleteBirth:async function({state},id){
+    let result = await axios.delete('/api/farm/pigs/birth/' + id)
+    .then((r) => {
+        return r.data
+    }).catch((e) => {
+        dispatch("error/setError", error.response.data, {root: true});
+    });
+  },
 
-            datax = response.data;
-        }).catch(e => { });
-        return datax;
-    },
+  saveFeed:async function({state},data){
+    axios
+    .post("/api/farm/pigs/feed", data)
+    .then(function(response) {
+      alert('บันทึกข้อมูลสำเร็จ');
+    })
+    .catch(function(error) {
+      alert(error);
+    });
+  },
+  deleteFeed:async function({state},id){
+    let result = await axios.delete('/api/farm/pigs/feed/' + id)
+    .then((r) => {
+        return r.data
+    }).catch((e) => {
+        dispatch("error/setError", error.response.data, {root: true});
+    });
+  },
 
-    saveBirth:async function({state},data){
-      data.weight =  data.weight.toFixed(2);
-      axios
-          .post("/api/save.birth", data)
-          .then(function(response) {
-            alert('บันทึกข้อมูลสำเร็จ');
-          })
-          .catch(function(error) {
-            alert(error);
-          });
-    },
-    saveMilk:async function({state},data){
-      data.weight =  data.weight.toFixed(2);
-      axios
-          .post("/api/save.milk", data)
-          .then(function(response) {
-            alert('บันทึกข้อมูลสำเร็จ');
-          })
-          .catch(function(error) {
-            alert(error);
-          });
-    },
-    saveVaccine:async function({state},data){
-      axios
-          .post("/api/save.vaccine", data)
-          .then(function(response) {
-            alert('บันทึกข้อมูลสำเร็จ');
-          })
-          .catch(function(error) {
-            alert(error);
-          });
-    },
+  saveFeedOut:async function({state},data){
+    axios
+    .post("/api/farm/pigs/feedout", data)
+    .then(function(response) {
+      alert('บันทึกข้อมูลสำเร็จ');
+    })
+    .catch(function(error) {
+      alert(error);
+    });
+  },
+  deleteFeedOut:async function({state},id){
+    let result = await axios.delete('/api/farm/pigs/feedout/' + id)
+    .then((r) => {
+        return r.data
+    }).catch((e) => {
+        dispatch("error/setError", error.response.data, {root: true});
+    });
+  },
 
-    getBirthData: async function({state},data){
-      console.log('use'+"/api/birthData?pid="+data.pigId+"&pcy="+data.cycleSequence);
-      var datax = null;
-      await axios.get("/api/birthData?pid="+data.pigId+"&pcy="+data.cycleSequence)
-            .then(response => {
-              datax = response.data;
-          }).catch(e => { });
-          return datax;
-      },
+  saveMilk:async function({state},data){
+    axios
+    .post("/api/farm/pigs/milk", data)
+    .then(function(response) {
+      alert('บันทึกข้อมูลสำเร็จ');
+    })
+    .catch(function(error) {
+      alert(error);
+    });
+  },
+  deleteMilk:async function({state},id){
+    let result = await axios.delete('/api/farm/pigs/milk/' + id)
+    .then((r) => {
+        return r.data
+    }).catch((e) => {
+        dispatch("error/setError", error.response.data, {root: true});
+    });
+  },
 
-      getMilkData: async function({state},data){
-        console.log('use'+"/api/milkData?pid="+data.pigId+"&pcy="+data.cycleSequence);
-        var datax = null;
-        await axios.get("/api/milkData?pid="+data.pigId+"&pcy="+data.cycleSequence)
-              .then(response => {
 
-                datax = response.data;
-            }).catch(e => { });
-            return datax;
-        },
-        getVaccineX: async function({state}){
-         var datax = null;
-          await axios.get("/api/getchoice?parent=VACCINE")
-                .then(response => {
-                  datax = response.data;
-              }).catch(e => { });
-              return datax;
-          },
-          getMedicineX: async function({state}){
-            var datax = null;
-             await axios.get("/api/getchoice?parent=MEDICINE")
-                   .then(response => {
-                     datax = response.data;
-                 }).catch(e => { });
-                 return datax;
-             },
 
-          getVaccineData: async function({state},data){
-            console.log('use'+"/api/getVaccineData?pid="+data.pigId+"&pcy="+data.cycleSequence);
-            var datax = null;
-            await axios.get("/api/getVaccineData?pid="+data.pigId+"&pcy="+data.cycleSequence)
-                  .then(response => {
 
-                    datax = response.data;
-                }).catch(e => { });
-                return datax;
-            },
-            deleteData: async function({state},data){
-             
-              var datax = null;
-              await axios.get("/api/deleteData?type="+data.deleteType+"&id="+data.deleteId)
-                    .then(response => {
-                      alert('ลบข้อมูลสำเร็จ');
-                  });
-              },
-              qrPass: async function({state},data){
+
+  qrPass: async function({state},data){
                   this.qr = data;
-               
-                 
+
+
                 },
                 qrGen: async function({state}){
                   var data = this.qr;
@@ -150,6 +191,8 @@ export default {
 
   },
   getters: {
-    testx: state => state.cycleData
+    testx: state => state.cycleData,
+    PigData:state=>state.PigData
+
   },
 };
