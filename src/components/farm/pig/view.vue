@@ -63,11 +63,11 @@
             <v-tabs v-if="form.cycles.length > 0" v-model="active" color="primary" dark slider-color="yellow">
                 <div v-for="n in form.cycles" :key="n.id">
                     <v-tab @click.native="cycleStepChange(n.cycle_sequence)" ripple>
-                        รอบการผสมที่ {{n.cycle_sequence}}
+                        ลำดับท้องที่ {{n.cycle_sequence}}
                     </v-tab>
                 </div>
                 <v-tab-item v-for="cycle in form.cycles" :key="cycle.id" lazy>
-                    <v-stepper v-model="pig.cycles[active].complete" vertical>
+                    <v-stepper v-model="pigStep" vertical>
                         <v-stepper-step editable :complete="pig.cycles[active].complete > 1" step="1">{{text.breeder}}
                         </v-stepper-step>
                         <v-stepper-items>
@@ -82,15 +82,18 @@
                             </v-stepper-step>
                             <v-stepper-content step="2">
                                 <v-layout row>
-
+ 
                                     <Birth :id="pig_id" :cycle="active"></Birth>
                                 </v-layout>
 
                             </v-stepper-content>
-                            <v-stepper-step editable :complete="pig.cycles[active].complete  > 3" step="3">{{text.feed}}
+                          <v-stepper-step editable :complete="pig.cycles[active].complete  > 3" step="3">{{text.feed}}
                             </v-stepper-step>
-                            <v-stepper-content step="3">
-                                <Feed :id="pig_id" :cycle="active"></Feed>
+                            <v-stepper-content  step="3">
+                       
+                                      <Feed :id="pig_id" :cycle="active"></Feed>
+                                
+                               
                                 <Feedout :id="pig_id" :cycle="active"></Feedout>
                             </v-stepper-content>
                             <v-stepper-step editable :complete="pig.cycles[active].complete  > 4" step="4">{{text.milk}}</v-stepper-step>
@@ -148,7 +151,7 @@
                 date: "",
                 step: 0,
                 text: {
-                    head: "เพิ่มรอบการผสมใหม่",
+                    head: "เพิ่มลำดับท้องใหม่",
                     confirm: "คุณแน่ใจหรือไม่ ว่าต้องการเพิ่มรอบการผสมใหม่",
                     breeder: "การผสม",
                     birth: "การคลอด",
@@ -163,6 +166,7 @@
             })
         },
         methods: {
+         
             cycleStepChange(step) {
                 this.pig_sequence = step;
                 this.pigStep = this.cyclesData[step - 1].complete;

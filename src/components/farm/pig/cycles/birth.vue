@@ -96,6 +96,7 @@
 
 <script>
   import Vaccine from "@/components/farm/pig/cycles/vaccine";
+ 
   import {
     mapGetters,
     mapActions,
@@ -103,7 +104,7 @@
   } from "vuex";
   export default {
     components: {
-      Vaccine
+      Vaccine 
     },
     data() {
       return {
@@ -158,7 +159,10 @@
      deadNotNull(){if(this.setData.dead == '')this.setData.dead = 0;},
      mummyNotNull(){if(this.setData.mummy == '')this.setData.mummy = 0;},
      deformedNotNull(){if(this.setData.deformed == '')this.setData.deformed = 0;}, 
-      
+          clearData(){
+          this.setData= new Object();
+        this.setData = this.preData;
+      },
       spitting(tmp){
         return tmp.split(",");
       },      pigCount() {
@@ -184,7 +188,7 @@
       dialogClose() {
         this.dialog = false;
         this.updateGet = false;
-        this.setData = this.preData;
+        this.clearData();
       },
       dateCancle() {
         this.tmp = '';
@@ -280,6 +284,7 @@
           this.load();
           this.getData();
           this.dialogClose();
+         
         } else {
           alert('กรุณาระบุข้อมูลให้ครบ');
         }

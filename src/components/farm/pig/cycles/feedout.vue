@@ -1,7 +1,7 @@
 <template>
   <v-layout row>
 
-    <v-flex xs12>
+    <v-flex xs6>
       <h2>
         <v-icon>mdi-eyedropper</v-icon>จำหน่ายออก</h2>
       <v-btn class="blueONblue" dark @click="dialog=true">
@@ -9,14 +9,14 @@
 
       <div v-for="brd,index in datas">
 
-          <div class="card-border violet pd-10 mrt-12">
+          <div class="card-border redb pd-10 mrt-12">
             <h3 class="blx nm pd-10">
               <v-icon class="blx">mdi-calendar</v-icon>
               วันที่: {{brd.feed_date}}
             </h3>
-            <h3 class="nm pdl-10" style="color: #00cc00;">
-              <b>จำนวนหมูทั้งหมด : {{brd.pig_count}} ตัว</b> </h3>
-            <h3 class="nm pdl-10" style="color: green;"><b>สาเหตุ:</b> {{brd.feed_type}} </h3>
+            <h3 class="nm pdl-10" style="color: red;">
+              <b>จำนวนหมูทั้งหมด : -{{brd.pig_count}} ตัว</b> </h3>
+            <h3 class="nm pdl-10" style="color: red;"><b>สาเหตุ:</b> {{brd.feed_type}} </h3>
 
 
             <v-btn @click="updateOpen(brd)" style="margin-top:-100px; float:right;" small color="orange" fab dark>
@@ -134,6 +134,10 @@
       })
     },
     methods: {
+          clearData(){
+          this.setData= new Object();
+        this.setData = this.preData;
+      },
       spitting(tmp) {
         return tmp.split(",");
       },
@@ -147,7 +151,7 @@
       dialogClose() {
         this.dialog = false;
         this.updateGet = false;
-        this.setData = this.preData;
+        this.clearData();
       },
       dateCancle() {
         this.tmp = '';

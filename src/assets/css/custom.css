@@ -252,6 +252,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e8069', end
 .violet{
   border-left-color: blueviolet!important;
 }
+.redb{
+  border-left-color: red!important;
+}
 
 .pinkx{
   border-left-color: #C71585!important;

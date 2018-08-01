@@ -1,14 +1,12 @@
 <template>
   <v-layout row>
-
     <v-flex xs6>
       <h2>
         <v-icon>mdi-eyedropper</v-icon>การเลี้ยงลูก</h2>
       <v-btn class="blueONblue" dark @click="dialog=true">
         <v-icon>mdi-plus-circle</v-icon>เพิ่มข้อมูล</v-btn>
-
       <h3>ลูกของตนเอง</h3>
-      <div v-for="brd,index in datas" class="pd-12">
+      <div v-for="brd,index in pig.cycles[cycle].birth" class="pd-12">
         <div class="card-border violet pd-10">
           <h3 class="blx nm pd-10">
             <v-icon class="blx">mdi-calendar</v-icon>
@@ -25,7 +23,6 @@
           <div v-for="wp,i in spitting(brd.pig_weight)">
             <h4 class="nm pdl-10" style="color: green;"><b>น้ำหนักหมูตัวที่ {{i+1}} :</b> {{wp}} กิโลกรัม</h4>
           </div>
-
         </div>
       </div>
       <h3>รับเลี้ยง</h3>
@@ -43,10 +40,9 @@
             <h3 class="nm pdl-10" style="color: #00cc00;">
               <b>จำนวนหมูทั้งหมด : {{brd.pig_count}} ตัว</b> </h3>
             <h3 class="nm pdl-10" style="color: green;"><b>น้ำหนักเฉลี่ย:</b> {{brd.pig_weight_avg}} กิโลกรัม</h3>
-            <div v-for="wp,i in spitting(brd.pig_weight)">
-              <h4 class="nm pdl-10" style="color: green;"><b>น้ำหนักหมูตัวที่ {{i+1}} :</b> {{wp}} กิโลกรัม</h4>
-            </div>
-
+       <p class="nm pdl-10">หมายเตุ : 
+              {{brd.pig_remark}}
+            </p>
             <v-btn @click="updateOpen(brd)" style="margin-top:-100px; float:right;" small color="orange" fab dark>
               <v-icon>mdi-calendar-edit</v-icon>
             </v-btn>
@@ -56,11 +52,10 @@
           </div>
         </div>
       </div>
-
       <h3>ฝากเลี้ยง</h3>
       <div v-for="brd,index in i_datas">
         <div v-if="brd.feed_type == 2" class="pd-12">
-          <div class="card-border violet pd-10">
+          <div class="card-border redb pd-10">
             <h2 class="blx nm pd-10">
               <v-icon class="blx">mdi-pig</v-icon>
               ไอดีแม่ใหม่: {{brd.pig_id_new}}
@@ -69,13 +64,12 @@
               <v-icon class="blx">mdi-calendar</v-icon>
               วันที่: {{brd.feed_date}}
             </h3>
-            <h3 class="nm pdl-10" style="color: #00cc00;">
-              <b>จำนวนหมูทั้งหมด : {{brd.pig_count}} ตัว</b> </h3>
+            <h3 class="nm pdl-10" style="color: red;">
+              <b>จำนวนหมูทั้งหมด :-{{brd.pig_count}} ตัว</b> </h3>
             <h3 class="nm pdl-10" style="color: green;"><b>น้ำหนักเฉลี่ย:</b> {{brd.pig_weight_avg}} กิโลกรัม</h3>
-            <div v-for="wp,i in spitting(brd.pig_weight)">
-              <h4 class="nm pdl-10" style="color: green;"><b>น้ำหนักหมูตัวที่ {{i+1}} :</b> {{wp}} กิโลกรัม</h4>
-            </div>
-
+           <p class="nm pdl-10">หมายเหตุ :
+              {{brd.pig_remark}}
+            </p>
             <v-btn @click="updateOpen(brd)" style="margin-top:-100px; float:right;" small color="orange" fab dark>
               <v-icon>mdi-calendar-edit</v-icon>
             </v-btn>
@@ -85,12 +79,10 @@
           </div>
         </div>
       </div>
-
     </v-flex>
     <v-flex xs6>
       <Vaccine :id="id" :cycle="cycle" :cycle_type="3"></Vaccine>
     </v-flex>
-
     <v-dialog v-model="dialog" scrollable persistent :overlay="false" max-width="500px" transition="dialog-transition">
       <v-card>
         <v-toolbar dark color="blueONblue">
@@ -129,23 +121,21 @@
                   <v-radio key="2" label="ฝากเลี้ยง" value="2"></v-radio>
                 </v-radio-group>
               </div>
-
               <v-text-field v-if="setData.feed_type == 1" v-model="setData.pig_id_old" label="ไอดีแม่เก่า"></v-text-field>
               <v-text-field v-if="setData.feed_type == 2" v-model="setData.pig_id_new" label="ไอดีแม่ใหม่"></v-text-field>
-
+            
               <v-text-field v-model.number="setData.pig_count" label="จำนวนลูก"></v-text-field>
-              <v-text-field readonly v-model="setData.pig_weight_avg" label="น้ำหนักเฉลีย"></v-text-field>
+              <v-text-field v-model="setData.pig_weight_avg" label="น้ำหนักเฉลีย"></v-text-field>
+              <v-textarea outline v-model="setData.pig_remark" label="หมายเหตุ"  ></v-textarea>
             </v-flex>
-            <v-flex xs6 v-if="setData.pig_count" class="mrl-10 pd-10 blueONblue">
-              <div v-for="x in setData.pig_count">
-                <v-text-field :label="'หมูตัวที่'+x" v-model="tmp_weight[x-1]"></v-text-field>
-              </div>
-              <v-btn @click="avgCal()">คำนวณค่าเฉลี่ย</v-btn>
-            </v-flex>
-
+            <!---     <v-flex xs6 v-if="setData.pig_count" class="mrl-10 pd-10 blueONblue">
+             <div v-for="x in setData.pig_count">
+                  <v-text-field :label="'หมูตัวที่'+x" v-model="tmp_weight[x-1]"></v-text-field>
+                </div>
+                <v-btn @click="avgCal()">คำนวณค่าเฉลี่ย</v-btn>
+              </v-flex> ---->
           </v-layout>
         </v-card>
-
       </v-card>
     </v-dialog>
   </v-layout>
@@ -182,6 +172,7 @@
           pig_id_new: 0,
           pig_count: null,
           pig_weight: null,
+          pig_remark: null,
           pig_weight_avg: null,
         },
         setData: {
@@ -193,6 +184,7 @@
           pig_id_new: 0,
           pig_count: null,
           pig_weight: null,
+          pig_remark: null,
           pig_weight_avg: null,
         }
         //----------TOOLS-------------//
@@ -203,40 +195,43 @@
       cycle: null
     },
     computed: {
-
       ...mapState({
         pig: state => state.cycles.pigData,
         avg: state => state.cycles.pigAvg
       })
     },
     methods: {
+      clearData() {
+        this.setData = new Object();
+        this.setData = this.preData;
+        this.tmp_weight = [];
+      },
       spitting(tmp) {
         return tmp.split(",");
       },
       pigCount() {
         return this.setData.pig_count;
       },
-      
-       avgCal() {
-        if(this.setData.pig_count < this.tmp_weight.length){ 
+      avgCal() {
+        if (this.setData.pig_count < this.tmp_weight.length) {
           let i_setdata = [];
-            for(var i=0; i<this.setData.pig_count;i++){
-              i_setdata[i] = this.tmp_weight[i];
-            }
-             let i_tmp = this.$store.dispatch("cycles/calAvg", i_setdata);
-          
-             this.setData.pig_weight_avg = this.avg.toFixed(2);
-             this.setData.pig_weight = i_setdata.toString();
-        }else{
-        let i_tmp = this.$store.dispatch("cycles/calAvg", this.tmp_weight);
-        this.setData.pig_weight_avg = this.avg.toFixed(2);
+          for (var i = 0; i < this.setData.pig_count; i++) {
+            i_setdata[i] = this.tmp_weight[i];
+          }
+          let i_tmp = this.$store.dispatch("cycles/calAvg", i_setdata);
+          this.setData.pig_weight_avg = this.avg.toFixed(2);
+          this.setData.pig_weight = i_setdata.toString();
+        } else {
+          let i_tmp = this.$store.dispatch("cycles/calAvg", this.tmp_weight);
+          this.setData.pig_weight_avg = this.avg.toFixed(2);
         }
       },
-
       dialogClose() {
         this.dialog = false;
         this.updateGet = false;
-        this.setData = this.preData;
+        this.tmp_weight = [];
+        this.setData = new Object();
+        this.clearData();
       },
       dateCancle() {
         this.tmp = '';
@@ -256,15 +251,14 @@
         var ch = true;
         Object.keys(tmp).forEach(function(key) {
           // console.log(key+"="+c[key] +"=>"+ch);
-          if (tmp[key] == null) { 
+          if (tmp[key] == null) {
             ch = false;
             key = false;
           }
-        }); 
+        });
         return ch;
       },
       destroy: async function(tmp) {
-
         if (confirm("แน่ใจใช่ไหมว่าต้องการที่จะลบข้อมูล")) {
           this.$store.dispatch("feed/destroy", tmp);
           this.load();
@@ -274,26 +268,27 @@
       updateOpen: async function(tmp) {
         this.updateGet = true;
         this.dialog = true;
-        this.setData = tmp; 
+        this.setData = tmp;
         let i_tmp = tmp.pig_weight.split(",");
         this.setData.pig_count = i_tmp.length;
         console.log(i_tmp);
         this.tmp_weight = i_tmp;
       },
       update: async function() {
-     
-  if(this.setData.pig_count < this.tmp_weight.length){
+        if (this.setData.pig_count < this.tmp_weight.length) {
           let i_setdata = [];
-            for(var i=0; i<this.setData.pig_count;i++){
-              i_setdata[i] = this.tmp_weight[i];
-            }
-              let i_tmp = this.$store.dispatch("cycles/calAvg", i_setdata);
-             this.setData.pig_weight_avg = this.avg.toFixed(2);
-             this.setData.pig_weight = i_setdata.toString();
-        }else{
-            this.setData.pig_weight = this.tmp_weight.toString();
+          for (var i = 0; i < this.setData.pig_count; i++) {
+            i_setdata[i] = this.tmp_weight[i];
+          }
+           if( this.setData.pig_remark == ''|| this.setData.pig_remark == null){
+          this.setData.pig_remark = 'ไม่มี';
         }
-
+          let i_tmp = this.$store.dispatch("cycles/calAvg", i_setdata);
+          this.setData.pig_weight_avg = this.avg.toFixed(2);
+          this.setData.pig_weight = i_setdata.toString();
+        } else {
+          this.setData.pig_weight = this.tmp_weight.toString();
+        }
         this.setData.pig_id = this.id;
         this.setData.pig_cycle_id = this.pig.cycles[this.cycle].id;
         let check = this.$store.dispatch("cycles/checkNull", this.setData);
@@ -301,18 +296,20 @@
           await this.$store.dispatch("feed/update", this.setData);
           this.load();
           this.getData();
-          this.tmp_weight = []; 
-               this.dialogClose();
-               this.preLoad();
+          this.tmp_weight = [];
+          this.dialogClose();
+          this.preLoad();
         } else {
           alert('กรุณาระบุข้อมูลให้ครบ');
         }
-   
-
       },
       save: async function() {
         this.setData.pig_weight = this.tmp_weight.toString();
         this.setData.pig_id = this.id;
+        this.setData.pig_weight = 0;
+        if( this.setData.pig_remark == null){
+          this.setData.pig_remark = 'ไม่มี';
+        }
         this.setData.pig_cycle_id = this.pig.cycles[this.cycle].id;
         let check = this.checkNull(this.setData);
         if (check) {
@@ -321,20 +318,17 @@
           this.tmp_weight = [];
           this.load();
           this.getData();
-                  this.dialogClose();
+          this.dialogClose();
         } else {
           alert('กรุณาระบุข้อมูลให้ครบ');
         }
-
-          this.setData = this.preData;
       },
       getData: async function() {
         this.load();
         this.datas = this.pig.cycles[this.cycle].birth;
         this.i_datas = this.pig.cycles[this.cycle].feed;
-
       },
-       preLoad(){
+      preLoad() {
         this.datas = this.pig.cycles[this.cycle].birth;
         this.i_datas = this.pig.cycles[this.cycle].feed;
       },
@@ -344,8 +338,13 @@
         this.i_datas = this.pig.cycles[this.cycle].feed;
       }
     },
-    mounted() {
-      this.preLoad();
+    mounted() { 
+      this.getData();
+      this.load();
+    },
+    created(){
+          this.getData();
+      this.load();
     }
   };
 </script>

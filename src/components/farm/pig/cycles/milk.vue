@@ -138,6 +138,10 @@
       })
     },
     methods: {
+          clearData(){
+          this.setData= new Object();
+        this.setData = this.preData;
+      },
       spitting(tmp) {
         return tmp.split(",");
       },
@@ -163,7 +167,7 @@
       dialogClose() {
         this.dialog = false;
         this.updateGet = false;
-        this.setData = this.preData;
+        this.clearData();
       },
       dateCancle() {
         this.tmp = '';
