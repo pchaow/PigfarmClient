@@ -230,7 +230,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebd252', end
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00cc99', endColorstr='#95c259', GradientType=1 );
 }
 .box-greenLN{
-  
 background: rgba(210,255,82,1);
 background: -moz-linear-gradient(left, rgba(210,255,82,1) 0%, rgba(255,236,140,1) 100%);
 background: -webkit-gradient(left top, right top, color-stop(0%, rgba(210,255,82,1)), color-stop(100%, rgba(255,236,140,1)));
@@ -240,6 +239,9 @@ background: -ms-linear-gradient(left, rgba(210,255,82,1) 0%, rgba(255,236,140,1)
 background: linear-gradient(to right, rgba(210,255,82,1) 0%, rgba(255,236,140,1) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ff52', endColorstr='#ffec8c', GradientType=1 );
 
+}
+.box-yellow{
+  background-color: rgb(255, 239, 10)!important;
 }
 .box-blueFX{
   

@@ -82,7 +82,7 @@
               </v-flex>
               <v-flex xs8 class="mar-top">
                 <v-dialog ref="dialogRef" persistent v-model="dialogValue" lazy full-width width="290px">
-                  <v-text-field dark slot="activator" label="วันที่ผสมพันธ์ุ" v-model="setData.breed_date" readonly></v-text-field>
+                  <v-text-field  dark slot="activator" label="วันที่ผสมพันธ์ุ" v-model="setData.breed_date" readonly></v-text-field>
                   <v-date-picker v-model="tmp" locale="th" scrollable>
                     <v-spacer></v-spacer>
                     <v-btn flat color="primary" @click="dateCancle()">Cancel</v-btn>
@@ -118,15 +118,15 @@
         </v-card>
       </v-card>
     </v-dialog>
-    <v-dialog v-model="gravidDialog" scrollable max-width="300px">
-      <v-card>
+    <v-dialog v-model="gravidDialog"  scrollable max-width="300px">
+      <v-card class="box-yellow">
         <v-card-title>
           <h2><b>เพิ่มข้อมูลการติดลูก</b></h2>
         </v-card-title>
         <v-card-text style="">
           <div v-if="gravid == 0">
             <v-dialog ref="dialogRef" persistent v-model="gravid_dialogValue" lazy full-width width="290px">
-              <v-text-field slot="activator" label="วันที่ติดลูก" v-model="gravid_date" readonly></v-text-field>
+              <v-text-field  prepend-icon="mdi-calendar" slot="activator" label="วันที่ติดลูก" v-model="gravid_date" readonly></v-text-field>
               <v-date-picker v-model="tmp" locale="th" scrollable>
                 <v-spacer></v-spacer>
                 <v-btn flat color="primary" @click="gravidDialogClose()">Cancel</v-btn>
