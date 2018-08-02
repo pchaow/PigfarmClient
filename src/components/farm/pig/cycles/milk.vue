@@ -3,7 +3,7 @@
 
     <v-flex xs6>
       <h2>
-        <v-icon>mdi-eyedropper</v-icon>การหย่านม</h2>
+        <v-icon>mdi-forward</v-icon>การหย่านม</h2>
       <v-btn class="blueONblue" dark @click="dialog=true">
         <v-icon>mdi-plus-circle</v-icon>เพิ่มข้อมูล</v-btn>
 
@@ -59,7 +59,7 @@
           <v-layout row>
             <v-flex xs>
               <v-dialog ref="dialogRef" persistent v-model="dialogValue" lazy full-width width="290px">
-                <v-text-field v-model="setData.milk_date" slot="activator" label="วันที่" readonly></v-text-field>
+                <v-text-field class="box-gr mar-top pd-20" prepend-icon="mdi-calendar" v-model="setData.milk_date" slot="activator" label="วันที่" readonly></v-text-field>
                 <v-date-picker v-model="tmp" locale="th" scrollable>
                   <v-spacer></v-spacer>
                   <v-btn flat color="primary" @click="dateCancle()">Cancel</v-btn>
@@ -67,8 +67,8 @@
                 </v-date-picker>
               </v-dialog>
 
-              <v-text-field v-model.number="setData.pig_count" label="จำนวนลูก"></v-text-field>
-              <v-text-field readonly v-model="setData.pig_weight_avg" label="น้ำหนักเฉลีย"></v-text-field>
+              <v-text-field class="box-greenFX mar-top pd-20" prepend-icon="mdi-pig"v-model.number="setData.pig_count" label="จำนวนลูก"></v-text-field>
+              <v-text-field class="box-blueFX mar-top pd-20" prepend-icon="mdi-weight" readonly v-model="setData.pig_weight_avg" label="น้ำหนักเฉลีย"></v-text-field>
             </v-flex>
             <v-flex xs6 v-if="setData.pig_count" class="mrl-10 pd-10 blueONblue">
               <div v-for="x in setData.pig_count">
@@ -140,7 +140,14 @@
     methods: {
           clearData(){
           this.setData= new Object();
-        this.setData = this.preData;
+        this.setData = {
+          pig_id: null,
+          pig_cycle_id: null,
+          milk_date: null,
+          pig_count: null,
+          pig_weight_avg: null,
+          pig_weight: null,
+        }
       },
       spitting(tmp) {
         return tmp.split(",");
@@ -167,7 +174,10 @@
       dialogClose() {
         this.dialog = false;
         this.updateGet = false;
+        this.setData= new Object();
+        this.setData = this.preData;
         this.clearData();
+        
       },
       dateCancle() {
         this.tmp = '';

@@ -3,7 +3,7 @@
 
     <v-flex xs6>
       <h2>
-        <v-icon>mdi-eyedropper</v-icon>การคลอด</h2>
+        <v-icon>mdi-freebsd</v-icon>การคลอด</h2>
       <v-btn class="blueONblue" dark @click="dialog=true">
         <v-icon>mdi-plus-circle</v-icon>เพิ่มข้อมูล</v-btn>
 
@@ -65,25 +65,29 @@
           <v-layout row>
             <v-flex xs>
               <v-dialog ref="dialogRef" persistent v-model="dialogValue" lazy full-width width="290px">
-                <v-text-field v-model="setData.birth_date" slot="activator" label="วันที่คลอด" readonly></v-text-field>
+                <v-text-field class="box-gr mar-top pd-20" prepend-icon="mdi-calendar" v-model="setData.birth_date" slot="activator" label="วันที่คลอด" readonly></v-text-field>
                 <v-date-picker v-model="tmp" locale="th" scrollable>
                   <v-spacer></v-spacer>
                   <v-btn flat color="primary" @click="dateCancle()">Cancel</v-btn>
                   <v-btn flat color="primary" @click="dateConvert()">OK</v-btn>
                 </v-date-picker>
               </v-dialog>
-              <h4> จำนวนหมูทั้งหมด {{pigCount()}}</h4>
-              <v-text-field mask="###" @blur="lifeNotNull()"   type="tel" value="0" v-model.number="setData.life" label="มีชีวิต"></v-text-field>
-              <v-text-field mask="###" @blur="deadNotNull()" type="tel" v-model="setData.dead" label="ตาย"></v-text-field>
-              <v-text-field mask="###" @blur="mummyNotNull()"  type="tel" v-model="setData.mummy" label="มัมมี่"></v-text-field>
-              <v-text-field mask="###"  @blur="deformedNotNull()" type="tel" v-model="setData.deformed" label="พิการ"></v-text-field>
-              <v-text-field  readonly v-model="setData.pig_weight_avg" label="น้ำหนักเฉลีย"></v-text-field>
+              <h3 class="box-green mar-top pd-20"><v-icon>mdi-pig</v-icon> จำนวนหมูทั้งหมด {{pigCount()}}</h3>
+             <div class="box-greenFX mar-top pd-20">
+               
+              <v-text-field  mask="###" prepend-icon="mdi-heart" @blur="lifeNotNull()"   type="tel" value="0" v-model.number="setData.life" label="มีชีวิต"></v-text-field>
+              <v-text-field mask="###" prepend-icon="mdi-heart-off" @blur="deadNotNull()" type="tel" v-model="setData.dead" label="ตาย"></v-text-field>
+              <v-text-field  mask="###" prepend-icon="mdi-heart-broken" @blur="mummyNotNull()"  type="tel" v-model="setData.mummy" label="มัมมี่"></v-text-field>
+              <v-text-field  mask="###" prepend-icon="mdi-heart-half-full"  @blur="deformedNotNull()" type="tel" v-model="setData.deformed" label="พิการ"></v-text-field>
+              
+             </div>
+              <v-text-field class="box-blue mar-top pd-20" prepend-icon="mdi-weight-kilogram"  readonly v-model="setData.pig_weight_avg" label="น้ำหนักเฉลีย"></v-text-field>
             </v-flex>
             <v-flex xs6 v-if="setData.life" class="mrl-10 pd-10 blueONblue">
               <div v-for="x in setData.life">
                 <v-text-field :label="'หมูตัวที่'+x" v-model="tmp_weight[x-1]"></v-text-field>
               </div>
-              <v-btn @click="avgCal()">คำนวณค่าเฉลี่ย</v-btn>
+              <v-btn @click="avgCal()" class="darkBg" dark> <v-icon>mdi-weight</v-icon>คำนวณค่าเฉลี่ย</v-btn>
             </v-flex>
 
           </v-layout>
@@ -126,6 +130,7 @@
           deformed: 0,
           pig_weight: null,
           pig_weight_avg: null,
+           
         },
         setData: {
           pig_id: null,
@@ -185,10 +190,27 @@
         this.setData.pig_weight_avg = this.avg.toFixed(2);
         }
       },
+      clearData(){
+        this.setData= new Object(); 
+         this.setData = {
+          pig_id: null,
+          pig_cycle_id: null,
+          birth_date: null,
+          pig_count: 0,
+          life: 0,
+          dead: 0,
+          mummy: 0,
+          deformed: 0,
+          pig_weight: null,
+          pig_weight_avg: null,
+        }
+         this.tmp_weight = [];
+      },
       dialogClose() {
         this.dialog = false;
         this.updateGet = false;
         this.clearData();
+        
       },
       dateCancle() {
         this.tmp = '';

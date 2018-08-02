@@ -50,7 +50,7 @@
         </v-toolbar>
         <v-card class="container" row wrap>
           <v-dialog ref="dialogRef" persistent v-model="dialogValue" lazy full-width width="290px">
-            <v-text-field v-model="setData.date" slot="activator" label="วันที่ให้ยาหรือวัคซีน" readonly></v-text-field>
+           <v-text-field v-model="setData.date" slot="activator" prepend-icon="mdi-calendar" label="วันที่ให้ยาหรือวัคซีน" readonly></v-text-field>
             <v-date-picker v-model="tmp" locale="th" scrollable>
               <v-spacer></v-spacer>
               <v-btn flat color="primary" @click="dateCancle()">Cancel</v-btn>
@@ -58,14 +58,14 @@
             </v-date-picker>
           </v-dialog>
 
-          <v-radio-group v-model="type">
+          <v-radio-group v-model="type" >
             <v-radio key="1" label="วัคซีน" value="VACCINE"></v-radio>
             <v-radio key="2" label="ยา" value="MEDICINE"></v-radio>
           </v-radio-group>
            
-          <v-select v-if="type=='VACCINE'" v-model="setData.display" :hint="`${selectV.name}, ${selectV.display_name}`" :items="vaccine" item-text="display_name" item-value="name" label="Select" persistent-hint return-object single-line></v-select>
-          <v-select v-if="type=='MEDICINE'" v-model="setData.display" :hint="`${selectM.name}, ${selectM.display_name}`" :items="medicine" item-text="display_name" item-value="name" label="Select" persistent-hint return-object single-line></v-select>
-          <v-text-field v-model="setData.cost" label="ราคา"></v-text-field>
+          <v-select v-if="type=='VACCINE'" prepend-icon="mdi-needle" v-model="setData.display" :hint="`${selectV.name}, ${selectV.display_name}`" :items="vaccine" item-text="display_name" item-value="name" label="Select" persistent-hint return-object single-line></v-select>
+          <v-select v-if="type=='MEDICINE'" prepend-icon="mdi-flask-outline" v-model="setData.display" :hint="`${selectM.name}, ${selectM.display_name}`" :items="medicine" item-text="display_name" item-value="name" label="Select" persistent-hint return-object single-line></v-select>
+          <v-text-field v-model="setData.cost" prepend-icon="mdi-bitcoin" label="ราคา"></v-text-field>
 
         </v-card>
 

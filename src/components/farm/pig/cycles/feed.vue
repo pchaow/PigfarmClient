@@ -2,10 +2,10 @@
   <v-layout row>
     <v-flex xs6>
       <h2>
-        <v-icon>mdi-eyedropper</v-icon>การเลี้ยงลูก</h2>
+        <v-icon>mdi-gentoo</v-icon>การเลี้ยงลูก</h2>
       <v-btn class="blueONblue" dark @click="dialog=true">
         <v-icon>mdi-plus-circle</v-icon>เพิ่มข้อมูล</v-btn>
-      <h3>ลูกของตนเอง</h3>
+      <h3  class="card-border mrt-10 violet  box-blueFX pd-10" ><v-icon>mdi-pig</v-icon>ลูกของตนเอง</h3>
       <div v-for="brd,index in pig.cycles[cycle].birth" class="pd-12">
         <div class="card-border violet pd-10">
           <h3 class="blx nm pd-10">
@@ -25,7 +25,7 @@
           </div>
         </div>
       </div>
-      <h3>รับเลี้ยง</h3>
+      <h3 class="card-border mrt-10   box-greenFX pd-10"><v-icon>mdi-pig</v-icon>รับเลี้ยง</h3>
       <div v-for="brd,index in i_datas">
         <div v-if="brd.feed_type == 1" class="pd-12">
           <div class="card-border violet pd-10">
@@ -52,7 +52,7 @@
           </div>
         </div>
       </div>
-      <h3>ฝากเลี้ยง</h3>
+      <h3 class="card-border mrt-10 red  box-red pd-10"><v-icon>mdi-pig</v-icon>ฝากเลี้ยง</h3>
       <div v-for="brd,index in i_datas">
         <div v-if="brd.feed_type == 2" class="pd-12">
           <div class="card-border redb pd-10">
@@ -108,25 +108,28 @@
           <v-layout row>
             <v-flex xs>
               <v-dialog ref="dialogRef" persistent v-model="dialogValue" lazy full-width width="290px">
-                <v-text-field v-model="setData.feed_date" slot="activator" label="วันที่" readonly></v-text-field>
+                <v-text-field class="box-gr mar-top pd-20" prepend-icon="mdi-calendar" v-model="setData.feed_date" slot="activator" label="วันที่" readonly></v-text-field>
                 <v-date-picker v-model="tmp" locale="th" scrollable>
                   <v-spacer></v-spacer>
                   <v-btn flat color="primary" @click="dateCancle()">Cancel</v-btn>
                   <v-btn flat color="primary" @click="dateConvert()">OK</v-btn>
                 </v-date-picker>
               </v-dialog>
-              <div v-if="updateGet != true">
+              <div  class="box-blueFX mar-top pd-10" v-if="updateGet != true">
                 <v-radio-group v-model="setData.feed_type">
                   <v-radio key="1" label="รับเลี้ยง" value="1"></v-radio>
                   <v-radio key="2" label="ฝากเลี้ยง" value="2"></v-radio>
                 </v-radio-group>
               </div>
-              <v-text-field v-if="setData.feed_type == 1" v-model="setData.pig_id_old" label="ไอดีแม่เก่า"></v-text-field>
-              <v-text-field v-if="setData.feed_type == 2" v-model="setData.pig_id_new" label="ไอดีแม่ใหม่"></v-text-field>
-            
-              <v-text-field v-model.number="setData.pig_count" label="จำนวนลูก"></v-text-field>
-              <v-text-field v-model="setData.pig_weight_avg" label="น้ำหนักเฉลีย"></v-text-field>
-              <v-textarea outline v-model="setData.pig_remark" label="หมายเหตุ"  ></v-textarea>
+                 <div class="box-greenLN mar-top pd-10">
+              <v-text-field  prepend-icon="mdi-calendar" v-if="setData.feed_type == 1" v-model="setData.pig_id_old" label="ไอดีแม่เก่า"></v-text-field>
+              <v-text-field  prepend-icon="mdi-calendar"  v-if="setData.feed_type == 2" v-model="setData.pig_id_new" label="ไอดีแม่ใหม่"></v-text-field>
+         
+<v-text-field prepend-icon="mdi-pig" v-model.number="setData.pig_count" label="จำนวนลูก"></v-text-field>
+              <v-text-field prepend-icon="mdi-weight" v-model="setData.pig_weight_avg" label="น้ำหนักเฉลีย"></v-text-field>
+              <v-textarea  outline v-model="setData.pig_remark" label="หมายเหตุ"  ></v-textarea>
+            </div>
+              
             </v-flex>
             <!---     <v-flex xs6 v-if="setData.pig_count" class="mrl-10 pd-10 blueONblue">
              <div v-for="x in setData.pig_count">
@@ -203,7 +206,18 @@
     methods: {
       clearData() {
         this.setData = new Object();
-        this.setData = this.preData;
+        this.setData =  {
+          pig_id: null,
+          pig_cycle_id: null,
+          feed_type: null,
+          feed_date: null,
+          pig_id_old: 0,
+          pig_id_new: 0,
+          pig_count: null,
+          pig_weight: null,
+          pig_remark: null,
+          pig_weight_avg: null,
+        }
         this.tmp_weight = [];
       },
       spitting(tmp) {
@@ -230,7 +244,8 @@
         this.dialog = false;
         this.updateGet = false;
         this.tmp_weight = [];
-        this.setData = new Object();
+          this.setData= new Object();
+        this.setData = this.preData;
         this.clearData();
       },
       dateCancle() {

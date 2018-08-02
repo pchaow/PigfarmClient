@@ -212,7 +212,16 @@
     methods: {
       clearData(){
           this.setData= new Object();
-        this.setData = this.preData;
+        this.setData = {
+          pig_cycle_id: null,
+          pig_id: null,
+          breeder_a: null,
+          breeder_b: null,
+          breeder_c: null,
+          breed_date: null,
+          delivery_date: null,
+          breed_week: null
+        }
       },
       gravidConvert() {
         this.gravid_date = this.$moment(this.tmp)
@@ -260,8 +269,7 @@
       dialogClose() {
         this.dialog = false;
         this.updateGet = false;
-        this.setData= new Object();
-        this.setData = this.preData;
+        this.clearData();
       },
       dateCancle() {
         this.tmp = "";

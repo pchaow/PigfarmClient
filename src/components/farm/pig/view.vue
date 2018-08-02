@@ -59,9 +59,9 @@
 
 
         <v-flex>
-            <v-btn color="success" @click="newCycle">{{text.head}}</v-btn>
+            <v-btn class="box-greenFX  mr-6" @click="newCycle"><v-icon>mdi-library-plus</v-icon>&nbsp;<h3>{{text.head}}</h3></v-btn><br><br>
             <v-tabs v-if="form.cycles.length > 0" v-model="active" color="primary" dark slider-color="yellow">
-                <div v-for="n in form.cycles" :key="n.id">
+                <div class="mrt-6" v-for="n in form.cycles" :key="n.id">
                     <v-tab @click.native="cycleStepChange(n.cycle_sequence)" ripple>
                         ลำดับท้องที่ {{n.cycle_sequence}}
                     </v-tab>
