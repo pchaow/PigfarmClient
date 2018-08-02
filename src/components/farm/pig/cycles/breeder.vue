@@ -24,20 +24,22 @@
           <h3 style="color:green;">--------------------------------------------------------</h3>
           <div v-if="bd.gravid != 0">
             <h4 class=" nm pdl-10" style="color:green;"> สถานะ : ติดลูกแล้ว </h4>
-            <v-btn v-if="bd.gravid == 3" @click="gravidOpen(bd.id,bd.gravid,bd.gravid_date)" class="box-green " dark>
-              <v-icon>mdi-robot</v-icon> &nbsp;ลักษณะการติดลูก</v-btn>
-            <div class="nm pdl-10" v-if="bd.gravid == 1" style="color:green">
+
+            <div class="nm pdl-10" v-if="bd.gravid == 3" style="color:green">
               ลัษณะการติดลูก : ปกติ
             </div>
-            <div class="nm pdl-10" v-if="bd.gravid == 2" style="color:red">
-              ลัษณะการติดลูก : แท้ง
-            </div>
             <h4 class=" nm pdl-10" style="color:brown;"> วันที่ติดลูก : {{bd.gravid_date}} </h4>
+             <div class="nm pdl-10" v-if="bd.gravid == 1" style="color:red">
+              ลัษณะการติดลูก : แท้ง
+              <h4 > วันที่แท้งลูก : {{ bd.gravid_out }} </h4>
+            </div>
             <p class=" nm pdl-10" style="color:brown;"> หมายเหตุ : {{bd.gravid_remark}} </p>
+                  <v-btn v-if="bd.gravid == 3" @click="gravidOpen(bd.id,bd.gravid,bd.gravid_date,1)" class="box-red " dark>
+              <v-icon>mdi-robot</v-icon> &nbsp;แท้ง</v-btn>
           </div>
           <div v-if="bd.gravid == 0">
             <h4 class=" nm pdl-10" style="color:red;">สถานะ : ยังไม่ติดลูก</h4>
-            <v-btn v-if="bd.gravid == 0" @click="gravidOpen(bd.id,bd.gravid,bd.gravid_date)" class="box-blue " dark>
+            <v-btn v-if="bd.gravid == 0" @click="gravidOpen(bd.id,bd.gravid,bd.gravid_date,0)" class="box-blue " dark>
               <v-icon>mdi-robot</v-icon> &nbsp;ติดลูก</v-btn>
           </div>
           <h3 style="color:green;">--------------------------------------------------------</h3>
@@ -109,8 +111,8 @@
                 <v-icon style="font-size:66px;" color="white">mdi-pig</v-icon>
               </v-flex>
               <v-flex xs8 class="mar-top">
-                <v-text-field dark label="พ่อพันธ์ุตัวที่ 1" v-model="setData.breeder_a"></v-text-field>
-                <v-text-field dark label="พ่อพันธ์ุตัวที่ 2" v-model="setData.breeder_b"></v-text-field>
+                <v-text-field  dark label="พ่อพันธ์ุตัวที่ 1" v-model="setData.breeder_a"></v-text-field>
+                <v-text-field  dark label="พ่อพันธ์ุตัวที่ 2" v-model="setData.breeder_b"></v-text-field>
                 <v-text-field dark label="พ่อพันธ์ุตัวที่ 3" v-model="setData.breeder_c"></v-text-field>
               </v-flex>
             </v-layout>
@@ -121,7 +123,7 @@
     <v-dialog v-model="gravidDialog"  scrollable max-width="300px">
       <v-card class="box-yellow">
         <v-card-title>
-          <h2><b>เพิ่มข้อมูลการติดลูก</b></h2>
+          <h2><b>เพิ่มข้อมูลการติดลูก {{ gravid }}</b></h2>
         </v-card-title>
         <v-card-text style="">
           <div v-if="gravid == 0">
@@ -135,13 +137,18 @@
             </v-dialog>
 
           </div>
-          <div v-if="gravid == 3 || gravid == 2  || gravid == 1 ">
-            <v-radio-group v-model="gravid" label="ลักษณะการติดลูก">
-              <v-radio key="1" label="ปกติ" value="1"></v-radio>
-              <v-radio key="2" label="แท้ง" value="2"></v-radio>
-            </v-radio-group>
-            <v-textarea outline v-model="gravid_remark" label="หมายเหตุ" ></v-textarea>
+
+          <div v-if="gravid == 1">
+             <v-dialog ref="dialogRef" persistent v-model="gravid_dialogValue2" lazy full-width width="290px">
+              <v-text-field @blur="dateNotNull2()"   prepend-icon="mdi-calendar" slot="activator" label="วันที่แท้ง" v-model="gravid_out" readonly></v-text-field>
+              <v-date-picker v-model="tmp" locale="th" scrollable>
+                <v-spacer></v-spacer>
+                <v-btn flat color="primary" @click="gravidDialogClose2()">Cancel</v-btn>
+                <v-btn flat color="primary" @click="gravidConvert2()">OK</v-btn>
+              </v-date-picker>
+            </v-dialog>
           </div>
+           <v-textarea outline v-model="gravid_remark" label="หมายเหตุ" ></v-textarea>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions class="mrl-100">
@@ -172,9 +179,11 @@
         dialog: false,
         dialogValue: false,
         gravid_dialogValue: false,
+         gravid_dialogValue2: false,
         gravid_id: null,
         gravidDialog: false,
         gravid_date: null,
+        gravid_out: null,
         gravid_remark: null,
         gravid: 3,
         tmp: "",
@@ -210,6 +219,40 @@
       })
     },
     methods: {
+      checkData(){
+        let i_a = true;
+        let i_b = true;
+        let i_c = true;
+        if(this.setData.breeder_a == null ){ i_a = false;
+        }else if(this.setData.breeder_a.length == 0){ i_a = false;}
+
+        if(this.setData.breeder_b == null){
+          if(i_a != true){
+             i_b = false;
+          }else{
+          this.setData.breeder_b  = '';
+          }
+        }else if(this.setData.breeder_b.length == 0){ i_b = false;}
+
+
+        if(this.setData.breeder_c == null  ){
+          if(i_a != true){
+             i_c = false;
+          }else{
+                 this.setData.breeder_c  = '';
+          }
+        }else if(this.setData.breeder_c.length == 0){ i_c = false;}
+
+        if(i_a && i_b && i_c){
+          return true;
+        }else if(i_a && i_b && !i_c){
+             return true;
+        }
+        else{
+          this.setData.breeder_b  = null;
+          this.setData.breeder_c  = null;
+          return false;}
+      },
       clearData(){
           this.setData= new Object();
         this.setData = {
@@ -232,6 +275,15 @@
           .format("DD-MM-YYYY");
         }
       },
+       dateNotNull2(){
+        let y = this.$moment();
+        if(this.gravid_out == ''){
+        this.gravid_out = y
+          .locale("th")
+          .add(543, "years")
+          .format("DD-MM-YYYY");
+        }
+      },
       gravidConvert() {
         this.gravid_date = this.$moment(this.tmp)
           .locale("th")
@@ -249,19 +301,43 @@
         this.tmp = null;
         this.gravid_dialogValue = false;
       },
-      gravidOpen(tmp, tmp2, tmp3) {
+
+   gravidConvert2() {
+        this.gravid_out = this.$moment(this.tmp)
+          .locale("th")
+          .add(543, "years")
+          .format("DD-MM-YYYY");
+        this.tmp = null;
+        this.gravid_dialogValue2 = false;
+      },
+      gravidDialogClose2() {
+           let y = this.$moment();
+        this.gravid_out = y
+          .locale("th")
+          .add(543, "years")
+          .format("DD-MM-YYYY");
+        this.tmp = null;
+        this.gravid_dialogValue2 = false;
+      },
+
+      gravidOpen(tmp, tmp2, tmp3,tmp4) {
         let y = this.$moment();
         this.gravid_date = y
           .locale("th")
           .add(543, "years")
           .format("DD-MM-YYYY");
 
+        this.gravid_out = y
+          .locale("th")
+          .add(543, "years")
+          .format("DD-MM-YYYY");
         this.gravidDialog = true;
         this.gravid_id = tmp;
             this.gravid = tmp2;
         if (tmp3 != null) {
           this.gravid_date = tmp3;
         }
+         this.gravid = tmp4;
       },
       gravidClose() {
         this.tmp = null;
@@ -277,6 +353,7 @@
         let preData = {
           gravid_id: this.gravid_id,
           gravid: i_tmp,
+           gravid_out: this.gravid_out,
           gravid_date: this.gravid_date,
           gravid_remark: this.gravid_remark
         };
@@ -344,8 +421,9 @@
       update: async function() {
         this.setData.pig_id = this.id;
         this.setData.pig_cycle_id = this.pig.cycles[this.cycle].id;
+              let u_breed = this.checkData();
         let check = this.$store.dispatch("cycles/checkNull", this.setData);
-        if (check) {
+        if (check && u_breed) {
           await this.$store.dispatch("breeder/update", this.setData);
           this.load();
           this.getData();
@@ -357,8 +435,10 @@
       save: async function() {
         this.setData.pig_id = this.id;
         this.setData.pig_cycle_id = this.pig.cycles[this.cycle].id;
+        let u_breed = this.checkData();
+
         let check = this.checkNull(this.setData);
-        if (check) {
+        if (check && u_breed) {
           await this.$store.dispatch("breeder/save", this.setData);
           this.dialog = false;
           this.load();
