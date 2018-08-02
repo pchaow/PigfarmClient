@@ -126,20 +126,20 @@
         <v-card-text style="">
           <div v-if="gravid == 0">
             <v-dialog ref="dialogRef" persistent v-model="gravid_dialogValue" lazy full-width width="290px">
-              <v-text-field  prepend-icon="mdi-calendar" slot="activator" label="วันที่ติดลูก" v-model="gravid_date" readonly></v-text-field>
+              <v-text-field @blur="dateNotNull()"   prepend-icon="mdi-calendar" slot="activator" label="วันที่ติดลูก" v-model="gravid_date" readonly></v-text-field>
               <v-date-picker v-model="tmp" locale="th" scrollable>
                 <v-spacer></v-spacer>
                 <v-btn flat color="primary" @click="gravidDialogClose()">Cancel</v-btn>
                 <v-btn flat color="primary" @click="gravidConvert()">OK</v-btn>
               </v-date-picker>
             </v-dialog>
-            
+
           </div>
           <div v-if="gravid == 3 || gravid == 2  || gravid == 1 ">
             <v-radio-group v-model="gravid" label="ลักษณะการติดลูก">
               <v-radio key="1" label="ปกติ" value="1"></v-radio>
               <v-radio key="2" label="แท้ง" value="2"></v-radio>
-            </v-radio-group> 
+            </v-radio-group>
             <v-textarea outline v-model="gravid_remark" label="หมายเหตุ" ></v-textarea>
           </div>
         </v-card-text>
@@ -223,6 +223,15 @@
           breed_week: null
         }
       },
+      dateNotNull(){
+        let y = this.$moment();
+        if(this.gravid_date == ''){
+        this.gravid_date = y
+          .locale("th")
+          .add(543, "years")
+          .format("DD-MM-YYYY");
+        }
+      },
       gravidConvert() {
         this.gravid_date = this.$moment(this.tmp)
           .locale("th")
@@ -232,14 +241,24 @@
         this.gravid_dialogValue = false;
       },
       gravidDialogClose() {
-        this.gravid_date = null;
+           let y = this.$moment();
+        this.gravid_date = y
+          .locale("th")
+          .add(543, "years")
+          .format("DD-MM-YYYY");
         this.tmp = null;
         this.gravid_dialogValue = false;
       },
       gravidOpen(tmp, tmp2, tmp3) {
+        let y = this.$moment();
+        this.gravid_date = y
+          .locale("th")
+          .add(543, "years")
+          .format("DD-MM-YYYY");
+
         this.gravidDialog = true;
-        this.gravid_id = tmp; 
-            this.gravid = tmp2; 
+        this.gravid_id = tmp;
+            this.gravid = tmp2;
         if (tmp3 != null) {
           this.gravid_date = tmp3;
         }
