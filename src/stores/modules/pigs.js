@@ -61,6 +61,19 @@ export default {
             return result;
         },
 
+      getEditById: async function ({state, dispatch, commit}, {id, form}) {
+        let result = await axios.get(`/api/farm/pigs/${id}/edit`, {
+          params: form
+        }).then((r) => {
+          return r.data
+        }).catch((e) => {
+          dispatch("error/setError", error.response.data, {root: true});
+          return null;
+        });
+
+        return result;
+      },
+
         updatePig: async function ({state, commit, dispatch}, form) {
             let r = await axios.put("/api/farm/pigs/" + form.id, form)
                 .then((r) => {

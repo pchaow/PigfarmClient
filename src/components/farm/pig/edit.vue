@@ -84,6 +84,7 @@
 
                             <v-flex lg4 md6 xs12>
                                 <choice-select label="สายพันธุ์" :type="{to:'BREED'}" :value="form.blood_line"
+                                               :return-object="false"
                                                @change="form.blood_line = $event"></choice-select>
 
                             </v-flex>
@@ -106,6 +107,7 @@
 
                             <v-flex lg4 md6 xs12>
                                 <choice-select label="สถานะ" :type="{to:'PIGSTATUS'}" :value="form.status"
+                                               :return-object="false"
                                                @change="form.status = $event"></choice-select>
                             </v-flex>
 
@@ -149,7 +151,7 @@
                 }
             },
             load: async function () {
-                let pig = await this.$store.dispatch('pigs/getById', {
+                let pig = await this.$store.dispatch('pigs/getEditById', {
                     id: this.$route.params.id
                 })
                 this.form = pig

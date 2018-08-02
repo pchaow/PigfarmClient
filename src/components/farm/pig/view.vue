@@ -1,14 +1,14 @@
 <template>
     <v-layout column justify-center v-if="form">
         <v-flex>
-            <h1 class="display-1 pb-3">ข้อมูลสุกร : {{form.pig_id}}</h1>
+            <h1 class="display-1 pb-3">ข้อมูลสุกร เบอร์ตี : {{form.pig_id}}</h1>
 
             <v-card class="mb-3">
                 <v-toolbar card prominent>
                     <v-toolbar-title>ข้อมูลทั่วไป</v-toolbar-title>
                     <v-spacer></v-spacer>
                     <v-toolbar-items>
-                        <v-btn flat :to="{ name: 'pig-edit', params: { id: 1 }}">แก้ไข</v-btn>
+                        <v-btn flat :to="{ name: 'pig-edit', params: { id: form.id }}">แก้ไข</v-btn>
                     </v-toolbar-items>
                 </v-toolbar>
                 <v-card-text>
@@ -16,12 +16,16 @@
 
                         <v-layout row wrap>
                             <v-flex>
-                                <label>เบอร์แม่พันธุ์</label>
+                                <label>เบอร์ตี</label>
+                                <div>{{form.pig_id}}</div>
+                            </v-flex>
+                            <v-flex>
+                                <label>เบอร์หู</label>
                                 <div>{{form.pig_number}}</div>
                             </v-flex>
                             <v-flex>
                                 <label>สายพันธุ์</label>
-                                <div>{{form.blood_line.display_name}}</div>
+                                <div>{{form.blood_line? form.blood_line.display_name : '' }}</div>
                             </v-flex>
                             <v-flex>
                                 <label>วันที่เข้าฟาร์ม</label>
