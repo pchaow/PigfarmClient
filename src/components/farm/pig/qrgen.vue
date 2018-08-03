@@ -18,7 +18,7 @@
                     </div>
                   </v-flex>
                   <v-flex xs5>
-                   <qr-code size="120"  :text="pig"  error-level="M"> </qr-code>
+                   <qr-code :size="120"  :text="pig"  error-level="M"> </qr-code>
                   </v-flex>
                 </v-layout>
               </v-container>
