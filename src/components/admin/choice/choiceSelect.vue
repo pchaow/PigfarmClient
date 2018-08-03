@@ -21,6 +21,7 @@
   export default {
     name: "choice-select",
     props: {
+      nullable: false,
       returnObject: true,
       binding: {
         type: String,
@@ -45,6 +46,11 @@
         options: null,
         selectValue: null,
         isReady: false,
+        defaultValue: {
+          display_name: "กรุณาเลือก",
+          name: null
+        }
+
       }
     },
     methods: {
@@ -81,8 +87,11 @@
         let result = await this.$store.dispatch('choices/getByName', this.type.to);
         if (result) {
           this.choice = result;
-          this.options = result.children;
 
+          this.options = result.children;
+          if (this.nullable) {
+            this.options = [this.defaultValue].concat(result.children)
+          }
           if (this.value) {
             this.sync();
           }
