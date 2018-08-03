@@ -95,9 +95,9 @@
         },
         methods: {
             qrPass(){
-                    this.$store.dispatch('cycles/qrPass', this.pigAdd);
-
-
+              if(this.pigAdd){
+                this.$store.dispatch('cycles/qrPass', this.pigAdd);
+              }
             },
             changePage: function (page) {
                 this.form.page = page
