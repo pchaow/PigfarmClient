@@ -125,7 +125,7 @@
     <v-dialog v-model="gravidDialog"  scrollable max-width="300px">
       <v-card class="box-yellow">
         <v-card-title>
-          <h2><b>เพิ่มข้อมูลการติดลูก {{ gravid }}</b></h2>
+          <h2><b>เพิ่มข้อมูลการติดลูก</b></h2>
         </v-card-title>
         <v-card-text style="">
           <div v-if="gravid == 0">
