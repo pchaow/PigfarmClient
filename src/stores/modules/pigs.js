@@ -15,7 +15,7 @@ export default {
       {text: 'วันเกิด', value: 'birth_date'},
       {text: 'วันเข้าฟาร์ม', value: 'entry_date'},
       {text: 'แหล่งที่มา', value: 'source'},
-      {text: 'วันที่สร้าง', value: 'created_at'},
+      {text: 'สายพันธุ์', value: 'blood_line'},
       {text: 'การกระทำ', value: 'name', sortable: false},
     ],
   },

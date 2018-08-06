@@ -19,7 +19,8 @@
             <v-layout row wrap>
 
               <v-flex md5 style="padding-right: 1rem">
-                <choice-select :value="form.blood_line" @change="form.blood_line = $event" :return-object="false"
+                <choice-select label="สายพันธุ์"
+                                       :value="form.blood_line" @change="form.blood_line = $event" :return-object="false"
                                :type="{to:'BREED'}" :nullable="true"/>
               </v-flex>
               <v-flex md5 style="padding-left: 1rem;">
@@ -55,7 +56,7 @@
             <td>{{props.item.birth_date}}</td>
             <td>{{props.item.entry_date}}</td>
             <td>{{props.item.source}}</td>
-            <td>{{props.item.created_at}}</td>
+            <td>{{props.item.blood_line ? props.item.blood_line.display_name : "-"}}</td>
 
             <td>
               <v-btn icon class="mx-0" :to="{ name: 'pig-view', params: { id: props.item.id }}">
