@@ -105,6 +105,11 @@
         data: () => ({
             asd: '',
             pigAdd: [],
+            form: {
+                keyword: null,
+                page: 1,
+                blood_line: null,
+            }
         }),
         computed: {
             ...mapGetters({}),
@@ -141,7 +146,6 @@
         },
         mounted() {
             console.log('Role Home Component mounted.');
-            this.$store.dispatch('pigs/resetForm');
             this.load();
         }
     }

@@ -3,11 +3,6 @@ export default {
     state: {
         pigs: [],
         paginate: {},
-        form: {
-            keyword: null,
-            page: 1,
-            blood_line: null,
-        },
         headers: [
             {text: 'เลือก', value: 'pig_id', sortable: false},
             {text: 'เบอร์ตี', value: 'pig_id'},
@@ -27,18 +22,8 @@ export default {
             state.paginate = paginate;
             state.pigs = paginate.data;
         },
-        setForm: function (state, form) {
-            this.form = form;
-        }
     },
     actions: {
-
-        resetForm: function ({state, commit, dispatch}) {
-            state.form.keyword = "";
-            state.form.page = 1;
-            state.form.blood_line = null;
-
-        },
 
         getPaginate: async function ({state, dispatch, commit}, form) {
             let result = await axios.get("/api/farm/pigs", {
