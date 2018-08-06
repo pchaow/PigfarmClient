@@ -12,7 +12,7 @@
             วันที่: {{brd.feed_date}}
           </h3>
           <h3 class="nm pdl-10" style="color: red;">
-            <b>จำนวนหมูทั้งหมด : -{{brd.pig_count}} ตัว</b> </h3>
+            <b>จำนวนหมูทั้งหมด :&nbsp; -{{brd.pig_count}} ตัว</b> </h3>
           <h3 class="nm pdl-10" style="color: red;"><b>สาเหตุ:</b> {{brd.feed_type}} </h3>
           <v-btn @click="updateOpen(brd)" style="margin-top:-100px; float:right;" small color="orange" fab dark>
             <v-icon>mdi-calendar-edit</v-icon>
@@ -85,6 +85,7 @@
     },
     data() {
       return {
+        defDate:null,
         updateGet: false,
         valid: true,
         datas: [],
@@ -149,12 +150,14 @@
           this.setData= new Object();
         this.setData = this.preData;
         this.clearData();
+              this.defDates();
       },
       dateCancle() {
         this.tmp = '';
         this.setData.breed_date = '';
         this.setData.delivery_date = '';
         this.dialogValue = false;
+              this.defDates();
       },
       dateConvert() {
         let tmpDate = this.$moment(this.tmp)
@@ -230,9 +233,22 @@
       load: async function() {
         let pig = await this.$store.dispatch("cycles/getById", this.id);
         this.datas = this.pig.cycles[this.cycle].feedout;
+      },
+            defDates(){
+      let y = this.$moment();
+      this.defDate = y;
+      this.dateConvertDefault();
+      },
+      dateConvertDefault() {
+        let tmpDate = this.$moment(this.defDate)
+          .locale('th')
+          .add(543, "years")
+          .format("DD-MM-YYYY");
+        this.setData.feed_date = tmpDate;
       }
     },
     mounted() {
+      this.defDates();
       this.preLoad();
     }
   };

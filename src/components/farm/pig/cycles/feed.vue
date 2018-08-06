@@ -40,7 +40,7 @@
             <h3 class="nm pdl-10" style="color: #00cc00;">
               <b>จำนวนหมูทั้งหมด : {{brd.pig_count}} ตัว</b> </h3>
             <h3 class="nm pdl-10" style="color: green;"><b>น้ำหนักเฉลี่ย:</b> {{brd.pig_weight_avg}} กิโลกรัม</h3>
-       <p class="nm pdl-10">หมายเตุ : 
+       <p class="nm pdl-10">หมายเตุ :
               {{brd.pig_remark}}
             </p>
             <v-btn @click="updateOpen(brd)" style="margin-top:-100px; float:right;" small color="orange" fab dark>
@@ -65,7 +65,7 @@
               วันที่: {{brd.feed_date}}
             </h3>
             <h3 class="nm pdl-10" style="color: red;">
-              <b>จำนวนหมูทั้งหมด :-{{brd.pig_count}} ตัว</b> </h3>
+              <b>จำนวนหมูทั้งหมด :&nbsp;&nbsp;-{{brd.pig_count}} ตัว</b> </h3>
             <h3 class="nm pdl-10" style="color: green;"><b>น้ำหนักเฉลี่ย:</b> {{brd.pig_weight_avg}} กิโลกรัม</h3>
            <p class="nm pdl-10">หมายเหตุ :
               {{brd.pig_remark}}
@@ -117,19 +117,19 @@
               </v-dialog>
               <div  class="box-blueFX mar-top pd-10" v-if="updateGet != true">
                 <v-radio-group v-model="setData.feed_type">
-                  <v-radio key="1" label="รับเลี้ยง" value="1"></v-radio>
-                  <v-radio key="2" label="ฝากเลี้ยง" value="2"></v-radio>
+                  <v-radio key="1" label="รับเลี้ยง +" value="1"></v-radio>
+                  <v-radio key="2" label="ฝากเลี้ยง -" value="2"></v-radio>
                 </v-radio-group>
               </div>
                  <div class="box-greenLN mar-top pd-10">
               <v-text-field  prepend-icon="mdi-calendar" v-if="setData.feed_type == 1" v-model="setData.pig_id_old" label="ไอดีแม่เก่า"></v-text-field>
               <v-text-field  prepend-icon="mdi-calendar"  v-if="setData.feed_type == 2" v-model="setData.pig_id_new" label="ไอดีแม่ใหม่"></v-text-field>
-         
+
 <v-text-field prepend-icon="mdi-pig" v-model.number="setData.pig_count" label="จำนวนลูก"></v-text-field>
               <v-text-field prepend-icon="mdi-weight" v-model="setData.pig_weight_avg" label="น้ำหนักเฉลีย"></v-text-field>
               <v-textarea  outline v-model="setData.pig_remark" label="หมายเหตุ"  ></v-textarea>
             </div>
-              
+
             </v-flex>
             <!---     <v-flex xs6 v-if="setData.pig_count" class="mrl-10 pd-10 blueONblue">
              <div v-for="x in setData.pig_count">
@@ -157,6 +157,7 @@
     },
     data() {
       return {
+        defDate:null,
         updateGet: false,
         valid: true,
         datas: [],
@@ -171,8 +172,8 @@
           pig_cycle_id: null,
           feed_type: null,
           feed_date: null,
-          pig_id_old: 0,
-          pig_id_new: 0,
+          pig_id_old: null,
+          pig_id_new: null,
           pig_count: null,
           pig_weight: null,
           pig_remark: null,
@@ -183,8 +184,8 @@
           pig_cycle_id: null,
           feed_type: null,
           feed_date: null,
-          pig_id_old: 0,
-          pig_id_new: 0,
+          pig_id_old: null,
+          pig_id_new: null,
           pig_count: null,
           pig_weight: null,
           pig_remark: null,
@@ -211,8 +212,8 @@
           pig_cycle_id: null,
           feed_type: null,
           feed_date: null,
-          pig_id_old: 0,
-          pig_id_new: 0,
+          pig_id_old: null,
+          pig_id_new: null,
           pig_count: null,
           pig_weight: null,
           pig_remark: null,
@@ -247,12 +248,14 @@
           this.setData= new Object();
         this.setData = this.preData;
         this.clearData();
+         this.defDates();
       },
       dateCancle() {
         this.tmp = '';
         this.setData.breed_date = '';
         this.setData.delivery_date = '';
         this.dialogValue = false;
+         this.defDates();
       },
       dateConvert() {
         let tmpDate = this.$moment(this.tmp)
@@ -322,6 +325,8 @@
         this.setData.pig_weight = this.tmp_weight.toString();
         this.setData.pig_id = this.id;
         this.setData.pig_weight = 0;
+        if(this.setData.feed_type == 1 && this.setData.pig_id_new == null){this.setData.pig_id_new = 0}
+         if(this.setData.feed_type == 2 && this.setData.pig_id_old == null){this.setData.pig_id_old = 0}
         if( this.setData.pig_remark == null){
           this.setData.pig_remark = 'ไม่มี';
         }
@@ -351,14 +356,28 @@
         let pig = await this.$store.dispatch("cycles/getById", this.id);
         this.datas = this.pig.cycles[this.cycle].birth;
         this.i_datas = this.pig.cycles[this.cycle].feed;
+      },
+           defDates(){
+      let y = this.$moment();
+      this.defDate = y;
+      this.dateConvertDefault();
+      },
+      dateConvertDefault() {
+        let tmpDate = this.$moment(this.defDate)
+          .locale('th')
+          .add(543, "years")
+          .format("DD-MM-YYYY");
+        this.setData.feed_date = tmpDate;
+        this.dialogValue = false;
       }
     },
-    mounted() { 
+    mounted() {
+      this.defDates();
       this.getData();
       this.load();
     },
     created(){
-          this.getData();
+   this.getData();
       this.load();
     }
   };

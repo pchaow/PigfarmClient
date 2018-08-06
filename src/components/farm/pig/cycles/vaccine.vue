@@ -64,7 +64,7 @@
               <v-btn flat color="primary" @click="dateConvert()">OK</v-btn>
             </v-date-picker>
           </v-dialog>
-          
+
           <v-radio-group v-if="updateGet == false" v-model="type">
             <v-radio key="1" label="วัคซีน" value="VACCINE"></v-radio>
             <v-radio key="2" label="ยา" value="MEDICINE"></v-radio>
@@ -88,6 +88,7 @@
   export default {
     data() {
       return {
+        defDate:null,
         select:'Select',
         type: 'VACCINE',
         tmp: '',
@@ -141,7 +142,7 @@
         if(  tmp.display.display_name != null ||  tmp.display.display_name != null ){
         this.setData.display =  tmp.display.display_name
         }else{
-          this.setData.display =  tmp.display 
+          this.setData.display =  tmp.display
         }
         this.select =    this.setData.display+"/"+tmp.name;
         this.type = tmp.name;
@@ -172,7 +173,8 @@
         this.dialog = false;
         this.updateGet = false;
         this.setData = this.preData;
-         this.select ="Select"
+         this.select ="Select";
+               this.defDates();
       },
       openDialog: async function() {
         this.dialog = true;
@@ -182,6 +184,7 @@
         this.tmp = '';
         this.setData.date = '';
         this.dialogValue = false;
+              this.defDates();
       },
       dateConvert() {
         this.setData.date = this.$moment(this.tmp)
@@ -234,9 +237,22 @@
       load: async function() {
         let pig = await this.$store.dispatch('cycles/getById', this.id);
         this.datas = this.pig.cycles[this.cycle].vaccine;
+      },
+             defDates(){
+      let y = this.$moment();
+      this.defDate = y;
+      this.dateConvertDefault();
+      },
+      dateConvertDefault() {
+        let tmpDate = this.$moment(this.defDate)
+          .locale('th')
+          .add(543, "years")
+          .format("DD-MM-YYYY");
+        this.setData.date = tmpDate;
       }
     },
     mounted() {
+      this.defDates();
       this.preLoad();
     }
   }

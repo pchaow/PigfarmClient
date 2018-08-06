@@ -98,6 +98,7 @@
     },
     data() {
       return {
+        defDate:null,
         updateGet: false,
         valid: true,
         datas: [],
@@ -155,15 +156,15 @@
       pigCount() {
         return this.setData.pig_count;
       },
-     
-       
+
+
        avgCal() {
-        if(this.setData.pig_count < this.tmp_weight.length){ 
+        if(this.setData.pig_count < this.tmp_weight.length){
           let i_setdata = [];
             for(var i=0; i<this.setData.pig_count;i++){
               i_setdata[i] = this.tmp_weight[i];
             }
-             let i_tmp = this.$store.dispatch("cycles/calAvg", i_setdata); 
+             let i_tmp = this.$store.dispatch("cycles/calAvg", i_setdata);
              this.setData.pig_weight_avg = this.avg.toFixed(2);
              this.setData.pig_weight = i_setdata.toString();
         }else{
@@ -177,13 +178,14 @@
         this.setData= new Object();
         this.setData = this.preData;
         this.clearData();
-        
+              this.defDates();
       },
       dateCancle() {
         this.tmp = '';
         this.setData.breed_date = '';
         this.setData.delivery_date = '';
         this.dialogValue = false;
+              this.defDates();
       },
       dateConvert() {
         let tmpDate = this.$moment(this.tmp)
@@ -198,7 +200,7 @@
         Object.keys(tmp).forEach(function(key) {
           // console.log(key+"="+c[key] +"=>"+ch);
           if (tmp[key] == null) {
-            
+
             ch = false;
             key = false;
           }
@@ -207,7 +209,7 @@
         return ch;
       },
       destroy: async function(tmp) {
-    
+
         if (confirm("แน่ใจใช่ไหมว่าต้องการที่จะลบข้อมูล")) {
           this.$store.dispatch("milk/destroy", tmp);
           this.load();
@@ -225,7 +227,7 @@
         this.tmp_weight = i_tmp;
       },
       update: async function() {
-    
+
         this.setData.pig_id = this.id;
         this.setData.pig_cycle_id = this.pig.cycles[this.cycle].id;
           if(this.setData.pig_count < this.tmp_weight.length){
@@ -249,7 +251,7 @@
         } else {
           alert('กรุณาระบุข้อมูลให้ครบ');
         }
-       
+
 
       },
       save: async function() {
@@ -267,7 +269,7 @@
           this.dialogClose();
         } else {
           alert('กรุณาระบุข้อมูลให้ครบ');
-        } 
+        }
 
       },
       getData: async function() {
@@ -279,9 +281,23 @@
       load: async function() {
         let pig = await this.$store.dispatch("cycles/getById", this.id);
         this.datas = this.pig.cycles[this.cycle].milk;
+      },
+             defDates(){
+      let y = this.$moment();
+      this.defDate = y;
+      this.dateConvertDefault();
+      },
+      dateConvertDefault() {
+        let tmpDate = this.$moment(this.defDate)
+          .locale('th')
+          .add(543, "years")
+          .format("DD-MM-YYYY");
+        this.setData.milk_date = tmpDate;
       }
+
     },
     mounted() {
+      this.defDates();
       this.preLoad();
     }
   };

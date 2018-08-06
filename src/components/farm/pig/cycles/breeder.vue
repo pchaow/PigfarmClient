@@ -31,7 +31,7 @@
             <h4 class=" nm pdl-10" style="color:brown;"> วันที่ติดลูก : {{bd.gravid_date}} </h4>
                   <p class=" nm pdl-10" style="color:brown;"> หมายเหตุ : {{bd.gravid_remark}} </p>
              <div class="nm pdl-10" v-if="bd.gravid == 1" style="color:red">
-              ลัษณะการติดลูก : แท้ง
+              ลักษณะการติดลูก : แท้ง
               <h4 > วันที่แท้งลูก : {{ bd.gravid_out }} </h4>
               <p  style="color:brown;"> หมายเหตุ : {{bd.gravid_out_remark}} </p>
             </div>
@@ -125,7 +125,9 @@
     <v-dialog v-model="gravidDialog"  scrollable max-width="300px">
       <v-card class="box-yellow">
         <v-card-title>
-          <h2><b>เพิ่มข้อมูลการติดลูก</b></h2>
+          <div v-if="gravid != 1"> <h2><b>เพิ่มข้อมูลการติดลูก</b></h2></div>
+          <div v-if="gravid == 1"> <h2><b>เพิ่มข้อมูลการแท้งลูก</b></h2></div>
+
         </v-card-title>
         <v-card-text style="">
           <div v-if="gravid == 0">
@@ -322,6 +324,7 @@
           .format("DD-MM-YYYY");
         this.tmp = null;
         this.gravid_dialogValue2 = false;
+
       },
 
       gravidOpen(tmp, tmp2, tmp3,tmp4) {
@@ -348,6 +351,8 @@
         this.gravid_date = null;
         this.gravid = 0;
         this.gravidDialog = false;
+        this.gravid_out_remark= null;
+
       },
       gravidSave() {
         var i_tmp = this.gravid;
@@ -368,16 +373,22 @@
         this.gravidClose();
       },
       dialogClose() {
+
         this.dialog = false;
         this.updateGet = false;
         this.clearData();
+         this.defDates();
+
       },
       dateCancle() {
         this.tmp = "";
         this.setData.breed_date = "";
         this.setData.delivery_date = "";
+            this.defDates();
         this.dialogValue = false;
+
       },
+
       dateConvert() {
         let y_tmp = this.$moment(this.tmp);
         let u_tmp = this.$moment(this.tmp).add(116, "days");
@@ -422,6 +433,7 @@
         this.updateGet = true;
         this.dialog = true;
         this.setData = tmp;
+
       },
       update: async function() {
         this.setData.pig_id = this.id;
@@ -464,9 +476,30 @@
       load: async function() {
         let pig = await this.$store.dispatch("cycles/getById", this.id);
         this.datas = this.pig.cycles[this.cycle].breeders;
+      },
+      defDates(){
+      let y = this.$moment();
+      this.defDate = y;
+      this.dateConvertDefault();
+      },
+      dateConvertDefault() {
+        let y_tmp = this.$moment(this.defDate);
+        let u_tmp = this.$moment(this.defDate).add(116, "days");
+        this.setData.delivery_date = this.$moment(this.defDate)
+          .locale("th")
+          .add(543, "years")
+          .add(116, "days")
+          .format("DD-MM-YYYY");
+        this.setData.breed_week = u_tmp.diff(y_tmp, "week");
+        let tmpDate = this.$moment(this.defDate)
+          .locale("th")
+          .add(543, "years")
+          .format("DD-MM-YYYY");
+        this.setData.breed_date = tmpDate;
       }
     },
     mounted() {
+      this.defDates();
       this.preLoad();
     }
   };

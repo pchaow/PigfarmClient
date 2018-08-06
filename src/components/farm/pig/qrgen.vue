@@ -2,9 +2,11 @@
   <v-layout>
 
     <v-container>
+          <v-btn :to="{ name: 'pig-home'}" class="box-green" dark><h2> <v-icon>mdi-keyboard-backspace</v-icon>&nbsp;กลับ</h2></v-btn>
       <h1>
         <v-icon>mdi-qrcode-scan</v-icon>&nbsp; สร้าง qr code
       </h1>
+
       <v-layout row>
 
         <v-flex xs6>

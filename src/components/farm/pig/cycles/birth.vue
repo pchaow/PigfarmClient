@@ -72,15 +72,16 @@
                   <v-btn flat color="primary" @click="dateConvert()">OK</v-btn>
                 </v-date-picker>
               </v-dialog>
-              <h3 class="box-green mar-top pd-20"><v-icon>mdi-pig</v-icon> จำนวนหมูทั้งหมด {{pigCount()}}</h3>
+
              <div class="box-greenFX mar-top pd-20">
-               
-              <v-text-field  mask="###" prepend-icon="mdi-heart" @blur="lifeNotNull()"   type="tel" value="0" v-model.number="setData.life" label="มีชีวิต"></v-text-field>
-              <v-text-field mask="###" prepend-icon="mdi-heart-off" @blur="deadNotNull()" type="tel" v-model="setData.dead" label="ตาย"></v-text-field>
-              <v-text-field  mask="###" prepend-icon="mdi-heart-broken" @blur="mummyNotNull()"  type="tel" v-model="setData.mummy" label="มัมมี่"></v-text-field>
+
+              <v-text-field  mask="###" prepend-icon="mdi-heart" @blur="lifeNotNull()" type="tel" value="0" v-model.number="setData.life" label="มีชีวิต"></v-text-field>
+              <v-text-field mask="###" prepend-icon="mdi-heart-off" @blur="deadNotNull() "    type="tel" v-model.number="setData.dead" label="ตาย"></v-text-field>
+              <v-text-field  mask="###" prepend-icon="mdi-heart-broken" @blur="mummyNotNull()"  type="tel" v-model.number="setData.mummy" label="มัมมี่"></v-text-field>
               <v-text-field  mask="###" prepend-icon="mdi-heart-half-full"  @blur="deformedNotNull()" type="tel" v-model="setData.deformed" label="พิการ"></v-text-field>
-              
+
              </div>
+                 <h3 class="box-green mar-top pd-20"><v-icon>mdi-pig</v-icon> จำนวนหมูทั้งหมด {{pigCount()}}</h3>
               <v-text-field class="box-blue mar-top pd-20" prepend-icon="mdi-weight-kilogram"  readonly v-model="setData.pig_weight_avg" label="น้ำหนักเฉลีย"></v-text-field>
             </v-flex>
             <v-flex xs6 v-if="setData.life" class="mrl-10 pd-10 blueONblue">
@@ -100,7 +101,7 @@
 
 <script>
   import Vaccine from "@/components/farm/pig/cycles/vaccine";
- 
+
   import {
     mapGetters,
     mapActions,
@@ -108,10 +109,11 @@
   } from "vuex";
   export default {
     components: {
-      Vaccine 
+      Vaccine
     },
     data() {
       return {
+        defDate:null,
         updateGet: false,
         valid: true,
         datas: [],
@@ -130,7 +132,7 @@
           deformed: 0,
           pig_weight: null,
           pig_weight_avg: null,
-           
+
         },
         setData: {
           pig_id: null,
@@ -159,11 +161,15 @@
       })
     },
     methods: {
-     
+    test(){
+    if(this.setData.dead == ''){
+  this.setData.dead = 0;
+    }
+    },
      lifeNotNull(){if(this.setData.life == '')this.setData.life = 0;},
      deadNotNull(){if(this.setData.dead == '')this.setData.dead = 0;},
      mummyNotNull(){if(this.setData.mummy == '')this.setData.mummy = 0;},
-     deformedNotNull(){if(this.setData.deformed == '')this.setData.deformed = 0;}, 
+     deformedNotNull(){if(this.setData.deformed == '')this.setData.deformed = 0;},
           clearData(){
           this.setData= new Object();
         this.setData = this.preData;
@@ -173,16 +179,16 @@
       },      pigCount() {
           this.setData.pig_count = this.setData.life + Number(this.setData.dead) + Number(this.setData.mummy) + Number(this.setData.deformed);
           return this.setData.pig_count;
-         
+
       },
       avgCal() {
-        if(this.setData.life < this.tmp_weight.length){ 
+        if(this.setData.life < this.tmp_weight.length){
           let i_setdata = [];
             for(var i=0; i<this.setData.life;i++){
               i_setdata[i] = this.tmp_weight[i];
             }
              let i_tmp = this.$store.dispatch("cycles/calAvg", i_setdata);
-          
+
              this.setData.pig_weight_avg = this.avg.toFixed(2);
              this.setData.pig_weight = i_setdata.toString();
         }else{
@@ -191,7 +197,7 @@
         }
       },
       clearData(){
-        this.setData= new Object(); 
+        this.setData= new Object();
          this.setData = {
           pig_id: null,
           pig_cycle_id: null,
@@ -210,13 +216,15 @@
         this.dialog = false;
         this.updateGet = false;
         this.clearData();
-        
+         this.defDates();
+
       },
       dateCancle() {
         this.tmp = '';
         this.setData.breed_date = '';
         this.setData.delivery_date = '';
         this.dialogValue = false;
+         this.defDates();
       },
       dateConvert() {
         this.setData.delivery_date = this.$moment(this.tmp)
@@ -240,13 +248,19 @@
       },
       checkNull: function(tmp) {
         var ch = true;
-        Object.keys(tmp).forEach(function(key) { 
-          if (tmp[key] == null ) { 
+        try {
+          Object.keys(tmp).forEach(function(key) {
+          if (tmp[key].toString() == null ) {
             ch = false;
-            key = false; 
+            key = false;
           }
-        }); 
+        });
         return ch;
+        } catch (error) {
+          return false;
+        }
+
+
       },
       destroy: async function(tmp) {
 
@@ -256,7 +270,7 @@
           this.getData();
         }
       },
-     
+
       updateOpen: async function(tmp) {
          this.pigCount();
         this.updateGet = true;
@@ -265,7 +279,7 @@
         let i_tmp = tmp.pig_weight.split(",");
         console.log(i_tmp);
         this.tmp_weight = i_tmp;
-         
+
       },
       update: async function() {
             this.pigCount();
@@ -282,7 +296,7 @@
         }else{
             this.setData.pig_weight = this.tmp_weight.toString();
         }
-    
+
         let check = this.$store.dispatch("cycles/checkNull", this.setData);
         if (check) {
           await this.$store.dispatch("birth/update", this.setData);
@@ -306,11 +320,11 @@
           this.load();
           this.getData();
           this.dialogClose();
-         
+
         } else {
           alert('กรุณาระบุข้อมูลให้ครบ');
         }
-        
+
 
       },
       getData: async function() {
@@ -323,9 +337,28 @@
       load: async function() {
         let pig = await this.$store.dispatch("cycles/getById", this.id);
         this.datas = this.pig.cycles[this.cycle].birth;
+      },
+       defDates(){
+      let y = this.$moment();
+      this.defDate = y;
+      this.dateConvertDefault();
+      },
+      dateConvertDefault() {
+       this.setData.delivery_date = this.$moment(this.defDate)
+          .locale('th')
+          .add(543, "years")
+          .add(116, "days")
+          .format("DD-MM-YYYY");
+        let tmpDate = this.$moment(this.defDate)
+          .locale('th')
+          .add(543, "years")
+          .format("DD-MM-YYYY");
+        this.setData.birth_date = tmpDate;
+        this.dialogValue = false;
       }
     },
     mounted() {
+      this.defDates();
       this.preLoad();
     }
   };
