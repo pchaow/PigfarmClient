@@ -78,7 +78,7 @@
               <v-text-field  mask="###" prepend-icon="mdi-heart" @blur="lifeNotNull()" type="tel" value="0" v-model.number="setData.life" label="มีชีวิต"></v-text-field>
               <v-text-field mask="###" prepend-icon="mdi-heart-off" @blur="deadNotNull() "    type="tel" v-model.number="setData.dead" label="ตาย"></v-text-field>
               <v-text-field  mask="###" prepend-icon="mdi-heart-broken" @blur="mummyNotNull()"  type="tel" v-model.number="setData.mummy" label="มัมมี่"></v-text-field>
-              <v-text-field  mask="###" prepend-icon="mdi-heart-half-full"  @blur="deformedNotNull()" type="tel" v-model="setData.deformed" label="พิการ"></v-text-field>
+              <v-text-field  mask="###" prepend-icon="mdi-heart-half-full"  @blur="deformedNotNull()" type="tel" v-model.number="setData.deformed" label="พิการ"></v-text-field>
 
              </div>
                  <h3 class="box-green mar-top pd-20"><v-icon>mdi-pig</v-icon> จำนวนหมูทั้งหมด {{pigCount()}}</h3>
