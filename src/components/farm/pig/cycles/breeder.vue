@@ -29,11 +29,13 @@
               ลัษณะการติดลูก : ปกติ
             </div>
             <h4 class=" nm pdl-10" style="color:brown;"> วันที่ติดลูก : {{bd.gravid_date}} </h4>
+                  <p class=" nm pdl-10" style="color:brown;"> หมายเหตุ : {{bd.gravid_remark}} </p>
              <div class="nm pdl-10" v-if="bd.gravid == 1" style="color:red">
               ลัษณะการติดลูก : แท้ง
               <h4 > วันที่แท้งลูก : {{ bd.gravid_out }} </h4>
+              <p  style="color:brown;"> หมายเหตุ : {{bd.gravid_out_remark}} </p>
             </div>
-            <p class=" nm pdl-10" style="color:brown;"> หมายเหตุ : {{bd.gravid_remark}} </p>
+
                   <v-btn v-if="bd.gravid == 3" @click="gravidOpen(bd.id,bd.gravid,bd.gravid_date,1)" class="box-red " dark>
               <v-icon>mdi-robot</v-icon> &nbsp;แท้ง</v-btn>
           </div>
@@ -135,7 +137,7 @@
                 <v-btn flat color="primary" @click="gravidConvert()">OK</v-btn>
               </v-date-picker>
             </v-dialog>
-
+            <v-textarea outline v-model="gravid_remark" label="หมายเหตุ" ></v-textarea>
           </div>
 
           <div v-if="gravid == 1">
@@ -147,8 +149,9 @@
                 <v-btn flat color="primary" @click="gravidConvert2()">OK</v-btn>
               </v-date-picker>
             </v-dialog>
+                <v-textarea outline v-model="gravid_out_remark" label="หมายเหตุ" ></v-textarea>
           </div>
-           <v-textarea outline v-model="gravid_remark" label="หมายเหตุ" ></v-textarea>
+
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions class="mrl-100">
@@ -185,6 +188,7 @@
         gravid_date: null,
         gravid_out: null,
         gravid_remark: null,
+         gravid_out_remark: null,
         gravid: 3,
         tmp: "",
         preData: {
@@ -353,9 +357,10 @@
         let preData = {
           gravid_id: this.gravid_id,
           gravid: i_tmp,
-           gravid_out: this.gravid_out,
+          gravid_out: this.gravid_out,
           gravid_date: this.gravid_date,
-          gravid_remark: this.gravid_remark
+          gravid_remark: this.gravid_remark,
+           gravid_out_remark: this.gravid_out_remark
         };
         let gravid = this.$store.dispatch("breeder/gravid", preData);
         this.load();
