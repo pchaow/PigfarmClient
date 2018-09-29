@@ -48,7 +48,7 @@
           <v-btn @click="updateOpen(bd)" style="margin-top:-100px; float:right;" small color="orange" fab dark>
             <v-icon>mdi-calendar-edit</v-icon>
           </v-btn>
-          <v-btn @click="destroy(bd.id)" style="margin-top:-50px; float:right;" small color="red" fab dark>
+          <v-btn @click="destroy(bd)" style="margin-top:-50px; float:right;" small color="red" fab dark>
             <v-icon>mdi-delete</v-icon>
           </v-btn>
         </div>
@@ -336,7 +336,7 @@
 
         this.gravid_out = y
           .locale("th")
-          .add(543, "years")
+          .add(  "years")
           .format("DD-MM-YYYY");
         this.gravidDialog = true;
         this.gravid_id = tmp;

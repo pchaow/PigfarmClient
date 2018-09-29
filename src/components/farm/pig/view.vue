@@ -198,8 +198,7 @@
                 }
             },
             load: async function () {
-                let pig = await this.$store.dispatch(
-                    "cycles/getById",
+                let pig = await this.$store.dispatch( "cycles/getById",
                     this.$route.params.id
                 );
                 try {

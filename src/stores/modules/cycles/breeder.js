@@ -11,7 +11,7 @@ export default {
     gravid: async function ({state,dispatch}, x) {
       console.log(x);
       axios
-      .post("/api/farm/pigs/gravid",x)
+      .post("/api/cycles/breeder/gravid",x)
       .then(function(response) {
         alert('บันทึกข้อมูลสำเร็จ');
       })
@@ -20,11 +20,10 @@ export default {
       });
     },
     update: async function ({state, commit, dispatch}, form) {
-      let r = await axios.put("/api/farm/pigs/breeder/" + form.id, form)
+      let r = await axios.put("/api/farm/pigs/"+form.pig_id+"/cycles/"+form.pig_cycle_id+"/breeder/" + form.id, form)
           .then((r) => {
                alert("แก้ไขข้อมูลสำเร็จ");
               return r.data;
-
           }).catch((error) => {
               dispatch("error/setError", error.response.data, {root: true});
               return null;
@@ -34,7 +33,7 @@ export default {
     save: async function ({state}, x) {
       console.log(x);
       axios
-      .post("/api/farm/pigs/breeder",x)
+      .post("/api/farm/pigs/"+x.pig_id+"/cycles/"+x.pig_cycle_id+"/breeder",x)
       .then(function(response) {
         alert('บันทึกข้อมูลสำเร็จ');
       })
@@ -42,9 +41,10 @@ export default {
         alert(error);
       });
     },
-    destroy:async function ({state}, id) {
-      let result = await axios.delete('/api/farm/pigs/breeder/' + id)
+    destroy:async function ({state}, form) {
+      let result = await axios.delete("/api/farm/pigs/"+form.pig_id+"/cycles/"+form.pig_cycle_id+"/breeder/" + form.id)
       .then((r) => {
+
           return r.data
       }).catch((e) => {
           dispatch("error/setError", error.response.data, {root: true});
