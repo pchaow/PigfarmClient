@@ -249,6 +249,7 @@
         this.setData = this.preData;
         this.clearData();
          this.defDates();
+         this.load();
       },
       dateCancle() {
         this.tmp = '';
@@ -288,7 +289,7 @@
         this.dialog = true;
         this.setData = tmp;
         let i_tmp = tmp.pig_weight.split(",");
-        this.setData.pig_count = i_tmp.length;
+        //this.setData.pig_count = i_tmp.length;
         console.log(i_tmp);
         this.tmp_weight = i_tmp;
       },

@@ -151,6 +151,7 @@
         this.setData = this.preData;
         this.clearData();
               this.defDates();
+              this.load();
       },
       dateCancle() {
         this.tmp = '';

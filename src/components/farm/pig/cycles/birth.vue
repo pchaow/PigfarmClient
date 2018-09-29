@@ -217,6 +217,7 @@
         this.updateGet = false;
         this.clearData();
          this.defDates();
+        this.load();
 
       },
       dateCancle() {

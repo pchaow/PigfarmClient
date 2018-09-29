@@ -175,6 +175,7 @@
         this.setData = this.preData;
          this.select ="Select";
                this.defDates();
+        this.load();
       },
       openDialog: async function() {
         this.dialog = true;
