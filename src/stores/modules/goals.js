@@ -3,6 +3,11 @@ import {make} from 'vuex-pathify'
 const state = {
     reportGoals: [],
     paginate: null,
+    reportType : [
+        'month',
+        'quater',
+        'year',
+    ],
     form: {
         keyword: "",
         page: 1
@@ -57,15 +62,26 @@ const actions = {
     async getById({state, commit, dispatch}, id) {
         let r = await axios.get("/api/goals/" + id)
             .then((r) => {
+                console.log('goals/getById',r);
                 return r.data;
             })
             .catch((error) => {
                 dispatch("error/setError", error.response.data, {root: true});
                 return null;
             })
-
         return r;
+    },
 
+
+    async updateGoal({state, commit, dispatch}, form) {
+        let r = await axios.put("/api/goals/" + form.id, form)
+            .then((r) => {
+                return r.data;
+            }).catch((error) => {
+                dispatch("error/setError", error.response.data, {root: true});
+                return null;
+            })
+        return r;
     },
 };
 

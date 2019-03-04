@@ -70,6 +70,11 @@ let router = new Router({
                     name: 'report-home',
                     path: '',
                     component: view('admin/report/index')
+                },
+                {
+                    name: 'report-goal-edit',
+                    path: '/goal/:id/edit',
+                    component: view('admin/report/editGoal')
                 }
             ]
         }, {

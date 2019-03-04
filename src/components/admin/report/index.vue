@@ -27,7 +27,7 @@
                         <td>{{ props.item.report_type }}</td>
                         <td>{{ props.item.report_date}}</td>
                         <td class="layout px-0">
-                            <v-btn icon class="mx-0">
+                            <v-btn icon class="mx-0" :to="{ name: 'report-goal-edit', params: { id: props.item.id }}">
                                 <v-icon color="teal">edit</v-icon>
                             </v-btn>
                         </td>
