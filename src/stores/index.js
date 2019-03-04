@@ -15,12 +15,14 @@ import moduleFeed from "./modules/cycles/feed"
 import moduleFeedout from "./modules/cycles/feedout"
 import moduleMilk from "./modules/cycles/milk"
 import moduleVaccine from "./modules/cycles/vaccine"
-
+import moduleGoals from "./modules/goals";
 
 Vue.use(Vuex);
 
+import pathify from "vuex-pathify"
 
 export default new Vuex.Store({
+    plugins: [ pathify.plugin ], // activate plugin
     modules: {
         error: moduleError,
         login: moduleLogin,
@@ -30,12 +32,14 @@ export default new Vuex.Store({
         users: moduleUsers,
         choices: moduleChocies,
         pigs: modulePigs,
-        cycles:moduleCycles,
-        breeder:moduleBreeder,
-        birth:moduleBirth,
-        feed:moduleFeed,
-        feedout:moduleFeedout,
-        milk:moduleMilk,
-        vaccine:moduleVaccine
+        cycles: moduleCycles,
+        breeder: moduleBreeder,
+        birth: moduleBirth,
+        feed: moduleFeed,
+        feedout: moduleFeedout,
+        milk: moduleMilk,
+        vaccine: moduleVaccine,
+
+        goals: moduleGoals,
     }
 })
