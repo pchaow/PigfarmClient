@@ -230,21 +230,21 @@
       dateConvert() {
         this.setData.delivery_date = this.$moment(this.tmp)
           .locale('th')
-          .add(543, "years")
+          
           .add(116, "days")
-          .format("DD-MM-YYYY");
+          .format("YYYY-MM-DD");
         let tmpDate = this.$moment(this.tmp)
           .locale('th')
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+          
+          .format("YYYY-MM-DD");
         this.setData.birth_date = tmpDate;
         this.dialogValue = false;
       },
       dateTothai(tmp) {
         let start = this.$moment(tmp)
           .locale('th')
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+          
+          .format("YYYY-MM-DD");
         return start;
       },
       checkNull: function(tmp) {
@@ -347,13 +347,13 @@
       dateConvertDefault() {
        this.setData.delivery_date = this.$moment(this.defDate)
           .locale('th')
-          .add(543, "years")
+          
           .add(116, "days")
-          .format("DD-MM-YYYY");
+          .format("YYYY-MM-DD");
         let tmpDate = this.$moment(this.defDate)
           .locale('th')
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+          
+          .format("YYYY-MM-DD");
         this.setData.birth_date = tmpDate;
         this.dialogValue = false;
       }

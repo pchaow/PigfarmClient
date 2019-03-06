@@ -277,8 +277,8 @@
         if(this.gravid_date == ''){
         this.gravid_date = y
           .locale("th")
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+        
+          .format("YYYY-MM-DD");
         }
       },
        dateNotNull2(){
@@ -286,15 +286,15 @@
         if(this.gravid_out == ''){
         this.gravid_out = y
           .locale("th")
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+        
+          .format("YYYY-MM-DD");
         }
       },
       gravidConvert() {
         this.gravid_date = this.$moment(this.tmp)
           .locale("th")
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+        
+          .format("YYYY-MM-DD");
         this.tmp = null;
         this.gravid_dialogValue = false;
       },
@@ -302,8 +302,8 @@
            let y = this.$moment();
         this.gravid_date = y
           .locale("th")
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+        
+          .format("YYYY-MM-DD");
         this.tmp = null;
         this.gravid_dialogValue = false;
       },
@@ -311,8 +311,8 @@
    gravidConvert2() {
         this.gravid_out = this.$moment(this.tmp)
           .locale("th")
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+        
+          .format("YYYY-MM-DD");
         this.tmp = null;
         this.gravid_dialogValue2 = false;
       },
@@ -320,8 +320,8 @@
            let y = this.$moment();
         this.gravid_out = y
           .locale("th")
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+        
+          .format("YYYY-MM-DD");
         this.tmp = null;
         this.gravid_dialogValue2 = false;
 
@@ -331,13 +331,13 @@
         let y = this.$moment();
         this.gravid_date = y
           .locale("th")
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+        
+          .format("YYYY-MM-DD");
 
         this.gravid_out = y
           .locale("th")
           .add(  "years")
-          .format("DD-MM-YYYY");
+          .format("YYYY-MM-DD");
         this.gravidDialog = true;
         this.gravid_id = tmp;
             this.gravid = tmp2;
@@ -394,22 +394,22 @@
         let u_tmp = this.$moment(this.tmp).add(116, "days");
         this.setData.delivery_date = this.$moment(this.tmp)
           .locale("th")
-          .add(543, "years")
+        
           .add(116, "days")
-          .format("DD-MM-YYYY");
+          .format("YYYY-MM-DD");
         this.setData.breed_week = u_tmp.diff(y_tmp, "week");
         let tmpDate = this.$moment(this.tmp)
           .locale("th")
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+        
+          .format("YYYY-MM-DD");
         this.setData.breed_date = tmpDate;
         this.dialogValue = false;
       },
       dateTothai(tmp) {
         let start = this.$moment(tmp)
           .locale("th")
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+        
+          .format("YYYY-MM-DD");
         return start;
       },
       checkNull: function(tmp) {
@@ -487,14 +487,14 @@
         let u_tmp = this.$moment(this.defDate).add(116, "days");
         this.setData.delivery_date = this.$moment(this.defDate)
           .locale("th")
-          .add(543, "years")
+        
           .add(116, "days")
-          .format("DD-MM-YYYY");
+          .format("YYYY-MM-DD");
         this.setData.breed_week = u_tmp.diff(y_tmp, "week");
         let tmpDate = this.$moment(this.defDate)
           .locale("th")
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+        
+          .format("YYYY-MM-DD");
         this.setData.breed_date = tmpDate;
       }
     },
