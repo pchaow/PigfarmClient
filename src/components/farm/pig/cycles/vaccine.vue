@@ -190,8 +190,8 @@
       dateConvert() {
         this.setData.date = this.$moment(this.tmp)
           .locale('th')
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+          
+          .format("YYYY-MM-DD");
         this.dialogValue = false;
       },
       save: async function() {
@@ -247,8 +247,8 @@
       dateConvertDefault() {
         let tmpDate = this.$moment(this.defDate)
           .locale('th')
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+          
+          .format("YYYY-MM-DD");
         this.setData.date = tmpDate;
       }
     },

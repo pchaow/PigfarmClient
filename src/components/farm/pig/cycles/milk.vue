@@ -191,8 +191,8 @@
       dateConvert() {
         let tmpDate = this.$moment(this.tmp)
           .locale('th')
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+          
+          .format("YYYY-MM-DD");
         this.setData.milk_date = tmpDate;
         this.dialogValue = false;
       },
@@ -291,8 +291,8 @@
       dateConvertDefault() {
         let tmpDate = this.$moment(this.defDate)
           .locale('th')
-          .add(543, "years")
-          .format("DD-MM-YYYY");
+          
+          .format("YYYY-MM-DD");
         this.setData.milk_date = tmpDate;
       }
 
