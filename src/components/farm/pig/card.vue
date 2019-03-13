@@ -1,7 +1,7 @@
 <template>
 <v-layout column justify-center>
    
-<pdf :src="'http://127.0.0.1:8000/card/'+this.pig_id"></pdf>
+<pdf :src="url+'/card/'+this.pig_id"></pdf>
 </v-layout>
 </template>
 
@@ -21,6 +21,7 @@ export default {
     data() {
         return {
             pig_id:0,
+            url:process.env.API_URL,
             
         };
     },
