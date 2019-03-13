@@ -135,7 +135,12 @@ let router = new Router({
                     name: 'pig-gen',
                     path: 'qrgen',
                     component: view('farm/pig/qrgen')
-                }
+                },
+                {
+                    name: 'pig-card',
+                    path: 'card',
+                    component: view('farm/pig/card')
+                },
             ]
         }
     ]
