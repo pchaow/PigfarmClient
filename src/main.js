@@ -24,7 +24,11 @@ let axios = require('axios');
 window.axios = axios.create({
     baseURL: process.env.API_URL,
     timeout: 5000,
-    headers: {'X-Custom-Header': 'foobar'}
+    headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',  
+        'X-Custom-Header': 'foobar'
+    }
 });
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
