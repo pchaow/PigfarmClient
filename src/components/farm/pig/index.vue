@@ -67,6 +67,9 @@
                             <v-btn icon class="mx-0" :to="{ name: 'pig-edit', params: { id: props.item.id }}">
                                 <v-icon color="teal">edit</v-icon>
                             </v-btn>
+                             <v-btn icon class="mx-0" @click="cardOpen(props.item.id)" >
+                                <v-icon color="blue" >mdi-file</v-icon>
+                            </v-btn>
                             <v-btn icon class="mx-0" v-on:click="destroy(props.item)">
                                 <v-icon color="pink">delete</v-icon>
                             </v-btn>
@@ -142,6 +145,10 @@
                     let result = await this.$store.dispatch('pigs/destroy', pig.id);
                     this.load();
                 }
+            },
+            cardOpen(id){
+                let link = process.env.API_URL+"/card/"+id;
+               window.open(link)
             }
         },
         mounted() {

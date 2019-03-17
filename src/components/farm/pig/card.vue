@@ -1,7 +1,6 @@
 <template>
-<v-layout column justify-center>
-   
-<pdf :src="url+'/card/'+this.pig_id"></pdf>
+<v-layout column justify-center style="height:100vh;"> 
+    <iframe width="100%" height="100%" :src="url+'/card/'+pig_id" frameborder="0"></iframe>
 </v-layout>
 </template>
 
@@ -20,7 +19,7 @@ export default {
     },
     data() {
         return {
-            pig_id:0,
+            pig_id:1,
             url:process.env.API_URL,
             
         };
