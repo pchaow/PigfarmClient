@@ -75,7 +75,18 @@ let router = new Router({
                     name: 'report-goal-edit',
                     path: '/goal/:id/edit',
                     component: view('admin/report/editGoal')
-                }
+                },
+                {
+                  name: 'report-quater-view',
+                  path: '/quater/view',
+                  component: view('admin/report/viewQuater')
+              }
+              ,
+                {
+                  name: 'report-quater-show',
+                  path: '/quater',
+                  component: view('admin/report/quater')
+              }
             ]
         }, {
             path: '/admin/choice',

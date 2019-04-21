@@ -58,6 +58,14 @@
           <v-list-tile-title>ตั้งค่าเป้าหมาย</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
+      <v-list-tile :to="{name:'report-quater-show'}" exact>
+        <v-list-tile-action>
+          <v-icon>mdi-file-document-box-multiple</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>ดูรายงาน</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
     </v-list>
     <v-divider/>
     <v-list>

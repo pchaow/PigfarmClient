@@ -16,7 +16,7 @@ import moduleFeedout from "./modules/cycles/feedout"
 import moduleMilk from "./modules/cycles/milk"
 import moduleVaccine from "./modules/cycles/vaccine"
 import moduleGoals from "./modules/goals";
-
+import moduleQuater from "./modules/report/quater";
 Vue.use(Vuex);
 
 import pathify from "vuex-pathify"
@@ -41,5 +41,6 @@ export default new Vuex.Store({
         vaccine: moduleVaccine,
 
         goals: moduleGoals,
+        quater:moduleQuater
     }
 })
