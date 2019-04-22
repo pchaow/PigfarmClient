@@ -2,10 +2,15 @@
  <template>
 <div>
 <h1>รายงาน</h1><hr>
-  <div v-for="year in yearsQuater" :key="year">
-     <VBtn @click="goQuaterView(year)" color="success">ประจำปี {{year}}</VBtn>
-  </div>
+<br>
+<v-select
+          :items="yearsQuater"
+          label="เลือกปีที่รายงาน"
+          v-model="yearSet"
+          @input="goQuaterView(yearSet)"
+        ></v-select>
 
+<viewQuater/>
 </div>
 </template>
 
@@ -15,11 +20,12 @@ import {
     sync,
     call
 } from "vuex-pathify";
+import viewQuater from './viewQuater';
 export default {
     name: 'Root',
     /*-------------------------Load Component---------------------------------------*/
     components: {
-
+viewQuater
     },
     /*-------------------------Set Component---------------------------------------*/
     props: {
@@ -53,7 +59,7 @@ export default {
         },
         async goQuaterView(year){
           await this.getQuater(year);
-          await this.$router.push('/quater/view');
+         // await this.$router.push('/quater/view');
         }
     },
 }
