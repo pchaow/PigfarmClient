@@ -41,6 +41,8 @@
                         </v-date-picker>
                     </v-menu>
 
+                    <v-text-field label="เป้าหมายของปี" v-model="forms.report_year"
+                                  :error-messages="error.errors.report_year"/>
 
                     <v-text-field label="จำนวนแม่พันธุ์ใช้งาน" v-model="forms.active_breeder"
                                   :error-messages="error.errors.active_breeder"/>
@@ -131,6 +133,8 @@
                     this.goalDialog= false;
                     //await location.reload();
                 }
+                  await this.$store.dispatch('goals/getReportGoals')
+                  await this.$store.dispatch('goals/getyearsGoal')
             }
         },
         created() {

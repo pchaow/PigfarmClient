@@ -1,10 +1,10 @@
 <template>
 <v-layout column justify-center>
     <v-flex>
-        <h1 class="display-1 pb-3">ตั้งค่าเป้าหมาย</h1>
-        <VBtn @click="openAddGoal()" color="success" icon>
+        <h1 class="display-1 pb-3">ตั้งค่าเป้าหมาย <VBtn @click="openAddGoal()" color="success" icon>
             <v-icon>add</v-icon>
-        </VBtn>
+        </VBtn></h1>
+        
         <v-layout row class="pb-3">
 
             <v-flex offset-md6 md6>
@@ -53,11 +53,11 @@
     <VDialog v-model="goalDialog" scrollable persistent max-width="500px" transition="dialog-transition">
         <VCard>
             <v-toolbar class="box-blue">
-                <h1 class="wh">เพิ่มเป้าหมาย</h1>
-                <v-divider></v-divider>
-                <VBtn @click="closeAddGoal()" color="danger" dark icon>
+                 <VBtn @click="closeAddGoal()" color="danger" dark icon>
                     <v-icon>close</v-icon>
-                </VBtn>
+                </VBtn>  <h1 class="wh">เพิ่มเป้าหมาย</h1>
+                
+             
             </v-toolbar>
             <AddGoal />
         </VCard>
@@ -81,7 +81,7 @@ export default {
         AddGoal
     },
     data: () => ({
-        yearSet: 2018,
+        yearSet: 2019,
         goalData:[],
     }),
     computed: {
