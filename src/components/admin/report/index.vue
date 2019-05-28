@@ -1,89 +1,127 @@
 <template>
-    <v-layout column justify-center>
-        <v-flex>
-            <h1 class="display-1 pb-3">ตั้งค่าเป้าหมาย</h1>
-            <v-layout row class="pb-3">
+<v-layout column justify-center>
+    <v-flex>
+        <h1 class="display-1 pb-3">ตั้งค่าเป้าหมาย</h1>
+        <VBtn @click="openAddGoal()" color="success" icon>
+            <v-icon>add</v-icon>
+        </VBtn>
+        <v-layout row class="pb-3">
 
-                <v-flex offset-md6 md6>
-                    <v-form v-on:submit.default="search()">
-                        <v-text-field
-                                append-icon="search"
-                                label="ค้นหา"
-                                single-line
-                                hide-details
-                                v-model="form.keyword"
-                        ></v-text-field>
-                    </v-form>
-                </v-flex>
-            </v-layout>
+            <v-flex offset-md6 md6>
+                <v-form v-on:submit.default="search()">
+                    <v-text-field append-icon="search" label="ค้นหา" single-line hide-details v-model="form.keyword"></v-text-field>
+                </v-form>
+            </v-flex>
+        </v-layout>
+     
+    <v-select
+          :items="yearGoal" 
+          label="เลือกปีที่สร้างเป้าหมาย"
+          v-model="yearSet" 
+          @input="serGoalYear()"
+        ></v-select>
+ 
+        <v-card v-if="paginate">
+            
+            <v-data-table  style="font-size: larger;" :headers="headers" :items="goalData" hide-actions>
 
-            <v-card v-if="paginate">
-                <v-data-table style="font-size: larger;"
-                              :headers="headers"
-                              :items="reportGoals"
-                              hide-actions>
+                <template  slot="items" slot-scope="props">
+                    <td>{{ props.item.report_type }}</td>
+                    <td>{{ props.item.report_date}}</td>
+                    <td class="layout px-0">
+                        <v-btn icon class="mx-0" :to="{ name: 'report-goal-edit', params: { id: props.item.id }}">
+                            <v-icon color="teal">edit</v-icon>
+                        </v-btn>
+                    </td>
+                </template>
 
-                    <template slot="items" slot-scope="props">
-                        <td>{{ props.item.report_type }}</td>
-                        <td>{{ props.item.report_date}}</td>
-                        <td class="layout px-0">
-                            <v-btn icon class="mx-0" :to="{ name: 'report-goal-edit', params: { id: props.item.id }}">
-                                <v-icon color="teal">edit</v-icon>
-                            </v-btn>
-                        </td>
-                    </template>
+                <template slot="no-data">
+                    <v-alert :value="true" color="error" icon="warning">
+                        Sorry, nothing to display here :(
+                    </v-alert>
+                </template>
 
-                    <template slot="no-data">
-                        <v-alert :value="true" color="error" icon="warning">
-                            Sorry, nothing to display here :(
-                        </v-alert>
-                    </template>
+            </v-data-table>
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-pagination @input="changePage" :length="paginate.last_page" v-model="form.page"></v-pagination>
 
+            </v-card-actions>
+        </v-card>
 
-                </v-data-table>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-pagination @input="changePage" :length="paginate.last_page" v-model="form.page"></v-pagination>
-
-                </v-card-actions>
-            </v-card>
-
-
-        </v-flex>
-    </v-layout>
+    </v-flex>
+    <VDialog v-model="goalDialog" scrollable persistent max-width="500px" transition="dialog-transition">
+        <VCard>
+            <v-toolbar class="box-blue">
+                <h1 class="wh">เพิ่มเป้าหมาย</h1>
+                <v-divider></v-divider>
+                <VBtn @click="closeAddGoal()" color="danger" dark icon>
+                    <v-icon>close</v-icon>
+                </VBtn>
+            </v-toolbar>
+            <AddGoal />
+        </VCard>
+    </VDialog>
+</v-layout>
 </template>
 
 <script>
+import {
+    get,
+    sync,
+    call,
+    dispatch
+} from 'vuex-pathify'
+import Base from '@/components/Base'
+import AddGoal from './addGoal';
+import _ from 'lodash';
+export default {
+    extends: Base,
+    components: {
+        AddGoal
+    },
+    data: () => ({
+        yearSet: 2018,
+        goalData:[],
+    }),
+    computed: {
+        ...sync('goals/*')
+    },
 
-    import {get, sync, call,dispatch} from 'vuex-pathify'
-    import Base from '@/components/Base'
+    methods: {
 
-    export default {
-        extends: Base,
-        data: () => ({}),
-        computed: {
-            ...sync('goals/*')
+        openAddGoal() {
+            this.goalDialog = true;
         },
-
-        methods: {
-
-            changePage: function (page) {
-                this.form.page = page
-                this.load();
-            },
-            search: function () {
-                this.form.page = 1;
-                this.load();
-            },
-            load: function () {
-                dispatch('goals/getPaginate',this.form)
-
-            }
+        closeAddGoal() {
+            this.forms={}
+            this.goalDialog = false;
         },
-        mounted() {
-
+        changePage: function (page) {
+            this.form.page = page
             this.load();
+        },
+        search: function () {
+            this.form.page = 1;
+            this.load();
+        },
+        serGoalYear(){
+           this.goalData  =  _.filter(this.reportGoals, {report_year: this.yearSet});
+            
+
+        },
+        load: async function () {
+            dispatch('goals/getPaginate', this.form)
+            await  dispatch('goals/getyearsGoal')
+            this.goalData = this.reportGoals;
+            this.serGoalYear();
 
         }
+    },
+    mounted() {
+
+        this.load();
+
     }
+}
 </script>
