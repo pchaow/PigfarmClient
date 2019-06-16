@@ -75,6 +75,7 @@ import {
 import Base from '@/components/Base'
 import AddGoal from './addGoal';
 import _ from 'lodash';
+import moment from 'moment';
 export default {
     extends: Base,
     components: {
@@ -91,10 +92,17 @@ export default {
     methods: {
 
         openAddGoal() {
+              let dates = moment().format('YYYY-MM-DD');
+                this.forms.report_date = dates;
+                this.forms.report_year = moment().format('YYYY');
             this.goalDialog = true;
+
         },
         closeAddGoal() {
             this.forms={}
+              let dates = moment().format('YYYY-MM-DD');
+                this.forms.report_date = dates;
+                this.forms.report_year = moment().format('YYYY');
             this.goalDialog = false;
         },
         changePage: function (page) {

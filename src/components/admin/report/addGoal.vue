@@ -79,8 +79,7 @@
 
                     <v-text-field label="เฉลี่ยน้ำหนักหย่านม/ตัว" v-model="forms.pig_ween_weight_avg"
                                   :error-messages="error.errors.pig_ween_weight_avg"/>
-                     <v-text-field label="เฉลี่ยน้ำหนักหย่านม/ตัว" v-model="forms.pig_delivered_rate"
-                                  :error-messages="error.errors.pig_delivered_rate"/>
+               
 
                     <v-text-field label="จำนวนครอก/แม่/ปี" v-model="forms.delivered_breeder_rate"
                                   :error-messages="error.errors.delivered_breeder_rate"/>
@@ -110,7 +109,7 @@
 <script>
     import {get, sync, call, callOne } from 'vuex-pathify'
     import Base from "../../Base"
-
+    import moment from 'moment';
     export default {
         extends: Base,
         components: {},
@@ -123,7 +122,10 @@
         },
         methods: {
             load: async function () {
-                
+                this.forms.pig_delivered_rate = 0;
+                let dates = moment().format('YYYY-MM-DD');
+                this.forms.report_date = dates;
+                this.forms.report_year = moment().format('YYYY');
             },
             save: async function () {
                 let goal = await this.$store.dispatch('goals/saveGoal',this.forms)
@@ -135,6 +137,7 @@
                 }
                   await this.$store.dispatch('goals/getReportGoals')
                   await this.$store.dispatch('goals/getyearsGoal')
+                  this.report_date_menu = false;
             }
         },
         created() {
