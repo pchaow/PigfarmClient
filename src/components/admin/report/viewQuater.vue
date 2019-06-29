@@ -66,7 +66,8 @@
 
             <td class="tg-0lax">{{quaterData.year.active_breeder}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.active_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.active_breeder-quaterData.year.active_breeder}}</td>
+
+            <td class="tg-0lax">{{quaterData.year.active_breederขquaterData.goalYear.active_breeder}}</td>
 
         </tr>
         <tr>
@@ -89,7 +90,8 @@
 
             <td class="tg-0lax">{{quaterData.year.breeded_breeder}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.breeded_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.breeded_breeder-quaterData.year.breeded_breeder}}</td>
+
+            <td class="tg-0lax">{{quaterData.year.breeded_breeder-quaterData.goalYear.breeded_breeder}}</td>
 
         </tr>
         <tr>
@@ -112,7 +114,8 @@
 
             <td class="tg-0lax">{{quaterData.year.delivery_breeder}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.delivery_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.delivery_breeder-quaterData.year.delivery_breeder}}</td>
+
+            <td class="tg-0lax">{{quaterData.year.delivery_breeder-quaterData.goalYear.delivery_breeder}}</td>
 
         </tr>
         <tr>
@@ -135,7 +138,8 @@
 
             <td class="tg-0lax">{{quaterData.year.delivery_ratio}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.delivery_ratio}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.delivery_ratio-quaterData.year.delivery_ratio}}</td>
+            
+            <td class="tg-0lax">{{quaterData.year.delivery_ratio-quaterData.goalYear.delivery_ratio}}</td>
 
         </tr>
         <tr>
@@ -158,7 +162,8 @@
 
             <td class="tg-0lax">{{quaterData.year.pig_delivered_rate}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.pig_delivered_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.pig_delivered_rate-quaterData.year.pig_delivered_rate}}</td>
+
+            <td class="tg-0lax">{{quaterData.year.pig_delivered_rate-quaterData.goalYear.pig_delivered_rate}}</td>
 
         </tr>
         <tr>
@@ -181,7 +186,8 @@
 
             <td class="tg-0lax">{{quaterData.year.pig_delivered_died_percent}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.pig_delivered_died_percent}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.pig_delivered_died_percent-quaterData.year.pig_delivered_died_percent}}</td>
+
+            <td class="tg-0lax">{{quaterData.year.pig_delivered_died_percent-quaterData.goalYear.pig_delivered_died_percent}}</td>
 
         </tr>
         <tr>
@@ -204,7 +210,8 @@
 
             <td class="tg-0lax">{{quaterData.year.pig_delivered_success_avg}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.pig_delivered_success_avg}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.pig_delivered_success_avg-quaterData.year.pig_delivered_success_avg}}</td>
+
+            <td class="tg-0lax">{{quaterData.year.pig_delivered_success_avg-quaterData.goalYear.pig_delivered_success_avg}}</td>
 
         </tr>
         <tr>
@@ -227,7 +234,8 @@
 
             <td class="tg-0lax">{{quaterData.year.pig_delivered_weight}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.pig_delivered_weight}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.pig_delivered_weight-quaterData.year.pig_delivered_weight}}</td>
+
+            <td class="tg-0lax">{{quaterData.year.pig_delivered_weight-quaterData.goalYear.pig_delivered_weight}}</td>
 
         </tr>
         <tr>
@@ -250,7 +258,8 @@
 
             <td class="tg-0lax">{{quaterData.year.pig_raising_failed_perent}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.pig_raising_failed_perent}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.pig_raising_failed_perent-quaterData.year.pig_raising_failed_perent}}</td>
+
+            <td class="tg-0lax">{{quaterData.year.pig_raising_failed_perent-quaterData.goalYear.pig_raising_failed_perent}}</td>
 
         </tr>
         <tr>
@@ -273,7 +282,8 @@
 
             <td class="tg-0lax">{{quaterData.year.ween_breeder}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.ween_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.ween_breeder-quaterData.year.ween_breeder}}</td>
+
+            <td class="tg-0lax">{{quaterData.year.ween_breeder-quaterData.goalYear.ween_breeder}}</td>
 
         </tr>
         <tr>
@@ -296,7 +306,8 @@
 
             <td class="tg-0lax">{{quaterData.year.pig_ween_number}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.pig_ween_number}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.pig_ween_number-quaterData.year.pig_ween_number}}</td>
+
+            <td class="tg-0lax">{{quaterData.year.pig_ween_number-quaterData.goalYear.pig_ween_number}}</td>
 
         </tr>
         <tr>
@@ -319,7 +330,8 @@
 
             <td class="tg-0lax">{{quaterData.year.pig_ween_rate}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.pig_ween_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.pig_ween_rate-quaterData.year.pig_ween_rate}}</td>
+
+            <td class="tg-0lax">{{quaterData.year.pig_ween_rate-quaterData.goalYear.pig_ween_rate}}</td>
 
         </tr>
         <tr>
@@ -342,7 +354,8 @@
 
             <td class="tg-0lax">{{quaterData.year.pig_ween_weight_avg}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.pig_ween_weight_avg}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.pig_ween_weight_avg-quaterData.year.pig_ween_weight_avg}}</td>
+
+            <td class="tg-0lax">{{quaterData.year.pig_ween_weight_avg-quaterData.goalYear.pig_ween_weight_avg}}</td>
 
         </tr>
         <tr>
@@ -365,7 +378,8 @@
 
             <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.delivered_breeder_rate-quaterData.year.delivered_breeder_rate}}</td>
+
+            <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate-quaterData.goalYear.delivered_breeder_rate}}</td>
 
         </tr>
         <tr>
@@ -388,7 +402,7 @@
 
             <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.delivered_breeder_rate-quaterData.year.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate-quaterData.goalYear.delivered_breeder_rate}}</td>
 
         </tr>
         <tr>
@@ -429,7 +443,8 @@
 
             <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.delivered_breeder_rate-quaterData.year.delivered_breeder_rate}}</td>
+            
+            <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate-quaterData.goalYear.delivered_breeder_rate}}</td>
 
         </tr>
         <tr>
@@ -452,7 +467,8 @@
 
             <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.delivered_breeder_rate-quaterData.year.delivered_breeder_rate}}</td>
+
+            <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate-quaterData.goalYear.delivered_breeder_rate}}</td>
 
         </tr>
         <tr>
@@ -475,7 +491,8 @@
 
             <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goalYear.delivered_breeder_rate-quaterData.year.delivered_breeder_rate}}</td>
+
+            <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate-quaterData.goalYear.delivered_breeder_rate}}</td>
 
         </tr>
     </table>
