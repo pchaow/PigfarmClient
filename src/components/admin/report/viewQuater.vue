@@ -487,12 +487,11 @@
 
             <td class="tg-0lax">{{quaterData.goal4.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater4.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.delivered_breeder_rate-quaterData.quater4.delivered_breeder_rate}}</td>
-
+            <td class="tg-0lax">{{different(quaterData.quater4.delivered_breeder_rate,quaterData.goal4.delivered_breeder_rate)}}</td>            
             <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.delivered_breeder_rate}}</td>
 
-            <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate-quaterData.goalYear.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.year.delivered_breeder_rate, quaterData.goalYear.delivered_breeder_rate)}}</td>
 
         </tr>
     </table>
@@ -538,7 +537,20 @@ export default {
     methods: {
         ...call('quater/*'),
         /******* Methods default run ******/
-        load: async function () {}
+        load: async function () {},
+
+
+        different  : function(actual,goal) {
+            return actual - goal
+        },
+        
+        differentColor  : function(actual,goal) {
+            if (actual >= goal) {
+                return 'green'
+            }else {
+                return 'red'
+            }
+        }
     },
 }
 </script>
