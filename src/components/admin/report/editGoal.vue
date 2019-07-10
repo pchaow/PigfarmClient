@@ -6,6 +6,7 @@
             <v-card class="mb-3">
                 <v-card-title>
                     <h2 class="title">ข้อมูลเป้าหมาย</h2>
+                    <v-btn @click="openAddGoal()">คัดลอกเป้าหมายใหม่</v-btn>
                 </v-card-title>
                 <v-card-text>
                     <v-select
@@ -101,24 +102,85 @@
             <v-btn @click="$router.go(-1)">Cancel</v-btn>
 
         </v-flex>
+        <VDialog v-model="goalDialog" scrollable persistent max-width="500px" transition="dialog-transition">
+        <VCard>
+            <v-toolbar class="box-blue">
+                 <VBtn @click="closeAddGoal()" color="danger" dark icon>
+                    <v-icon>close</v-icon>
+                </VBtn>  <h1 class="wh">เพิ่มเป้าหมาย</h1>
+                
+             
+            </v-toolbar>
+            <AddGoal />
+        </VCard>
+    </VDialog>
     </v-layout>
 </template>
 
 <script>
     import {get, sync, call, callOne } from 'vuex-pathify'
     import Base from "../../Base"
+    import moment from 'moment';
+    import AddGoal from './addGoal';
+
 
     export default {
         extends: Base,
-        components: {},
+        components: {
+            AddGoal
+        },
         data: () => ({
             form: null,
             report_date_menu : false,
+            goalDialog: false,
+
         }),
         computed : {
-            report_type : sync("goals/reportType")
+            report_type : sync("goals/reportType"),
+            forms : sync('goals/forms')
         },
         methods: {
+            closeAddGoal : function() {
+                this.forms={}
+                let dates = moment().format('YYYY-MM-DD');
+                    this.forms.report_date = dates;
+                    this.forms.report_year = moment().format('YYYY');
+                this.goalDialog = false;
+            },
+            openAddGoal : function() {
+                this.forms = {}
+            
+                this.forms.pig_delivered_rate = 0;
+                let dates = moment().format('YYYY-MM-DD');
+                this.forms.report_date = dates;
+                this.forms.report_year = moment().format('YYYY');
+
+
+                this.forms.active_breeder  = this.form.active_breeder
+                this.forms.breeded_breeder  = this.form.breeded_breeder
+                this.forms.delivery_breeder  = this.form.delivery_breeder
+                this.forms.delivery_ratio  = this.form.delivery_ratio
+                this.forms.pig_delivered_died_percent  = this.form.pig_delivered_died_percent
+                this.forms.pig_delivered_success_avg  = this.form.pig_delivered_success_avg
+                this.forms.pig_delivered_weight  = this.form.pig_delivered_weight
+                this.forms.pig_raising_failed_perent  = this.form.pig_raising_failed_perent
+                this.forms.ween_breeder  = this.form.ween_breeder
+                this.forms.pig_ween_number  = this.form.pig_ween_number
+                this.forms.pig_ween_rate  = this.form.pig_ween_rate
+                this.forms.pig_ween_weight_avg  = this.form.pig_ween_weight_avg
+                this.forms.delivered_breeder_rate  = this.form.delivered_breeder_rate
+
+                this.forms.pig_ween_breeder_rate  = this.form.pig_ween_breeder_rate
+                this.forms.breeder_replace_number  = this.form.breeder_replace_number
+                this.forms.breeder_drop_percent  = this.form.breeder_drop_percent
+                this.forms.breeder_replace_drop_sum  = this.form.breeder_replace_drop_sum
+
+                this.forms.report_type = this.form.report_type
+                this.goalDialog = true;
+                console.log(this.forms)
+
+            },
+
             load: async function () {
                 let id = this.$route.params.id;
                 let goal = await this.$store.dispatch('goals/getById', id);
