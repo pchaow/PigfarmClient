@@ -1,10 +1,17 @@
 <!----------Make By YourName---------------->
  <template>
 <div>
+
+<v-card>
+
+    <v-card-title>
   <h2>ประจำปี {{yearSet}}</h2><br>
+
+    </v-card-title>
+
     <table class="tg" style="undefined;table-layout: fixed; width: 100%;">
         <colgroup>
-            <col style="width: 370px">
+            <col style="width: 15em">
             <col style="width: 33px">
             <col style="width: 53px">
             <col style="width: 64px">
@@ -52,7 +59,7 @@
             <td class="tg-0lax">{{quaterData.quater1.active_breeder}}</td>
             <td class="tg-0lax">{{different(quaterData.quater1.active_breeder,quaterData.goal1.active_breeder)}}</td>
 
-            
+
 
             <td class="tg-0lax">{{quaterData.goal2.active_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater2.active_breeder}}</td>
@@ -497,6 +504,7 @@
 
         </tr>
     </table>
+    </v-card>
 </div>
 </template>
 
