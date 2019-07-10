@@ -50,359 +50,361 @@
             <td class="tg-0lax">จำนวนแม่พันธุ์ใช้งาน</td>
             <td class="tg-0lax">{{quaterData.goal1.active_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater1.active_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.active_breeder-quaterData.quater1.active_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.active_breeder,quaterData.goal1.active_breeder)}}</td>
+
+            
 
             <td class="tg-0lax">{{quaterData.goal2.active_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater2.active_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.active_breeder-quaterData.quater2.active_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.active_breeder,quaterData.goal2.active_breeder)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.active_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater3.active_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.active_breeder-quaterData.quater3.active_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.active_breeder,quaterData.goal3.active_breeder)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.active_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater4.active_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.active_breeder-quaterData.quater4.active_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.active_breeder,quaterData.goal4.active_breeder)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.active_breeder}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.active_breeder}}</td>
 
-            <td class="tg-0lax">{{quaterData.year.active_breeder - quaterData.goalYear.active_breeder}}</td>
+            <td class="tg-0lax">{{different( quaterData.goalYear.active_breeder,quaterData.year.active_breeder )}}</td>
             
         </tr>
         <tr>
             <td class="tg-0lax">จำนวนแม่ผสม (สะสม)</td>
             <td class="tg-0lax">{{quaterData.goal1.breeded_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater1.breeded_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.breeded_breeder-quaterData.quater1.breeded_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.breeded_breeder,quaterData.goal1.breeded_breeder)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.breeded_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater2.breeded_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.breeded_breeder-quaterData.quater2.breeded_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.breeded_breeder,quaterData.goal2.breeded_breeder)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.breeded_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater3.breeded_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.breeded_breeder-quaterData.quater3.breeded_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.breeded_breeder,quaterData.goal3.breeded_breeder)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.breeded_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater4.breeded_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.breeded_breeder-quaterData.quater4.breeded_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.breeded_breeder,quaterData.goal4.breeded_breeder)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.breeded_breeder}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.breeded_breeder}}</td>
 
-            <td class="tg-0lax">{{quaterData.year.breeded_breeder-quaterData.goalYear.breeded_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.goalYear.breeded_breeder,quaterData.year.breeded_breeder)}}</td>
 
         </tr>
         <tr>
             <td class="tg-0lax">จำนวนแม่คลอด (สะสม)</td>
             <td class="tg-0lax">{{quaterData.goal1.delivery_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater1.delivery_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.delivery_breeder-quaterData.quater1.delivery_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.delivery_breeder,quaterData.goal1.delivery_breeder)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.delivery_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater2.delivery_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.delivery_breeder-quaterData.quater2.delivery_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.delivery_breeder,quaterData.goal2.delivery_breeder)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.delivery_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater3.delivery_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.delivery_breeder-quaterData.quater3.delivery_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.delivery_breeder,quaterData.goal3.delivery_breeder)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.delivery_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater4.delivery_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.delivery_breeder-quaterData.quater4.delivery_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.delivery_breeder,quaterData.goal4.delivery_breeder)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.delivery_breeder}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.delivery_breeder}}</td>
 
-            <td class="tg-0lax">{{quaterData.year.delivery_breeder-quaterData.goalYear.delivery_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.goalYear.delivery_breeder,quaterData.year.delivery_breeder)}}</td>
 
         </tr>
         <tr>
             <td class="tg-0lax">อัตราเข้าคลอด/ชุดผสม</td>
             <td class="tg-0lax">{{quaterData.goal1.delivery_ratio}}</td>
             <td class="tg-0lax">{{quaterData.quater1.delivery_ratio}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.delivery_ratio-quaterData.quater1.delivery_ratio}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.delivery_ratio,quaterData.goal1.delivery_ratio)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.delivery_ratio}}</td>
             <td class="tg-0lax">{{quaterData.quater2.delivery_ratio}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.delivery_ratio-quaterData.quater2.delivery_ratio}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.delivery_ratio,quaterData.goal2.delivery_ratio)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.delivery_ratio}}</td>
             <td class="tg-0lax">{{quaterData.quater3.delivery_ratio}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.delivery_ratio-quaterData.quater3.delivery_ratio}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.delivery_ratio,quaterData.goal3.delivery_ratio)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.delivery_ratio}}</td>
             <td class="tg-0lax">{{quaterData.quater4.delivery_ratio}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.delivery_ratio-quaterData.quater4.delivery_ratio}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.delivery_ratio,quaterData.goal4.delivery_ratio)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.delivery_ratio}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.delivery_ratio}}</td>
             
-            <td class="tg-0lax">{{quaterData.year.delivery_ratio-quaterData.goalYear.delivery_ratio}}</td>
+            <td class="tg-0lax">{{different(quaterData.goalYear.delivery_ratio,quaterData.year.delivery_ratio)}}</td>
 
         </tr>
         <tr>
             <td class="tg-0lax">จำนวนลูกแรกคลอดทั้งหมดต่อครอก</td>
             <td class="tg-0lax">{{quaterData.goal1.pig_delivered_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater1.pig_delivered_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.pig_delivered_rate-quaterData.quater1.pig_delivered_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.pig_delivered_rate,quaterData.goal1.pig_delivered_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.pig_delivered_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater2.pig_delivered_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.pig_delivered_rate-quaterData.quater2.pig_delivered_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.pig_delivered_rate,quaterData.goal2.pig_delivered_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.pig_delivered_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater3.pig_delivered_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.pig_delivered_rate-quaterData.quater3.pig_delivered_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.pig_delivered_rate,quaterData.goal3.pig_delivered_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.pig_delivered_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater4.pig_delivered_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.pig_delivered_rate-quaterData.quater4.pig_delivered_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.pig_delivered_rate,quaterData.goal4.pig_delivered_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.pig_delivered_rate}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.pig_delivered_rate}}</td>
 
-            <td class="tg-0lax">{{quaterData.year.pig_delivered_rate-quaterData.goalYear.pig_delivered_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.goalYear.pig_delivered_rate,quaterData.year.pig_delivered_rate)}}</td>
 
         </tr>
         <tr>
             <td class="tg-0lax">เปอร์เซ็นต์สูญเสียลูกสุกรแรกคลอด+ลูกกรอก (%)</td>
             <td class="tg-0lax">{{quaterData.goal1.pig_delivered_died_percent}}</td>
             <td class="tg-0lax">{{quaterData.quater1.pig_delivered_died_percent}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.pig_delivered_died_percent-quaterData.quater1.pig_delivered_died_percent}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.pig_delivered_died_percent,quaterData.goal1.pig_delivered_died_percent)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.pig_delivered_died_percent}}</td>
             <td class="tg-0lax">{{quaterData.quater2.pig_delivered_died_percent}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.pig_delivered_died_percent-quaterData.quater2.pig_delivered_died_percent}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.pig_delivered_died_percent,quaterData.goal2.pig_delivered_died_percent)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.pig_delivered_died_percent}}</td>
             <td class="tg-0lax">{{quaterData.quater3.pig_delivered_died_percent}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.pig_delivered_died_percent-quaterData.quater3.pig_delivered_died_percent}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.pig_delivered_died_percent,quaterData.goal3.pig_delivered_died_percent)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.pig_delivered_died_percent}}</td>
             <td class="tg-0lax">{{quaterData.quater4.pig_delivered_died_percent}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.pig_delivered_died_percent-quaterData.quater4.pig_delivered_died_percent}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.pig_delivered_died_percent,quaterData.goal4.pig_delivered_died_percent)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.pig_delivered_died_percent}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.pig_delivered_died_percent}}</td>
 
-            <td class="tg-0lax">{{quaterData.year.pig_delivered_died_percent-quaterData.goalYear.pig_delivered_died_percent}}</td>
+            <td class="tg-0lax">{{different(quaterData.goalYear.pig_delivered_died_percent,quaterData.year.pig_delivered_died_percent)}}</td>
 
         </tr>
         <tr>
             <td class="tg-0lax">จำนวนลูกแรกคลอดมีชีวิตต่อครอก</td>
             <td class="tg-0lax">{{quaterData.goal1.pig_delivered_success_avg}}</td>
             <td class="tg-0lax">{{quaterData.quater1.pig_delivered_success_avg}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.pig_delivered_success_avg-quaterData.quater1.pig_delivered_success_avg}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.pig_delivered_success_avg,quaterData.goal1.pig_delivered_success_avg)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.pig_delivered_success_avg}}</td>
             <td class="tg-0lax">{{quaterData.quater2.pig_delivered_success_avg}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.pig_delivered_success_avg-quaterData.quater2.pig_delivered_success_avg}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.pig_delivered_success_avg,quaterData.goal2.pig_delivered_success_avg)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.pig_delivered_success_avg}}</td>
             <td class="tg-0lax">{{quaterData.quater3.pig_delivered_success_avg}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.pig_delivered_success_avg-quaterData.quater3.pig_delivered_success_avg}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.pig_delivered_success_avg,quaterData.goal3.pig_delivered_success_avg)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.pig_delivered_success_avg}}</td>
             <td class="tg-0lax">{{quaterData.quater4.pig_delivered_success_avg}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.pig_delivered_success_avg-quaterData.quater4.pig_delivered_success_avg}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.pig_delivered_success_avg,quaterData.goal4.pig_delivered_success_avg)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.pig_delivered_success_avg}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.pig_delivered_success_avg}}</td>
 
-            <td class="tg-0lax">{{quaterData.year.pig_delivered_success_avg-quaterData.goalYear.pig_delivered_success_avg}}</td>
+            <td class="tg-0lax">{{different(quaterData.goalYear.pig_delivered_success_avg,quaterData.year.pig_delivered_success_avg)}}</td>
 
         </tr>
         <tr>
             <td class="tg-0lax">เฉลี่ยน้ำหนักแรกคลอด/ตัว</td>
             <td class="tg-0lax">{{quaterData.goal1.pig_delivered_weight}}</td>
             <td class="tg-0lax">{{quaterData.quater1.pig_delivered_weight}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.pig_delivered_weight-quaterData.quater1.pig_delivered_weight}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.pig_delivered_weight,quaterData.goal1.pig_delivered_weight)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.pig_delivered_weight}}</td>
             <td class="tg-0lax">{{quaterData.quater2.pig_delivered_weight}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.pig_delivered_weight-quaterData.quater2.pig_delivered_weight}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.pig_delivered_weight,quaterData.goal2.pig_delivered_weight)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.pig_delivered_weight}}</td>
             <td class="tg-0lax">{{quaterData.quater3.pig_delivered_weight}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.pig_delivered_weight-quaterData.quater3.pig_delivered_weight}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.pig_delivered_weight,quaterData.goal3.pig_delivered_weight)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.pig_delivered_weight}}</td>
             <td class="tg-0lax">{{quaterData.quater4.pig_delivered_weight}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.pig_delivered_weight-quaterData.quater4.pig_delivered_weight}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.pig_delivered_weight,quaterData.goal4.pig_delivered_weight)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.pig_delivered_weight}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.pig_delivered_weight}}</td>
 
-            <td class="tg-0lax">{{quaterData.year.pig_delivered_weight-quaterData.goalYear.pig_delivered_weight}}</td>
+            <td class="tg-0lax">{{different(quaterData.goalYear.pig_delivered_weight,quaterData.year.pig_delivered_weight)}}</td>
 
         </tr>
         <tr>
             <td class="tg-0lax">เปอร์เซ็นต์สูญเสียลูกสุกรก่อนหย่านม(%)</td>
             <td class="tg-0lax">{{quaterData.goal1.pig_raising_failed_perent}}</td>
             <td class="tg-0lax">{{quaterData.quater1.pig_raising_failed_perent}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.pig_raising_failed_perent-quaterData.quater1.pig_raising_failed_perent}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.pig_raising_failed_perent,quaterData.goal1.pig_raising_failed_perent)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.pig_raising_failed_perent}}</td>
             <td class="tg-0lax">{{quaterData.quater2.pig_raising_failed_perent}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.pig_raising_failed_perent-quaterData.quater2.pig_raising_failed_perent}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.pig_raising_failed_perent,quaterData.goal2.pig_raising_failed_perent)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.pig_raising_failed_perent}}</td>
             <td class="tg-0lax">{{quaterData.quater3.pig_raising_failed_perent}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.pig_raising_failed_perent-quaterData.quater3.pig_raising_failed_perent}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.pig_raising_failed_perent,quaterData.goal3.pig_raising_failed_perent)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.pig_raising_failed_perent}}</td>
             <td class="tg-0lax">{{quaterData.quater4.pig_raising_failed_perent}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.pig_raising_failed_perent-quaterData.quater4.pig_raising_failed_perent}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.pig_raising_failed_perent,quaterData.goal4.pig_raising_failed_perent)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.pig_raising_failed_perent}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.pig_raising_failed_perent}}</td>
 
-            <td class="tg-0lax">{{quaterData.year.pig_raising_failed_perent-quaterData.goalYear.pig_raising_failed_perent}}</td>
+            <td class="tg-0lax">{{different(quaterData.goalYear.pig_raising_failed_perent,quaterData.year.pig_raising_failed_perent)}}</td>
 
         </tr>
         <tr>
             <td class="tg-0lax">จำนวนแม่หย่านม (สะสม)</td>
             <td class="tg-0lax">{{quaterData.goal1.ween_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater1.ween_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.ween_breeder-quaterData.quater1.ween_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.ween_breeder,quaterData.goal1.ween_breeder)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.ween_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater2.ween_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.ween_breeder-quaterData.quater2.ween_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.ween_breeder,quaterData.goal2.ween_breeder)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.ween_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater3.ween_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.ween_breeder-quaterData.quater3.ween_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.ween_breeder,quaterData.goal3.ween_breeder)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.ween_breeder}}</td>
             <td class="tg-0lax">{{quaterData.quater4.ween_breeder}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.ween_breeder-quaterData.quater4.ween_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.ween_breeder,quaterData.goal4.ween_breeder)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.ween_breeder}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.ween_breeder}}</td>
 
-            <td class="tg-0lax">{{quaterData.year.ween_breeder-quaterData.goalYear.ween_breeder}}</td>
+            <td class="tg-0lax">{{different(quaterData.goalYear.ween_breeder,quaterData.year.ween_breeder)}}</td>
 
         </tr>
         <tr>
             <td class="tg-0lax">จำนวนลูกหย่านมทั้งหมด</td>
             <td class="tg-0lax">{{quaterData.goal1.pig_ween_number}}</td>
             <td class="tg-0lax">{{quaterData.quater1.pig_ween_number}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.pig_ween_number-quaterData.quater1.pig_ween_number}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.pig_ween_number,quaterData.goal1.pig_ween_number)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.pig_ween_number}}</td>
             <td class="tg-0lax">{{quaterData.quater2.pig_ween_number}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.pig_ween_number-quaterData.quater2.pig_ween_number}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.pig_ween_number,quaterData.goal2.pig_ween_number)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.pig_ween_number}}</td>
             <td class="tg-0lax">{{quaterData.quater3.pig_ween_number}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.pig_ween_number-quaterData.quater3.pig_ween_number}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.pig_ween_number,quaterData.goal3.pig_ween_number)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.pig_ween_number}}</td>
             <td class="tg-0lax">{{quaterData.quater4.pig_ween_number}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.pig_ween_number-quaterData.quater4.pig_ween_number}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.pig_ween_number,quaterData.goal4.pig_ween_number)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.pig_ween_number}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.pig_ween_number}}</td>
 
-            <td class="tg-0lax">{{quaterData.year.pig_ween_number-quaterData.goalYear.pig_ween_number}}</td>
+            <td class="tg-0lax">{{different(quaterData.goalYear.pig_ween_number,quaterData.year.pig_ween_number)}}</td>
 
         </tr>
         <tr>
             <td class="tg-0lax">จำนวนลูกหย่านม/ครอก</td>
             <td class="tg-0lax">{{quaterData.goal1.pig_ween_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater1.pig_ween_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.pig_ween_rate-quaterData.quater1.pig_ween_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.pig_ween_rate,quaterData.goal1.pig_ween_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.pig_ween_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater2.pig_ween_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.pig_ween_rate-quaterData.quater2.pig_ween_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.pig_ween_rate,quaterData.goal2.pig_ween_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.pig_ween_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater3.pig_ween_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.pig_ween_rate-quaterData.quater3.pig_ween_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.pig_ween_rate,quaterData.goal3.pig_ween_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.pig_ween_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater4.pig_ween_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.pig_ween_rate-quaterData.quater4.pig_ween_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.pig_ween_rate,quaterData.goal4.pig_ween_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.pig_ween_rate}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.pig_ween_rate}}</td>
 
-            <td class="tg-0lax">{{quaterData.year.pig_ween_rate-quaterData.goalYear.pig_ween_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.goalYear.pig_ween_rate,quaterData.year.pig_ween_rate)}}</td>
 
         </tr>
         <tr>
             <td class="tg-0lax">เฉลี่ยน้ำหนักหย่านม/ตัว</td>
             <td class="tg-0lax">{{quaterData.goal1.pig_ween_weight_avg}}</td>
             <td class="tg-0lax">{{quaterData.quater1.pig_ween_weight_avg}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.pig_ween_weight_avg-quaterData.quater1.pig_ween_weight_avg}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.pig_ween_weight_avg,quaterData.goal1.pig_ween_weight_avg)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.pig_ween_weight_avg}}</td>
             <td class="tg-0lax">{{quaterData.quater2.pig_ween_weight_avg}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.pig_ween_weight_avg-quaterData.quater2.pig_ween_weight_avg}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.pig_ween_weight_avg,quaterData.goal2.pig_ween_weight_avg)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.pig_ween_weight_avg}}</td>
             <td class="tg-0lax">{{quaterData.quater3.pig_ween_weight_avg}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.pig_ween_weight_avg-quaterData.quater3.pig_ween_weight_avg}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.pig_ween_weight_avg,quaterData.goal3.pig_ween_weight_avg)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.pig_ween_weight_avg}}</td>
             <td class="tg-0lax">{{quaterData.quater4.pig_ween_weight_avg}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.pig_ween_weight_avg-quaterData.quater4.pig_ween_weight_avg}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.pig_ween_weight_avg,quaterData.goal4.pig_ween_weight_avg)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.pig_ween_weight_avg}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.pig_ween_weight_avg}}</td>
 
-            <td class="tg-0lax">{{quaterData.year.pig_ween_weight_avg-quaterData.goalYear.pig_ween_weight_avg}}</td>
+            <td class="tg-0lax">{{different(quaterData.goalYear.pig_ween_weight_avg,quaterData.year.pig_ween_weight_avg)}}</td>
 
         </tr>
         <tr>
             <td class="tg-0lax">จำนวนครอก/แม่/ปี</td>
             <td class="tg-0lax">{{quaterData.goal1.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater1.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.delivered_breeder_rate-quaterData.quater1.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.delivered_breeder_rate,quaterData.goal1.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater2.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.delivered_breeder_rate-quaterData.quater2.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.delivered_breeder_rate,quaterData.goal2.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater3.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.delivered_breeder_rate-quaterData.quater3.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.delivered_breeder_rate,quaterData.goal3.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater4.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.delivered_breeder_rate-quaterData.quater4.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.delivered_breeder_rate,quaterData.goal4.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.delivered_breeder_rate}}</td>
 
-            <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate-quaterData.goalYear.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.goalYear.delivered_breeder_rate,quaterData.year.delivered_breeder_rate)}}</td>
 
         </tr>
         <tr>
             <td class="tg-0lax">จำนวนลูกลูกหย่านม/แม่/ปี (PSY)</td>
             <td class="tg-0lax">{{quaterData.goal1.pig_ween_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater1.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.delivered_breeder_rate-quaterData.quater1.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.delivered_breeder_rate,quaterData.goal1.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater2.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.delivered_breeder_rate-quaterData.quater2.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.delivered_breeder_rate,quaterData.goal2.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater3.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.delivered_breeder_rate-quaterData.quater3.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.delivered_breeder_rate,quaterData.goal3.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater4.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.delivered_breeder_rate-quaterData.quater4.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.delivered_breeder_rate,quaterData.goal4.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate-quaterData.goalYear.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.goalYear.delivered_breeder_rate,quaterData.year.delivered_breeder_rate)}}</td>
 
         </tr>
         <tr>
@@ -427,70 +429,70 @@
             <td class="tg-0lax">% สุกรสาวทดแทน</td>
             <td class="tg-0lax">{{quaterData.goal1.breeder_replace_number}}</td>
             <td class="tg-0lax">{{quaterData.quater1.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.delivered_breeder_rate-quaterData.quater1.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.delivered_breeder_rate,quaterData.goal1.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater2.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.delivered_breeder_rate-quaterData.quater2.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.delivered_breeder_rate,quaterData.goal2.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater3.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.delivered_breeder_rate-quaterData.quater3.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.delivered_breeder_rate,quaterData.goal3.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater4.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.delivered_breeder_rate-quaterData.quater4.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.delivered_breeder_rate,quaterData.goal4.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.delivered_breeder_rate}}</td>
             
-            <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate-quaterData.goalYear.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.goalYear.delivered_breeder_rate,quaterData.year.delivered_breeder_rate)}}</td>
 
         </tr>
         <tr>
             <td class="tg-0lax">% แม่สุกรคัดทิ้ง</td>
             <td class="tg-0lax">{{quaterData.goal1.breeder_drop_percent}}</td>
             <td class="tg-0lax">{{quaterData.quater1.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.delivered_breeder_rate-quaterData.quater1.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.delivered_breeder_rate,quaterData.goal1.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater2.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.delivered_breeder_rate-quaterData.quater2.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.delivered_breeder_rate,quaterData.goal2.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater3.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.delivered_breeder_rate-quaterData.quater3.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.delivered_breeder_rate,quaterData.goal3.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater4.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal4.delivered_breeder_rate-quaterData.quater4.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater4.delivered_breeder_rate,quaterData.goal4.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.delivered_breeder_rate}}</td>
 
-            <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate-quaterData.goalYear.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.goalYear.delivered_breeder_rate,quaterData.year.delivered_breeder_rate)}}</td>
 
         </tr>
         <tr>
             <td class="tg-0lax">+/- แม่ทดแทนกับแม่คัดทิ้ง</td>
             <td class="tg-0lax">{{quaterData.goal1.breeder_replace_drop_sum}}</td>
             <td class="tg-0lax">{{quaterData.quater1.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal1.delivered_breeder_rate-quaterData.quater1.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater1.delivered_breeder_rate,quaterData.goal1.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal2.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater2.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal2.delivered_breeder_rate-quaterData.quater2.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater2.delivered_breeder_rate,quaterData.goal2.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal3.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater3.delivered_breeder_rate}}</td>
-            <td class="tg-0lax">{{quaterData.goal3.delivered_breeder_rate-quaterData.quater3.delivered_breeder_rate}}</td>
+            <td class="tg-0lax">{{different(quaterData.quater3.delivered_breeder_rate,quaterData.goal3.delivered_breeder_rate)}}</td>
 
             <td class="tg-0lax">{{quaterData.goal4.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.quater4.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{different(quaterData.quater4.delivered_breeder_rate,quaterData.goal4.delivered_breeder_rate)}}</td>            
             <td class="tg-0lax">{{quaterData.year.delivered_breeder_rate}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.delivered_breeder_rate}}</td>
-
+        
             <td class="tg-0lax">{{different(quaterData.year.delivered_breeder_rate, quaterData.goalYear.delivered_breeder_rate)}}</td>
 
         </tr>
