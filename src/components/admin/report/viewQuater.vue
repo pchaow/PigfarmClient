@@ -67,8 +67,8 @@
             <td class="tg-0lax">{{quaterData.year.active_breeder}}</td>
             <td class="tg-0lax">{{quaterData.goalYear.active_breeder}}</td>
 
-            <td class="tg-0lax">{{quaterData.year.active_breederขquaterData.goalYear.active_breeder}}</td>
-
+            <td class="tg-0lax">{{quaterData.year.active_breeder - quaterData.goalYear.active_breeder}}</td>
+            
         </tr>
         <tr>
             <td class="tg-0lax">จำนวนแม่ผสม (สะสม)</td>
